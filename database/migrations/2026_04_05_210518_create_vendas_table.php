@@ -12,15 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('vendas', function (Blueprint $table) {
-            $table->increments('id');
-            $table->unsignedInteger('cliente_id');
+            $table->id();
+            $table->foreignId('cliente_id')->constrained('usuarios');
             $table->date('data');
             $table->decimal('total', 8, 2);
-
-            $table->foreign('cliente_id')
-                ->references('id')
-                ->on('usuarios');
-                
             $table->timestamps();
         });
     }
