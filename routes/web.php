@@ -45,10 +45,10 @@ Route::get('/', function () {
 
 Route::get('/produtos', [ProdutoController::class, 'index'])->name('produtos.index');
 
-Route::get('/produtos/criar', [ProdutoController::class, 'create'])->name('produtos.criar');
+//Route::get('/produtos/criar', [ProdutoController::class, 'create'])->name('produtos.criar');
 Route::post('/produtos', [ProdutoController::class, 'store'])->name('produtos.inserir');
 
-Route::get('/produtos/{id}/editar', [ProdutoController::class, 'edit'])->name('produtos.editar');
+//Route::get('/produtos/{id}/editar', [ProdutoController::class, 'edit'])->name('produtos.editar');
 Route::put('/produtos/{id}', [ProdutoController::class, 'update'])->name('produtos.atualizar');
 
 Route::delete('/produtos/{id}', [ProdutoController::class, 'destroy'])->name('produtos.deletar');
