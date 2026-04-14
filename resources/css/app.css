@@ -1,0 +1,79 @@
+@import 'tailwindcss';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../**/*.blade.php';
+@source '../**/*.js';
+
+@theme {
+    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+        'Segoe UI Symbol', 'Noto Color Emoji';
+}
+
+{
+"cotton-rose": {
+"50": "#fde8ea",
+"100": "#fbd0d5",
+"200": "#f6a2aa",
+"300": "#f27380",
+"400": "#ee4455",
+"500": "#e9162b",
+"600": "#bb1122",
+"700": "#8c0d1a",
+"800": "#5d0911",
+"900": "#2f0409",
+"950": "#210306"
+},
+"thistle": {
+"50": "#f5eff2",
+"100": "#ecdfe5",
+"200": "#d9bfcb",
+"300": "#c69fb1",
+"400": "#b38096",
+"500": "#9f607c",
+"600": "#804d63",
+"700": "#60394b",
+"800": "#402632",
+"900": "#201319",
+"950": "#160d11"
+},
+"ash-grey": {
+"50": "#f0f4f4",
+"100": "#e1eae8",
+"200": "#c3d5d2",
+"300": "#a5c0bb",
+"400": "#88aaa5",
+"500": "#6a958e",
+"600": "#557772",
+"700": "#3f5a55",
+"800": "#2a3c39",
+"900": "#151e1c",
+"950": "#0f1514"
+},
+"seagrass": {
+"50": "#f0f5f2",
+"100": "#e0ebe4",
+"200": "#c1d7ca",
+"300": "#a2c3af",
+"400": "#84ae95",
+"500": "#659a7a",
+"600": "#517b62",
+"700": "#3c5d49",
+"800": "#283e31",
+"900": "#141f18",
+"950": "#0e1611"
+},
+"blue-slate": {
+"50": "#f0f3f4",
+"100": "#e2e8e9",
+"200": "#c4d0d4",
+"300": "#a7b9be",
+"400": "#8aa1a8",
+"500": "#6c8a93",
+"600": "#576e75",
+"700": "#415358",
+"800": "#2b373b",
+"900": "#161c1d",
+"950": "#0f1315"
+}
+}
