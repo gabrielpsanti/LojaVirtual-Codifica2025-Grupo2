@@ -2,24 +2,30 @@
 
 namespace App\Http\Controllers;
 
-
 use Illuminate\Http\Request;
 use Illuminate\Models\Usuario;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\RedirectResponse;
 
-class AdminController extends Controller
+//  Criei rotas personiladas para o login.
+//  Fiz isso para não usar o nome index ou dashboard mais nas rotas, e de alguma forma
+//quebrar o código na hora de redirecionar.
+
+//  Esse nome do controller ainda não fiquei 100% satisfeito com ele, mas deixei por não conseguir
+//pensa em um nome melhor
+
+class ClienteController extends Controller
 {
     public function index()
     {
-        return view('admin.index');
+        return view('login.index');
     }
-        
+
     //aba de registrar
     public function create()
     {
-        return view('admin.create');
+        return view('login.create');
     }
 
     public function store (Request $request): RedirectResponse
@@ -32,7 +38,7 @@ class AdminController extends Controller
         if (Auth::attempt($credenciais)) {
             $request ->session()->regenarate();
 
-            return to_route('admin.dashboard');
+            return to_route('login.dashboard');
         }
 
         //essa estrutura não esta funcionando, tenho que testar
@@ -47,7 +53,6 @@ class AdminController extends Controller
     {
         Auth::logout();
 
-        return to_route('login');
+        return to_route('login.index');
     }
-
 }
