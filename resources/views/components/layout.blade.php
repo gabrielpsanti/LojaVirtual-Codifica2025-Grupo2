@@ -7,5 +7,11 @@
 </head>
 <body>
 
+<x-header/>
+
+<main>
+    {{ $slot }}
+</main>
+
 </body>
 </html>
