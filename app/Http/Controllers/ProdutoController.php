@@ -3,9 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Iluminate\Models\Produto;
-use Iluminate\Models\Categoria;
-
+use App\Models\Produto;
+// use App\Models\Categoria;
 
 class ProdutoController extends Controller
 {
@@ -13,13 +12,17 @@ class ProdutoController extends Controller
     {
 
         $produtos = Produto::all();
-        $categorias = Categoria::all();
+        // $categorias = Categoria::all();
 
         //Definir qual o nome da view que deve ser retornada aqui na index
 //        return view('', compact('produtos', 'categorias'));
         return view('admin.produtos.index', compact('produtos'));
 
     }
+
+    public function create() {
+        return view('admin.produtos.create');
+    }       
 
     public function store(Request $request) {
 
