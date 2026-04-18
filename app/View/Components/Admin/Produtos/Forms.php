@@ -1,12 +1,12 @@
 <?php
 
-namespace App\View\Components\Login;
+namespace App\View\Components\Admin\Produtos;
 
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class Cadastro extends Component
+class Forms extends Component
 {
     /**
      * Create a new component instance.
@@ -21,6 +21,6 @@ class Cadastro extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.autenticacao.-cadastro');
+        return view('components.produtos.-admin.-forms');
     }
 }

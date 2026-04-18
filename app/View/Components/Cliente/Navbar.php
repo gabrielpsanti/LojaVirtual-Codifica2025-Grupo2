@@ -1,12 +1,12 @@
 <?php
 
-namespace App\View\Components\Produtos;
+namespace App\View\Components\Cliente;
 
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class Categorias extends Component
+class Navbar extends Component
 {
     /**
      * Create a new component instance.
@@ -21,6 +21,6 @@ class Categorias extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.produtos.categorias');
+        return view('components.navbar');
     }
 }
