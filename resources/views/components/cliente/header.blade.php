@@ -23,7 +23,7 @@
     </div>
     <div id="bloco-inferior" class="">
         <div id="navbar" class="">
-            <x-navbar/>
+            <x-cliente.navbar/>
         </div>
     </div>
 </div>
