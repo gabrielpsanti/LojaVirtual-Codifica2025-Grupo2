@@ -1,5 +1,5 @@
-<header id="header" class="">
-    <div id="bloco-superior" class="">
+<header id="header" class="bg-lilas-500 p-5">
+    <div id="bloco-superior" class="bg-lilas-300 flex">
         <span id="search-span" class="">
             <div id="search-div" class="">
                 search
@@ -21,7 +21,7 @@
             </div>
         </span>
     </div>
-    <div id="bloco-inferior" class="">
+    <div id="bloco-inferior" class="bg-lilas-100">
         <div id="navbar" class="">
             <x-cliente.navbar/>
         </div>
