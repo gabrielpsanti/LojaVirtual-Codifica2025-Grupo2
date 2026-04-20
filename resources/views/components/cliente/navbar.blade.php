@@ -1,4 +1,4 @@
-<ul id="navbar-list" class="no-underline flex">
+<ul id="navbar-list" class="w-auto no-underline flex justify-around">
     <li class="navbar-item ">
         Início
     </li>
