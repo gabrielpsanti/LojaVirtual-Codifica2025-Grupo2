@@ -3,50 +3,54 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Models\Usuario;
+use App\Models\Usuario;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\RedirectResponse;
 
-//  Criei rotas personiladas para o login.
-//  Fiz isso para não usar o nome index ou dashboard mais nas rotas, e de alguma forma
-//quebrar o código na hora de redirecionar.
-
-//  Esse nome do controller ainda não fiquei 100% satisfeito com ele, mas deixei por não conseguir
-//pensa em um nome melhor
-
-class ClienteController extends Controller
+class LoginController extends Controller
 {
     public function index()
     {
-        return view('login.index');
+        return view('cliente.login.login');
     }
 
     //aba de registrar
     public function create()
     {
-        return view('login.create');
+        return view('cliente.login.cadastro');
     }
 
     public function store (Request $request): RedirectResponse
     {
         $credenciais = $request->validate([
-            'email'=>['requered', 'email'],
-            'password'=>['required'],
+            'email'=>['required', 'email'],
+            'password'=>['required']
         ]);
 
         if (Auth::attempt($credenciais)) {
-            $request ->session()->regenarate();
+            $request ->session()->regenerate();
 
-            return to_route('login.dashboard');
+            //definir o nome da view
+            return view('');
         }
 
-        //essa estrutura não esta funcionando, tenho que testar
-        //colocar o redirect() ou usar o old()
-        return back()->withErros([
+        return back()->withErrors([
             'email' =>'Email ou senha inválidos',
-        ])->onlyInput('email');
+        ])->withInput($request->only('email'));
 
+    }
+
+    //função para registrar um novo usuario
+    public function update(Request $request) {
+
+        $data = $request->except(['_token']);
+        $data['password'] = Hash::make($data['password']);
+
+        $usuario = Usuario::create($data);
+        Auth::login($usuario);
+
+        return view('cliente.login.login');
     }
 
     public function logout()
