@@ -10,13 +10,25 @@ class ProdutoController extends Controller
 {
     public function index(Request $request)
     {
+        $query = Produto::query();
 
-        $produtos = Produto::all();
-        // $categorias = Categoria::all();
+        if ($request->nome) {
+            $query->where('nome', 'like', '%' . $request->nome . '%');
+        }
 
-        //Definir qual o nome da view que deve ser retornada aqui na index
-//        return view('', compact('produtos', 'categorias'));
-        return view('admin.produtos.index', compact('produtos'));
+        if ($request->categoria) {
+            $query->where('categoria', $request->categoria);
+        }
+
+        $produtos = $query->get();
+        $categorias = Produto::select('categoria')
+            ->whereNotNull('categoria')
+            ->where('categoria', '<>', '')
+            ->distinct()
+            ->orderBy('categoria')
+            ->pluck('categoria');
+
+        return view('admin.produtos.index', compact('produtos', 'categorias'));
 
     }
 
@@ -26,13 +38,36 @@ class ProdutoController extends Controller
 
     public function store(Request $request) {
 
+        $validated = $request->validate([
+            'nome' => 'required|string|min:3|max:255',
+            'preco' => 'required|numeric|min:0',
+            'categoria' => 'required|string|max:255',
+            'descricao' => 'required|string',
+            'estoque' => 'required|integer|min:0',
+            'imagem' => 'required|image|max:2048',
+        ], [
+            'nome.required' => 'O campo nome é obrigatório.',
+            'nome.min' => 'O nome deve ter pelo menos 3 caracteres.',
+            'preco.required' => 'O campo preço é obrigatório.',
+            'categoria.required' => 'O campo categoria é obrigatório.',
+            'descricao.required' => 'O campo descrição é obrigatório.',
+            'estoque.required' => 'O campo estoque é obrigatório.',
+            'preco.numeric' => 'O campo preço deve ser um número.',
+            'preco.min' => 'O preço não pode ser negativo.',
+            'estoque.integer' => 'O campo estoque deve ser um número inteiro.',
+            'estoque.min' => 'O estoque não pode ser negativo.',
+            'imagem.required' => 'A imagem é obrigatória.',
+            'imagem.image' => 'O arquivo de imagem deve ser uma imagem válida.',
+            'imagem.max' => 'A imagem não pode ter mais de 2 MB.',
+        ]);
+
         $produto = new \App\Models\Produto();
 
-        $produto->nome = $request->nome;
-        $produto->preco = $request->preco;
-        $produto->categoria = $request->categoria;
-        $produto->descricao = $request->descricao;
-        $produto->estoque = $request->estoque;
+        $produto->nome = $validated['nome'];
+        $produto->preco = $validated['preco'];
+        $produto->categoria = $validated['categoria'];
+        $produto->descricao = $validated['descricao'];
+        $produto->estoque = $validated['estoque'];
         if ($request->hasFile('imagem')) {
             $caminho = $request->file('imagem')->store('produtos', 'public');
             $produto->imagem = $caminho;
@@ -66,7 +101,39 @@ class ProdutoController extends Controller
     public function update(Request $request, $id) {
         $produto = Produto::findOrFail($id);
 
-        $produto->update($request->all());
+        $validated = $request->validate([
+            'nome' => 'required|string|max:255',
+            'preco' => 'required|numeric|min:0',
+            'categoria' => 'required|string|max:255',
+            'descricao' => 'required|string',
+            'estoque' => 'required|integer|min:0',
+            'imagem' => 'nullable|image|max:2048',
+        ], [
+            'nome.required' => 'O campo nome é obrigatório.',
+            'preco.required' => 'O campo preço é obrigatório.',
+            'categoria.required' => 'O campo categoria é obrigatório.',
+            'descricao.required' => 'O campo descrição é obrigatório.',
+            'estoque.required' => 'O campo estoque é obrigatório.',
+            'preco.numeric' => 'O campo preço deve ser um número.',
+            'preco.min' => 'O preço não pode ser negativo.',
+            'estoque.integer' => 'O campo estoque deve ser um número inteiro.',
+            'estoque.min' => 'O estoque não pode ser negativo.',
+            'imagem.image' => 'O arquivo de imagem deve ser uma imagem válida.',
+            'imagem.max' => 'A imagem não pode ter mais de 2 MB.',
+        ]);
+
+        $produto->nome = $validated['nome'];
+        $produto->preco = $validated['preco'];
+        $produto->categoria = $validated['categoria'];
+        $produto->descricao = $validated['descricao'];
+        $produto->estoque = $validated['estoque'];
+
+        if ($request->hasFile('imagem')) {
+            $caminho = $request->file('imagem')->store('produtos', 'public');
+            $produto->imagem = $caminho;
+        }
+
+        $produto->save();
 
         return redirect()->route('admin.produtos.index');
     }
