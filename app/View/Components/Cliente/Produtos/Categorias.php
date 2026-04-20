@@ -21,6 +21,6 @@ class Categorias extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.produtos.categorias');
+        return view('components.cliente.produtos.categorias');
     }
 }
