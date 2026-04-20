@@ -52,3 +52,7 @@ Route::post('/produtos', [ProdutoController::class, 'store'])->name('produtos.in
 Route::put('/produtos/{id}', [ProdutoController::class, 'update'])->name('produtos.atualizar');
 
 Route::delete('/produtos/{id}', [ProdutoController::class, 'destroy'])->name('produtos.deletar');
+
+// TESTE
+
+Route::get('/teste', [\App\Http\Controllers\TesteController::class, 'teste'])->name('teste');

@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('email');
             $table->string('password');
-            $table->bool('eh_admin')->default(false); // false para cliente, true para admin
+            $table->boolean('eh_admin')->default(false); // false para cliente, true para admin
             $table->timestamps();
         });
     }

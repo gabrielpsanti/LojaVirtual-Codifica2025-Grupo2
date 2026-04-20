@@ -21,6 +21,6 @@ class Filtros extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.produtos.filtros');
+        return view('components.cliente.produtos.filtros');
     }
 }

@@ -21,6 +21,6 @@ class Menu extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.menu');
+        return view('components.admin.menu');
     }
 }

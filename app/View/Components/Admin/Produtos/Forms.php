@@ -21,6 +21,6 @@ class Forms extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.produtos.-admin.-forms');
+        return view('components.admin.produtos.forms');
     }
 }

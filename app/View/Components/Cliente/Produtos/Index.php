@@ -21,6 +21,6 @@ class Index extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.produtos.index');
+        return view('components.cliente.produtos.index');
     }
 }
