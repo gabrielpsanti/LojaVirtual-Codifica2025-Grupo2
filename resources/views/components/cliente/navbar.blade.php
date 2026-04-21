@@ -1,20 +1,33 @@
-<ul id="navbar-list" class="w-auto no-underline flex justify-around">
-    <li class="navbar-item ">
-        Início
+<ul id="navbar-list" class="w-auto no-underline flex justify-around gap-8">
+    <li class="navbar-item">
+        <a href="{{ route('teste') }}">
+            Início
+        </a>
     </li>
     <li class="navbar-item ">
-        Produtos
+        <a href="{{ route('teste') }}">
+            Produtos
+        </a>
+
     </li>
     <li class="navbar-item ">
-        Contato
+        <a href="{{ route('teste') }}">
+            Contato
+        </a>
     </li>
     <li class="navbar-item ">
-        FAQ
+        <a href="{{ route('teste') }}">
+            FAQ
+        </a>
     </li>
     <li class="navbar-item ">
-        Trocas e Devoluções
+        <a href="{{ route('teste') }}">
+            Trocas e Devoluções
+        </a>
     </li>
     <li class="navbar-item ">
-        Sobre nós
+        <a href="{{ route('teste') }}">
+            Sobre nós
+        </a>
     </li>
 </ul>

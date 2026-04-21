@@ -26,7 +26,8 @@ class ProdutoController extends Controller
             ->where('categoria', '<>', '')
             ->distinct()
             ->orderBy('categoria')
-            ->pluck('categoria');
+//            ->pluck('categoria')
+        ;
 
         return view('admin.produtos.index', compact('produtos', 'categorias'));
 
@@ -34,7 +35,7 @@ class ProdutoController extends Controller
 
     public function create() {
         return view('admin.produtos.create');
-    }       
+    }
 
     public function store(Request $request) {
 
