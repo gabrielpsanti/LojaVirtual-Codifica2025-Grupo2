@@ -1,17 +1,20 @@
-<ul class="">
-    <li class="">
-        Categoria 1
+<ul id="navbar-list" class="text-decoration-none ">
+    <li class="navbar-item ">
+        Início
     </li>
-    <li class="">
-        Categoria 2
+    <li class="navbar-item ">
+        Produtos
     </li>
-    <li class="">
-        Categoria 3
+    <li class="navbar-item ">
+        Contato
     </li>
-    <li class="">
-        Categoria 4
+    <li class="navbar-item ">
+        FAQ
     </li>
-    <li class="">
-        Categoria 5
+    <li class="navbar-item ">
+        Trocas e Devoluções
+    </li>
+    <li class="navbar-item ">
+        Sobre nós
     </li>
 </ul>

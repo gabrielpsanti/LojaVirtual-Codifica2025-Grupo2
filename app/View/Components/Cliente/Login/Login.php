@@ -21,6 +21,6 @@ class Login extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.autenticacao.-login');
+        return view('components.cliente.login.login');
     }
 }

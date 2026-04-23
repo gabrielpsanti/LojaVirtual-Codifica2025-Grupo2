@@ -1,44 +1,83 @@
-<link rel="stylesheet" href="{{ asset('css/app.css') }}">
+<link rel="stylesheet" href="{{ asset('css/produtos/app.css') }}">
+<link rel="stylesheet" href="{{ asset('css/base.css') }}">
 
-<h1>Produtos</h1>
+<div class="painel-controle">
+    <h1>Itens em Estoque</h1>
 
-<div class="container">
+    <div class="area-ferramentas">
+        <form class="filtro-busca" method="GET" action="{{ route('admin.produtos.index') }}">
+            <input type="text" name="nome" placeholder="Buscar produto..." value="{{ request('nome') }}">
 
-    <a href="{{ route('admin.produtos.criar') }}" class="novo">Novo Produto</a>
+            <select name="categoria">
+                <option value="">Todas as categorias</option>
+                @foreach($categorias as $categoria)
+                    <option value="{{ $categoria }}" {{ request('categoria') === $categoria ? 'selected' : '' }}>{{ $categoria }}</option>
+                @endforeach
+            </select>
 
-    <div class="grid">
+            <button type="submit" class="btn-buscar">Buscar</button>
+        </form>
 
-        @foreach ($produtos as $produto)
-            <div class="card">
+        <a href="{{ route('admin.produtos.criar') }}" class="btn-adicionar">
+            Novo Item
+        </a>
+    </div>
+</div>
 
+<div class="listagem-estoque">
+
+    <div class="grade-cabecalho">
+        <span>Foto</span>
+        <span>Nome do Produto</span>
+        <span>Categoria</span>
+        <span>Quantidade</span>
+        <span>Preço</span>
+        <span>Ações</span>
+    </div>
+
+    @foreach ($produtos as $produto)
+        <div class="item-linha">
+
+            <!-- FOTO -->
+            <div class="celula miniatura">
                 @if($produto->imagem)
                     <img src="{{ asset('storage/' . $produto->imagem) }}">
                 @endif
-
-                <h3>{{ $produto->nome }}</h3>
-                <p class="preco">R$ {{ $produto->preco }}</p>
-                <p class="desc">{{ $produto->descricao }}</p>
-                <p class="estoque">Estoque: {{ $produto->estoque }}</p>
-
-                <div class="botoes">
-
-                    <a href="{{ route('admin.produtos.editar', $produto->id) }}" class="btn-editar">
-                        Editar
-                    </a>
-
-                    <form action="{{ route('admin.produtos.deletar', $produto->id) }}" method="POST">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn-excluir">
-                            Excluir
-                        </button>
-                    </form>
-
-                </div>
-
             </div>
-        @endforeach
 
-    </div>
+            <!-- NOME + DESC -->
+            <div class="celula detalhes">
+                <strong>{{ $produto->nome }}</strong>
+                <p>{{ $produto->descricao }}</p>
+            </div>
+
+            <!-- CATEGORIA -->
+            <div class="celula grupo">
+                {{ $produto->categoria ?? 'Sem categoria' }}
+            </div>
+
+            <!-- QTD -->
+            <div class="celula volume">
+                {{ $produto->estoque }} un
+            </div>
+
+            <!-- PREÇO -->
+            <div class="celula valor">
+                R$ {{ number_format($produto->preco, 2, ',', '.') }}
+            </div>
+
+            <!-- AÇÕES -->
+            <div class="celula botoes">
+                <a href="{{ route('admin.produtos.editar', $produto->id) }}" class="acao-edit">Editar</a>
+
+                <form action="{{ route('admin.produtos.deletar', $produto->id) }}" method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="acao-delete">Excluir</button>
+                </form>
+            </div>
+
+        </div>
+    @endforeach
 
 </div>
