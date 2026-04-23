@@ -2,18 +2,20 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProdutoController;
-use App\Http\Controllers\AutenticacaoController;
+use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ClienteController;
 
 // ROTAS LOGIN E AUTENTICAÇÃO CLIENTES
 
-Route::get('/login', [AutenticacaoController::class, 'login'])->name('login');
-Route::post('/login', [AutenticacaoController::class, 'autenticar'])->name('autenticar');
+Route::get('/login', [LoginController::class, 'index'])->name('login');
+Route::post('/login', [LoginController::class, 'store'])->name('signin');
+Route::get('/cadastro', [LoginController::class, 'create'])->name('cadastro');
+Route::post('/cadastro', [LoginController::class, 'update'])->name('cadastro.salvar');
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
-Route::get('/cadastro', [AutenticacaoController::class, 'cadastro'])->name('cadastro');
-Route::post('/cadastro', [AutenticacaoController::class, 'registrar'])->name('registrar');
+// Route::get('/cadastro', [LoginController::class, 'cadastro'])->name('cadastro');
+// Route::post('/cadastro', [LoginController::class, 'registrar'])->name('registrar');
 
-Route::post('/logout', [AutenticacaoController::class, 'logout'])->name('logout');
 
 // ROTAS LOGIN E AUTENTICAÇÃO ADMIN
 
@@ -42,6 +44,7 @@ Route::delete('/admin/produtos/{id}', [ProdutoController::class, 'destroy'])->na
 Route::get('/', function () {
     return to_route('produtos.index');
 });
+
 
 Route::get('/produtos', [ProdutoController::class, 'index'])->name('produtos.index');
 
