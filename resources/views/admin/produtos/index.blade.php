@@ -11,7 +11,7 @@
             <select name="categoria">
                 <option value="">Todas as categorias</option>
                 @foreach($categorias as $categoria)
-                    <option value="{{ $categoria }}" {{ request('categoria') === $categoria ? 'selected' : '' }}>{{ $categoria }}</option>
+                    <option value="{{ $categoria }}" {{ request('categoria') === $categoria->nome ? 'selected' : '' }}>{{ $categoria }}</option>
                 @endforeach
             </select>
 

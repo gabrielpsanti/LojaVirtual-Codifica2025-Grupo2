@@ -1,19 +1,18 @@
 <?php
 
+use App\Http\Controllers\Admin\ProdutoController;
+use App\Http\Controllers\Cliente\LoginController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ProdutoController;
-use App\Http\Controllers\AutenticacaoController;
-use App\Http\Controllers\ClienteController;
 
 // ROTAS LOGIN E AUTENTICAÇÃO CLIENTES
 
-Route::get('/login', [AutenticacaoController::class, 'login'])->name('login');
-Route::post('/login', [AutenticacaoController::class, 'autenticar'])->name('autenticar');
+Route::get('/login', [LoginController::class, 'login'])->name('login');
+Route::post('/login', [LoginController::class, 'autenticar'])->name('autenticar');
 
-Route::get('/cadastro', [AutenticacaoController::class, 'cadastro'])->name('cadastro');
-Route::post('/cadastro', [AutenticacaoController::class, 'registrar'])->name('registrar');
+Route::get('/cadastro', [LoginController::class, 'cadastro'])->name('cadastro');
+Route::post('/cadastro', [LoginController::class, 'registrar'])->name('registrar');
 
-Route::post('/logout', [AutenticacaoController::class, 'logout'])->name('logout');
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 // ROTAS LOGIN E AUTENTICAÇÃO ADMIN
 
@@ -43,15 +42,15 @@ Route::get('/', function () {
     return to_route('produtos.index');
 });
 
-Route::get('/produtos', [ProdutoController::class, 'index'])->name('produtos.index');
+Route::get('/produtos', [App\Http\Controllers\Cliente\ProdutoController::class, 'index'])->name('produtos.index');
 
 //Route::get('/produtos/criar', [ProdutoController::class, 'create'])->name('produtos.criar');
-Route::post('/produtos', [ProdutoController::class, 'store'])->name('produtos.inserir');
+Route::post('/produtos', [App\Http\Controllers\Cliente\ProdutoController::class, 'store'])->name('produtos.inserir');
 
 //Route::get('/produtos/{id}/editar', [ProdutoController::class, 'edit'])->name('produtos.editar');
-Route::put('/produtos/{id}', [ProdutoController::class, 'update'])->name('produtos.atualizar');
+Route::put('/produtos/{id}', [App\Http\Controllers\Cliente\ProdutoController::class, 'update'])->name('produtos.atualizar');
 
-Route::delete('/produtos/{id}', [ProdutoController::class, 'destroy'])->name('produtos.deletar');
+Route::delete('/produtos/{id}', [App\Http\Controllers\Cliente\ProdutoController::class, 'destroy'])->name('produtos.deletar');
 
 // TESTE
 
