@@ -127,3 +127,98 @@ h1 {
     border-radius: 8px;
     margin-bottom: 20px;
 }
+
+/* CSS INDEX */
+.painel-controle {
+    width: min(1220px, 90%);
+    margin: 30px auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.painel-controle h1 {
+    background: none;
+    padding: 19px;
+    border-radius: 0;
+    width: auto;
+    font-size: 35px;
+    margin: 0;
+    color: var(--cinza-900);
+}
+
+/* ALINHAMENTO DA BARRA DE AÇÕES */
+.area-ferramentas {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 12px;
+    width: min(1260px, 100%);
+    align-items: stretch;
+}
+
+.filtro-busca {
+    display: grid;
+    grid-template-columns: 1fr 180px 180px 120px; 
+    gap: 12px;
+    align-items: stretch;
+}
+
+.filtro-busca input,
+.filtro-busca select,
+.filtro-busca button.btn-buscar {
+    height: 48px;
+    padding: 0 16px;
+    border-radius: 10px;
+    font-size: 14px;
+    border: 1px solid var(--cinza-300);
+    box-sizing: border-box;
+}
+
+.filtro-busca input,
+.filtro-busca select {
+    background: var(--cinza-50);
+    color: var(--cinza-900);
+}
+
+.filtro-busca button.btn-buscar {
+    background: #5e7074;
+    color: white;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* --- LISTAGEM DE ESTOQUE --- */
+
+.listagem-estoque {
+    width: min(1220px, 90%);
+    margin: 30px auto;
+    background: white;
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.04);
+}
+
+.grade-cabecalho, .item-linha {
+    display: grid;
+    grid-template-columns: 80px 2.2fr 140px 100px 120px 130px;
+    gap: 19px;
+    align-items: center;
+}
+
+.grade-cabecalho {
+    font-weight: bold;
+    color: var(--cinza-700);
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--cinza-100);
+}
+
+.grade-cabecalho span { text-align: center; }
+.grade-cabecalho span:nth-child(1),
+.grade-cabecalho span:nth-child(2) { text-align: left; padding-left: 15px; }
+
+.item-linha {
+    padding: 15px 0;
+    border-bottom: 1px solid var(--cinza-200);
+}
