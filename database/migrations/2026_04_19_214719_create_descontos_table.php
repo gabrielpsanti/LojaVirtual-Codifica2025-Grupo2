@@ -11,9 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('categorias', function (Blueprint $table) {
+        Schema::create('descontos', function (Blueprint $table) {
             $table->id();
-            $table->string('nome');
+            $table->string('nome')->nullable();
+            $table->boolean('eh_cupom')->default(false);
+            $table->decimal('valor', 8, 2);
+            $table->softDeletes();
             $table->timestamps();
         });
     }
@@ -23,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('categorias');
+        Schema::dropIfExists('descontos');
     }
 };

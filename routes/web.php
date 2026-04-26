@@ -1,19 +1,24 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+//use App\Http\Controllers\Admin\ProdutoController;
+//use App\Http\Controllers\Cliente\LoginController;
 use App\Http\Controllers\ProdutoController;
-use App\Http\Controllers\AutenticacaoController;
+use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ClienteController;
+use App\Http\Controllers\VendaController;
 
 // ROTAS LOGIN E AUTENTICAÇÃO CLIENTES
 
-Route::get('/login', [AutenticacaoController::class, 'login'])->name('login');
-Route::post('/login', [AutenticacaoController::class, 'autenticar'])->name('autenticar');
+Route::get('/login', [LoginController::class, 'index'])->name('login');
+Route::post('/login', [LoginController::class, 'store'])->name('signin');
+Route::get('/cadastro', [LoginController::class, 'create'])->name('cadastro');
+Route::post('/cadastro', [LoginController::class, 'update'])->name('cadastro.salvar');
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
-Route::get('/cadastro', [AutenticacaoController::class, 'cadastro'])->name('cadastro');
-Route::post('/cadastro', [AutenticacaoController::class, 'registrar'])->name('registrar');
+// Route::get('/cadastro', [LoginController::class, 'cadastro'])->name('cadastro');
+// Route::post('/cadastro', [LoginController::class, 'registrar'])->name('registrar');
 
-Route::post('/logout', [AutenticacaoController::class, 'logout'])->name('logout');
 
 // ROTAS LOGIN E AUTENTICAÇÃO ADMIN
 
@@ -37,11 +42,18 @@ Route::put('/admin/produtos/{id}', [ProdutoController::class, 'update'])->name('
 
 Route::delete('/admin/produtos/{id}', [ProdutoController::class, 'destroy'])->name('admin.produtos.deletar');
 
+// ROTAS ADMIN VENDAS
+
+Route::get('/admin/vendas', [VendaController::class, 'index'])->name('admin.vendas.index');
+Route::get('/admin/vendas/{id}', [VendaController::class, 'show'])->name('admin.vendas.detalhes');
+
 // ROTAS CLIENTES
 
 Route::get('/', function () {
     return to_route('produtos.index');
 });
+
+//Route::get('/produtos', [App\Http\Controllers\Cliente\ProdutoController::class, 'index'])->name('produtos.index');
 
 Route::get('/produtos', [ProdutoController::class, 'index'])->name('produtos.index');
 

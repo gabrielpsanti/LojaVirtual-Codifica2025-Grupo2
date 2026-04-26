@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Cliente;
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use App\Models\Usuario;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Http\RedirectResponse;
 
 class LoginController extends Controller
 {
