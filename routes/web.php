@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProdutoController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ClienteController;
+use App\Http\Controllers\VendaController;
 
 // ROTAS LOGIN E AUTENTICAÇÃO CLIENTES
 
@@ -39,7 +40,10 @@ Route::put('/admin/produtos/{id}', [ProdutoController::class, 'update'])->name('
 
 Route::delete('/admin/produtos/{id}', [ProdutoController::class, 'destroy'])->name('admin.produtos.deletar');
 
-// ROTAS CLIENTES
+// ROTAS ADMIN VENDAS
+
+Route::get('/admin/vendas', [VendaController::class, 'index'])->name('admin.vendas.index');
+Route::get('/admin/vendas/{id}', [VendaController::class, 'show'])->name('admin.vendas.detalhes');
 
 Route::get('/', function () {
     return to_route('produtos.index');

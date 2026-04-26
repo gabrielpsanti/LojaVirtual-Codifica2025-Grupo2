@@ -14,4 +14,10 @@ class Produto extends Model
         'estoque',
         'imagem'
     ];
+
+    // Relacionamento: Um produto pode aparecer em muitas vendas
+    public function vendas()
+    {
+        return $this->hasMany(VendaProduto::class);
+    }
 }

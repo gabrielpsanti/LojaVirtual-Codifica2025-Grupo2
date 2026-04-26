@@ -23,6 +23,13 @@ class Usuario extends Authenticatable
         'password',
     ];
 
+    // Relacionamento: Um usuário pode ter muitas vendas
+    public function vendas()
+    {
+        return $this->hasMany(Venda::class, 'cliente_id');
+    }
+
+
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -45,4 +52,4 @@ class Usuario extends Authenticatable
             'password' => 'hashed',
         ];
     }
-}
+//}
