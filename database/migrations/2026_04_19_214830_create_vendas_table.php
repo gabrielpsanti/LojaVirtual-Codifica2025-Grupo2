@@ -13,9 +13,12 @@ return new class extends Migration
     {
         Schema::create('vendas', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('cliente_id')->constrained('usuarios');
+            $table->foreignId('usuario_id')->constrained('usuarios');
             $table->date('data');
-            $table->decimal('total', 8, 2);
+            $table->decimal('preco_total', 8, 2);
+            $table->foreignId('desconto_id')->nullable()->constrained('descontos');
+            $table->decimal('preco_total_com_desconto', 8, 2);
+            $table->softDeletes();
             $table->timestamps();
         });
     }

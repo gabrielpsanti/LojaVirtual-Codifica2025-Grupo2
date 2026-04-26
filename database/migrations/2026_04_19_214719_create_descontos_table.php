@@ -11,12 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('usuarios', function (Blueprint $table) {
+        Schema::create('descontos', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('email');
-            $table->string('password');
-            $table->bool('eh_admin')->default(false); // false para cliente, true para admin
+            $table->string('nome')->nullable();
+            $table->boolean('eh_cupom')->default(false);
+            $table->decimal('valor', 8, 2);
+            $table->softDeletes();
             $table->timestamps();
         });
     }
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('usuarios');
+        Schema::dropIfExists('descontos');
     }
 };

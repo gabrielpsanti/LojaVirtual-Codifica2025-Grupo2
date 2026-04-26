@@ -21,6 +21,6 @@ class Cadastro extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.autenticacao.-cadastro');
+        return view('components.cliente.login.cadastro');
     }
 }

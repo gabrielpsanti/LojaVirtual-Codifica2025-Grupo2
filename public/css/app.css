@@ -159,7 +159,7 @@ h1 {
 
 .filtro-busca {
     display: grid;
-    grid-template-columns: 1fr 180px 180px 120px; 
+    grid-template-columns: 1fr 180px 180px 120px;
     gap: 12px;
     align-items: stretch;
 }

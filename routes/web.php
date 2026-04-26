@@ -2,19 +2,21 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProdutoController;
-use App\Http\Controllers\AutenticacaoController;
+use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\VendaController;
 
 // ROTAS LOGIN E AUTENTICAÇÃO CLIENTES
 
-Route::get('/login', [AutenticacaoController::class, 'login'])->name('login');
-Route::post('/login', [AutenticacaoController::class, 'autenticar'])->name('autenticar');
+Route::get('/login', [LoginController::class, 'index'])->name('login');
+Route::post('/login', [LoginController::class, 'store'])->name('signin');
+Route::get('/cadastro', [LoginController::class, 'create'])->name('cadastro');
+Route::post('/cadastro', [LoginController::class, 'update'])->name('cadastro.salvar');
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
-Route::get('/cadastro', [AutenticacaoController::class, 'cadastro'])->name('cadastro');
-Route::post('/cadastro', [AutenticacaoController::class, 'registrar'])->name('registrar');
+// Route::get('/cadastro', [LoginController::class, 'cadastro'])->name('cadastro');
+// Route::post('/cadastro', [LoginController::class, 'registrar'])->name('registrar');
 
-Route::post('/logout', [AutenticacaoController::class, 'logout'])->name('logout');
 
 // ROTAS LOGIN E AUTENTICAÇÃO ADMIN
 
@@ -47,6 +49,7 @@ Route::get('/', function () {
     return to_route('produtos.index');
 });
 
+
 Route::get('/produtos', [ProdutoController::class, 'index'])->name('produtos.index');
 
 //Route::get('/produtos/criar', [ProdutoController::class, 'create'])->name('produtos.criar');
@@ -56,3 +59,7 @@ Route::post('/produtos', [ProdutoController::class, 'store'])->name('produtos.in
 Route::put('/produtos/{id}', [ProdutoController::class, 'update'])->name('produtos.atualizar');
 
 Route::delete('/produtos/{id}', [ProdutoController::class, 'destroy'])->name('produtos.deletar');
+
+// TESTE
+
+Route::get('/teste', [\App\Http\Controllers\TesteController::class, 'teste'])->name('teste');

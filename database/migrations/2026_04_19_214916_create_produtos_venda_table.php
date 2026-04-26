@@ -11,12 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('venda_produto', function (Blueprint $table) {
+        Schema::create('produtos_venda', function (Blueprint $table) {
             $table->id();
             $table->foreignId('venda_id')->constrained('vendas');
             $table->foreignId('produto_id')->constrained('produtos');
             $table->integer('quantidade');
-            $table->decimal('preco', 8, 2);
+            $table->decimal('preco_unitario', 8, 2);
+            $table->foreignId('desconto_id')->nullable()->references('desconto_id')->on('produtos');
+            $table->decimal('preco_com_desconto', 8, 2);
+            $table->softDeletes();
             $table->timestamps();
         });
     }
@@ -26,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('venda_produto');
+        Schema::dropIfExists('produtos_venda');
     }
 };
