@@ -11,18 +11,15 @@ use Illuminate\Support\Facades\Hash;
 
 class LoginController extends Controller
 {
+    // aba de login
     public function index()
     {
         return view('cliente.login.login');
     }
 
-    //aba de registrar
-    public function create()
-    {
-        return view('cliente.login.cadastro');
-    }
-
-    public function store (Request $request): RedirectResponse
+    // autenticação do usuário
+    // ADICIONAR ROTEAMENTO DE FOR O ADMIN
+    public function login (Request $request): RedirectResponse
     {
         $credenciais = $request->validate([
             'email'=>['required', 'email'],
@@ -42,8 +39,14 @@ class LoginController extends Controller
 
     }
 
-    //função para registrar um novo usuario
-    public function update(Request $request) {
+    // aba de registrar
+    public function create()
+    {
+        return view('cliente.login.cadastro');
+    }
+
+    // função para registrar/armazenar um novo usuario
+    public function store(Request $request) {
 
         $data = $request->except(['_token']);
         $data['password'] = Hash::make($data['password']);

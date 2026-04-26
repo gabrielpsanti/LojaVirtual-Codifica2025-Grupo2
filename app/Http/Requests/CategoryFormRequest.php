@@ -34,7 +34,7 @@
 //    public function messages()
 //    {
 //        return [
-//            'name.required' => "É obrigatório informar um nome da categoria.",
+//            'name.required' => "É obrigatório informar o nome da categoria.",
 //            'name.min' => "O nome da categoria deve ter no mínimo 3 caracteres."
 //        ];
 //    }
