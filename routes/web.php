@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProdutoController;
 use App\Http\Controllers\AutenticacaoController;
 use App\Http\Controllers\ClienteController;
+use App\Http\Controllers\CategoriaController;
 
 // ROTAS LOGIN E AUTENTICAÇÃO CLIENTES
 
@@ -36,6 +37,18 @@ Route::get('/admin/produtos/{id}/editar', [ProdutoController::class, 'edit'])->n
 Route::put('/admin/produtos/{id}', [ProdutoController::class, 'update'])->name('admin.produtos.atualizar');
 
 Route::delete('/admin/produtos/{id}', [ProdutoController::class, 'destroy'])->name('admin.produtos.deletar');
+
+// ROTAS CATEGORIAS
+
+Route::get('/admin/categorias', [CategoriaController::class, 'index'])->name('admin.categorias.index');
+
+Route::get('/admin/categorias/criar', [CategoriaController::class, 'create'])->name('admin.categorias.criar');
+Route::post('/admin/categorias', [CategoriaController::class, 'store'])->name('admin.categorias.inserir');
+
+Route::get('/admin/categorias/{id}/editar', [CategoriaController::class, 'edit'])->name('admin.categorias.editar');
+Route::put('/admin/categorias/{id}', [CategoriaController::class, 'update'])->name('admin.categorias.atualizar');
+
+Route::delete('/admin/categorias/{id}', [CategoriaController::class, 'destroy'])->name('admin.categorias.deletar');
 
 // ROTAS CLIENTES
 
