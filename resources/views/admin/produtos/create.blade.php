@@ -12,7 +12,7 @@
 
     <h2>Novo Cadastro</h2>
 
-    <form method="POST" action="{{ route('admin.produtos.inserir') }}" enctype="multipart/form-data">
+    <form method="POST" action="{{ route('admin.produtos.salvar') }}" enctype="multipart/form-data">
         @csrf
 
         @if ($errors->any())
@@ -50,7 +50,7 @@
                 <div class="dupla-coluna">
                     <div>
                         <label>Estoque</label>
-                        <input type="number" name="estoque" min="0" value="{{ old('estoque') }}">
+                        <input type="number" name="quantidade" min="0" value="{{ old('quantidade') }}">
                     </div>
 
                     <div>
