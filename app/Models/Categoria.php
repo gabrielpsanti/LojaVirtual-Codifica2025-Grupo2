@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class VendaProduto extends Model
+class Categoria extends Model
 {
     // Relacionamento: Um item de venda pertence a uma venda
     public function venda()

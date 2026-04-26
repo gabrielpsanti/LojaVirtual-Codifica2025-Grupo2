@@ -1,9 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use App\Models\Produto;
+use App\View\Components\Cliente\Produtos\Categorias;
+use Illuminate\Http\Request;
+
 // use App\Models\Categoria;
 
 class ProdutoController extends Controller
@@ -21,20 +24,22 @@ class ProdutoController extends Controller
         }
 
         $produtos = $query->get();
-        $categorias = Produto::select('categoria')
-            ->whereNotNull('categoria')
-            ->where('categoria', '<>', '')
-            ->distinct()
-            ->orderBy('categoria')
-            ->pluck('categoria');
+//        $categoriaFiltro = Produto::select('categoria')
+//            ->whereNotNull('categoria')
+//            ->where('categoria', '<>', '')
+//            ->distinct()
+//            ->orderBy('categoria')
+//            ->pluck('categoria');
 
-        return view('admin.produtos.index', compact('produtos', 'categorias'));
+        $categorias = Categorias::all();
+
+        return view('admin.produtos.index', compact('produtos', 'categorias', ));
 
     }
 
     public function create() {
         return view('admin.produtos.create');
-    }       
+    }
 
     public function store(Request $request) {
 

@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+//use App\Http\Controllers\Admin\ProdutoController;
+//use App\Http\Controllers\Cliente\LoginController;
 use App\Http\Controllers\ProdutoController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ClienteController;
@@ -45,10 +47,13 @@ Route::delete('/admin/produtos/{id}', [ProdutoController::class, 'destroy'])->na
 Route::get('/admin/vendas', [VendaController::class, 'index'])->name('admin.vendas.index');
 Route::get('/admin/vendas/{id}', [VendaController::class, 'show'])->name('admin.vendas.detalhes');
 
+// ROTAS CLIENTES
+
 Route::get('/', function () {
     return to_route('produtos.index');
 });
 
+//Route::get('/produtos', [App\Http\Controllers\Cliente\ProdutoController::class, 'index'])->name('produtos.index');
 
 Route::get('/produtos', [ProdutoController::class, 'index'])->name('produtos.index');
 
