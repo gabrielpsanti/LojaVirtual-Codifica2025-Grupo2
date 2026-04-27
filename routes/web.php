@@ -13,6 +13,8 @@ use App\Http\Controllers\Cliente\EnderecoController;
 use App\Http\Controllers\Cliente\LoginController;
 use App\Http\Controllers\Cliente\ProdutoController as ProdutoClienteController;
 use App\Http\Controllers\Cliente\UsuarioController;
+use App\Http\Controllers\Cliente\CabecalhoController;
+use App\Http\Controllers\Cliente\CabecalhoContatoController;
 
 // ROTAS LOGIN, AUTENTICAÇÃO E REGISTRO CLIENTES (E ADMIN)
 
@@ -108,6 +110,17 @@ Route::get('/admin/descontos/{id}/editar', [DescontoController::class, 'edit'])-
 Route::put('/admin/descontos/{id}', [DescontoController::class, 'update'])->name('admin.descontos.atualizar');
 
 Route::delete('/admin/descontos/{id}', [DescontoController::class, 'destroy'])->name('admin.descontos.deletar');
+
+//CABEÇALHO(HEADER) CLIENTE
+
+Route::get('/cabecalho/faq', [CabecalhoController::class, 'faq'])->name('cabecalho.faq');
+Route::get('/cabecalho/trocas', [CabecalhoController::class, 'trocas'])->name('cabecalho.trocas');
+Route::get('/cabecalho/quem-somos', [CabecalhoController::class, 'quemSomos'])->name('cabecalho.quem-somos');
+
+//CABEÇALHO(HEADER) CLIENTE CONTATO
+
+Route::get('/cabecalho/contato', [CabecalhoContatoController::class, 'contato'])->name('cabecalho.contato');
+Route::post('/cabecalho/contato/enviar', [CabecalhoContatoController::class, 'enviar'])->name('cabecalho.contato.enviar');
 
 // TESTE
 

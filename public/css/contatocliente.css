@@ -1,0 +1,103 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* BASE */
+body {
+    font-family: Arial, sans-serif;
+    background: #fde8ea;
+    color: #333;
+
+}
+
+
+
+/* ===== CONTAINER GERAL ===== */
+.contato-container {
+    width: min(900px, 90%);
+    margin: 40px auto;
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.05);
+}
+
+/* TÍTULO */
+.contato-container h1 {
+    text-align: center;
+    font-size: 32px;
+    margin-bottom: 25px;
+    color: #000;
+}
+
+/* MENSAGEM DE SUCESSO */
+.contato-sucesso {
+    background: #e6f7ec;
+    color: #659a7a;
+    padding: 12px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 14px;
+}
+
+/* FORMULÁRIO */
+.contato-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* INPUTS E TEXTAREA */
+.contato-form input,
+.contato-form textarea {
+    width: 100%;
+    padding: 14px;
+    border-radius: 10px;
+    border: 1px solid #dcdcdc;
+    background: #f1f3f6;
+    font-size: 14px;
+    outline: none;
+    transition: 0.2s;
+}
+
+/* FOCUS */
+.contato-form input:focus,
+.contato-form textarea:focus {
+    border-color: #659a7a;
+    background: #fff;
+}
+
+/* TEXTAREA */
+.contato-form textarea {
+    min-height: 140px;
+    resize: none;
+}
+
+/* BOTÃO */
+.contato-form button {
+    padding: 14px;
+    border: none;
+    border-radius: 10px;
+    background: #659a7a;
+    color: white;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+/* HOVER BOTÃO */
+.contato-form button:hover {
+    background: #445256;
+}
+
+/* TEXTO AUXILIAR */
+.contato-info {
+    text-align: center;
+    font-size: 13px;
+    color: #666;
+    margin-top: 10px;
+}
