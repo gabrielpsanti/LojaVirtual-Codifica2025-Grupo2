@@ -21,9 +21,10 @@ class Usuario extends Authenticatable
      * @var list<string>
      */
     protected $fillable = [
-        'name',
+        'nome',
         'email',
         'password',
+        'cpf_cnpj',
     ];
 
     // Relacionamento: Um usuário pode ter muitas vendas (compras)
