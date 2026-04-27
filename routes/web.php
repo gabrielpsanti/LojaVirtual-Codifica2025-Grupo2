@@ -1,6 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProdutoController;
+use App\Http\Controllers\AutenticacaoController;
+use App\Http\Controllers\ClienteController;
+use App\Http\Controllers\CategoriaController;
 // ADMIN
 use App\Http\Controllers\Admin\CategoriaController;
 use App\Http\Controllers\Admin\DashboardController;
@@ -50,6 +54,19 @@ Route::get('/conta/enderecos', [EnderecoController::class, 'index'])->name('usua
 Route::get('/conta/enderecos/{id}/editar', [EnderecoController::class, 'edit'])->name('usuario.enderecos.editar');
 Route::put('/conta/enderecos/{id}', [EnderecoController::class, 'update'])->name('usuario.enderecos.atualizar');
 
+// ROTAS CATEGORIAS
+
+Route::get('/admin/categorias', [CategoriaController::class, 'index'])->name('admin.categorias.index');
+
+Route::get('/admin/categorias/criar', [CategoriaController::class, 'create'])->name('admin.categorias.criar');
+Route::post('/admin/categorias', [CategoriaController::class, 'store'])->name('admin.categorias.inserir');
+
+Route::get('/admin/categorias/{id}/editar', [CategoriaController::class, 'edit'])->name('admin.categorias.editar');
+Route::put('/admin/categorias/{id}', [CategoriaController::class, 'update'])->name('admin.categorias.atualizar');
+
+Route::delete('/admin/categorias/{id}', [CategoriaController::class, 'destroy'])->name('admin.categorias.deletar');
+
+// ROTAS CLIENTES
 Route::get('/checkout', [CompraController::class, 'carrinhoView'])->name('checkout.carrinho.view');
 Route::post('/checkout', [CompraController::class, 'carrinho'])->name('checkout.carrinho');
 
