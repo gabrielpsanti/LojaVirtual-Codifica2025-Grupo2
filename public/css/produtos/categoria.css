@@ -1,0 +1,226 @@
+/* =========================
+   VARIÁVEIS
+========================= */
+:root {
+    --rosa-50: #fde8ea;
+
+    --cinza-50: #f0f4f4;
+    --cinza-100: #e1eae8;
+    --cinza-200: #c3d5d2;
+    --cinza-300: #a5c0bb;
+    --cinza-500: #6a958e;
+    --cinza-700: #3f5a55;
+    --cinza-900: #151e1c;
+
+    --verde-500: #659a7a;
+    --verde-600: #517b62;
+}
+
+/* =========================
+   BASE
+========================= */
+body {
+    font-family: Arial, sans-serif;
+    background: var(--rosa-50);
+    color: var(--cinza-900);
+}
+
+a {
+    text-decoration: none;
+}
+
+button {
+    cursor: pointer;
+}
+
+/* =========================
+   TOPO / TÍTULO
+========================= */
+.painel-controle {
+    width: min(1220px, 90%);
+    margin: 30px auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.painel-controle h1 {
+    font-size: 35px;
+    margin: 0;
+}
+
+/* =========================
+   BARRA DE AÇÕES
+========================= */
+.area-ferramentas {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 12px;
+    width: 100%;
+}
+
+.filtro-busca {
+    display: grid;
+    grid-template-columns: 1fr 150px;
+    gap: 12px;
+}
+
+.filtro-busca input,
+.filtro-busca button {
+    height: 48px;
+    border-radius: 10px;
+    border: 1px solid var(--cinza-300);
+    padding: 0 16px;
+}
+
+.filtro-busca input {
+    background: var(--cinza-50);
+}
+
+.btn-buscar {
+    background: #5e7074;
+    color: white;
+    border: none;
+    font-weight: bold;
+}
+
+.btn-adicionar {
+    background: var(--verde-500);
+    color: white;
+    font-weight: bold;
+    width: 200px;
+    height: 48px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* =========================
+   LISTAGEM
+========================= */
+.listagem-estoque {
+    width: min(1220px, 90%);
+    margin: 30px auto;
+    background: white;
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.04);
+}
+
+/* GRID CORRETO */
+.categorias-page .grade-cabecalho,
+.categorias-page .item-linha {
+    display: grid;
+    grid-template-columns: 1fr 150px;
+    gap: 20px;
+    align-items: center;
+}
+
+.categorias-page .grade-cabecalho span:last-child {
+    text-align: center;
+}
+.categorias-page .botoes {
+    align-items: center;
+}
+/* Cabeçalho */
+.grade-cabecalho {
+    font-weight: bold;
+    color: var(--cinza-700);
+    border-bottom: 1px solid var(--cinza-100);
+    padding-bottom: 10px;
+}
+
+/* Linha */
+.item-linha {
+    padding: 15px 0;
+    border-bottom: 1px solid var(--cinza-200);
+}
+
+/* Nome da categoria */
+.detalhes {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.detalhes strong {
+    font-size: 15px;
+}
+
+.detalhes p {
+    font-size: 12px;
+    color: var(--cinza-500);
+    margin: 0;
+}
+
+/* Botões */
+.botoes {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    align-items: flex-end;
+}
+
+.botoes a,
+.botoes button {
+    width: 120px;
+    height: 28px;
+    border-radius: 6px;
+    font-size: 13px;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Cores ações */
+.acao-edit {
+    background: #4a7c59;
+    color: white;
+}
+
+.acao-delete {
+    background: #e57373;
+    color: white;
+}
+
+/* =========================
+   FORMULÁRIOS (CREATE / EDIT)
+========================= */
+.card-form {
+    width: min(600px, 90%);
+    margin: 30px auto;
+    background: white;
+    padding: 24px;
+    border-radius: 12px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.04);
+}
+
+.card-form form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.card-form input {
+    height: 45px;
+    padding: 0 12px;
+    border-radius: 8px;
+    border: 1px solid var(--cinza-300);
+    background: var(--cinza-50);
+}
+
+.card-form button {
+    height: 45px;
+    border-radius: 8px;
+    border: none;
+    background: var(--verde-500);
+    color: white;
+    font-weight: bold;
+}
+
+.card-form button:hover {
+    background: var(--verde-600);
+}

@@ -3,18 +3,21 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Categoria extends Model
 {
-    // Relacionamento: Um item de venda pertence a uma venda
-    public function venda()
-    {
-        return $this->belongsTo(Venda::class);
-    }
+    use SoftDeletes;
+  
+    protected $table = 'categorias';
 
-    // Relacionamento: Um item de venda pertence a um produto
-    public function produto()
+    protected $fillable = [
+        'nome'
+    ];
+  
+    // Relacionamento: Uma categoria contém vários produtos
+    public function produtos()
     {
-        return $this->belongsTo(Produto::class);
+        return $this->hasMany(Produto::class, 'categoria_id');
     }
 }
