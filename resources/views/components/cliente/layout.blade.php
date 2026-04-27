@@ -5,11 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <link rel="stylesheet" href="{{ asset('css/chloe-teste/teste.css') }}">
-    <title>Loja Virtual</title>
+    <title>Lojinha</title>
 </head>
 <body>
 
-<x-cliente.header/>
+<x-cliente.header :categorias="$categorias"/>
 
 <main>
     {{ $slot }}
