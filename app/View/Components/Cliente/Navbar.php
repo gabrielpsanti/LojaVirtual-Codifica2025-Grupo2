@@ -8,12 +8,14 @@ use Illuminate\View\Component;
 
 class Navbar extends Component
 {
+    public $categorias;
+
     /**
      * Create a new component instance.
      */
-    public function __construct()
+    public function __construct($categorias)
     {
-        //
+        $this->categorias = $categorias;
     }
 
     /**

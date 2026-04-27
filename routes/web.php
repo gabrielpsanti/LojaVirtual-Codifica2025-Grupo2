@@ -1,10 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ProdutoController;
-use App\Http\Controllers\AutenticacaoController;
-use App\Http\Controllers\ClienteController;
-use App\Http\Controllers\CategoriaController;
 // ADMIN
 use App\Http\Controllers\Admin\CategoriaController;
 use App\Http\Controllers\Admin\DashboardController;
@@ -28,7 +24,7 @@ Route::post('/cadastro/registro', [LoginController::class, 'store'])->name('cada
 
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
-// ROTAS CLIENTES
+// ROTAS CLIENTES PAGINA INICIAL E MAIS
 
 //Route::get('/', function () {
 //    return to_route('produtos.index');
@@ -40,33 +36,28 @@ Route::get('/contato', [ProdutoClienteController::class, 'contato'])->name('inde
 Route::get('/trocas-e-devolucoes', [ProdutoClienteController::class, 'trocasDevolucoes'])->name('index.trocas-devolucoes');
 Route::get('/sobre-nos', [ProdutoClienteController::class, 'sobreNos'])->name('index.sobre-nos');
 
+// ROTAS CLIENTES PRODUTOS
+
 Route::get('/produtos', [ProdutoClienteController::class, 'todos'])->name('produtos.todos');
-Route::get('/{categoria}', [ProdutoClienteController::class, 'categoria'])->name('produtos.categoria');
+//Route::get('/{categoria}', [ProdutoClienteController::class, 'categoria'])->name('produtos.categoria');
 Route::get('/produtos/{id}', [ProdutoClienteController::class, 'show'])->name('produtos.detalhes');
+
+// ROTAS CLIENTES CONTA
 
 Route::get('/conta', [UsuarioController::class, 'index'])->name('usuario.index');
 
 Route::get('/conta/editar', [UsuarioController::class, 'edit'])->name('usuario.editar');
 Route::put('/conta', [UsuarioController::class, 'update'])->name('usuario.atualizar');
 
+// ROTAS CLIENTES ENDEREÇOS
+
 Route::get('/conta/enderecos', [EnderecoController::class, 'index'])->name('usuario.enderecos');
 
 Route::get('/conta/enderecos/{id}/editar', [EnderecoController::class, 'edit'])->name('usuario.enderecos.editar');
 Route::put('/conta/enderecos/{id}', [EnderecoController::class, 'update'])->name('usuario.enderecos.atualizar');
 
-// ROTAS CATEGORIAS
+// ROTAS CLIENTES CHECKOUT
 
-Route::get('/admin/categorias', [CategoriaController::class, 'index'])->name('admin.categorias.index');
-
-Route::get('/admin/categorias/criar', [CategoriaController::class, 'create'])->name('admin.categorias.criar');
-Route::post('/admin/categorias', [CategoriaController::class, 'store'])->name('admin.categorias.inserir');
-
-Route::get('/admin/categorias/{id}/editar', [CategoriaController::class, 'edit'])->name('admin.categorias.editar');
-Route::put('/admin/categorias/{id}', [CategoriaController::class, 'update'])->name('admin.categorias.atualizar');
-
-Route::delete('/admin/categorias/{id}', [CategoriaController::class, 'destroy'])->name('admin.categorias.deletar');
-
-// ROTAS CLIENTES
 Route::get('/checkout', [CompraController::class, 'carrinhoView'])->name('checkout.carrinho.view');
 Route::post('/checkout', [CompraController::class, 'carrinho'])->name('checkout.carrinho');
 
@@ -85,8 +76,15 @@ Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('adm
 
 // ROTAS ADMIN CATEGORIAS
 
+Route::get('/admin/categorias', [CategoriaController::class, 'index'])->name('admin.categorias.index');
+
 Route::get('/admin/categorias/criar', [CategoriaController::class, 'create'])->name('admin.categorias.criar');
 Route::post('/admin/categorias', [CategoriaController::class, 'store'])->name('admin.categorias.salvar');
+
+Route::get('/admin/categorias/{id}/editar', [CategoriaController::class, 'edit'])->name('admin.categorias.editar');
+Route::put('/admin/categorias/{id}', [CategoriaController::class, 'update'])->name('admin.categorias.atualizar');
+
+Route::delete('/admin/categorias/{id}', [CategoriaController::class, 'destroy'])->name('admin.categorias.deletar');
 
 // ROTAS ADMIN PRODUTOS (ESTOQUE)
 

@@ -7,7 +7,7 @@
 
 <div class="quadro-formulario">
 
-    <form method="POST" action="{{ route('admin.categorias.inserir') }}">
+    <form method="POST" action="{{ route('admin.categorias.salvar') }}">
         @csrf
 
         <div class="coluna-campos">

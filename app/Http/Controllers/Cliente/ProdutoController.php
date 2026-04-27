@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Cliente;
 
 use App\Http\Controllers\Controller;
 use App\Models\Produto;
-use App\Models\Categoria;
 use Illuminate\Http\Request;
 
 class ProdutoController extends Controller
@@ -29,7 +28,7 @@ class ProdutoController extends Controller
 //            ->orderBy('categoria')
 //            ->pluck('categoria');
 
-        $categorias = Categoria::all();
+        $categorias = Categorias::all();
 
         return view('admin.produtos.index', compact('produtos', 'categorias', ));
 
