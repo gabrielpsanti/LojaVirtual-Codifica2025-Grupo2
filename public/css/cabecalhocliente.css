@@ -1,0 +1,63 @@
+/* RESET BÁSICO */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* BASE */
+body {
+    font-family: Arial, sans-serif;
+    background: #fde8ea;
+    color: #333;
+
+}
+
+/* CONTAINER PRINCIPAL */
+.container {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 20px;
+}
+
+/* CARD */
+.card {
+    background: #fff;
+    padding: 30px;
+    border-radius: 19px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+/* TÍTULO */
+.titulo {
+    font-size: 28px;
+    margin-bottom: 20px;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* TEXTO */
+.texto {
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+/* LISTA */
+.lista {
+    margin-top: 10px;
+    padding-left: 20px;
+}
+
+.lista li {
+    margin-bottom: 10px;
+}
+
+/* DESTAQUE */
+.destaque {
+    margin-top: 20px;
+    padding: 15px;
+    background: #fde8ea;
+    border-left: 4px solid   #659a7a;
+    border-radius: 8px;
+}

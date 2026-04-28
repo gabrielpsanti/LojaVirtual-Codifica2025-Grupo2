@@ -21,8 +21,8 @@
 
     <!-- CABEÇALHO -->
     <div class="grade-cabecalho">
-        <span>Nome da Categoria</span>
-        <span>Ações</span>
+        <span class="coluna-nome">Nome da Categoria</span>
+        <span class="coluna-acoes">Ações</span>
     </div>
 
     @foreach ($categorias as $categoria)
