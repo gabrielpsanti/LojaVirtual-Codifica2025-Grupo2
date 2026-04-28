@@ -1,0 +1,110 @@
+.body,
+html {
+    background-color: #fde8ea;
+}
+
+.principal {
+    width: min(1220px, 90%);
+    margin: 30px auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    background-color: #fde8ea;
+}
+
+.principal h1 {
+    background: none;
+    padding: 19px;
+    border-radius: 0;
+    width: auto;
+    font-size: 35px;
+    margin: 0;
+    color: #151e1c;
+}
+
+.principal-cartao {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 24px;
+    width: 100%;
+    align-items: stretch;
+}
+
+.principal-cartao-produto,
+.principal-cartao-venda,
+.principal-cartao-categoria {
+    background: white;
+    border-radius: 16px;
+    padding: 30px 24px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.04);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.principal-cartao-produto:hover,
+.principal-cartao-venda:hover,
+.principal-cartao-categoria:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
+}
+
+.principal-cartao-produto-icone,
+.principal-cartao-venda-icone,
+.principal-cartao-categoria-icone {
+    font-size: 50px;
+    margin-bottom: 20px;
+}
+
+.principal-cartao-produto-info,
+.principal-cartao-venda-info,
+.principal-cartao-categoria-info {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.principal-cartao-produto-info h3,
+.principal-cartao-venda-info h3,
+.principal-cartao-categoria-info h3 {
+    font-size: 18px;
+    color: #557772;
+    margin: 0 0 10px 0;
+    font-weight: normal;
+}
+
+.principal-cartao-produto-info-number,
+.principal-cartao-venda-info-number,
+.principal-cartao-categoria-info-number {
+    font-size: 42px;
+    font-weight: bold;
+    color: #151e1c;
+    margin: 0 0 24px 0;
+}
+
+.principal-cartao-produto-link,
+.principal-cartao-venda-link,
+.principal-cartao-categoria-link {
+    background: #659a7a;
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+    width: 100%;
+    height: 48px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.3s;
+    box-shadow: 0 4px 12px rgba(101, 154, 122, 0.2);
+}
+
+.principal-cartao-produto-link:hover,
+.principal-cartao-venda-link:hover,
+.principal-cartao-categoria-link:hover {
+    background: #517b62;
+}
