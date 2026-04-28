@@ -6,7 +6,7 @@
         <h1 class="titulo">Perguntas Frequentes🧶</h1>
 
         <p class="texto"><strong>De qual cidade é a loja?</strong><br>
-        Somos de [sua cidade] e enviamos para todo o Brasil.</p><br> </br>
+        Somos de Aracruz e enviamos para todo o Brasil.</p><br> </br>
 
         <p class="texto"><strong>Os produtos são feitos à mão?</strong><br>
         Sim! Todas as peças são feitas artesanalmente em crochê.</p><br> </br>
@@ -18,7 +18,7 @@
         Entre 5 a 20 dias úteis + envio.</p><br> </br>
 
         <p class="texto"><strong>Como funciona o frete?</strong><br>
-        Calculado automaticamente no checkout.</p><br> </br>
+        Calculado automaticamente de acordo com o peso e o destino.</p><br> </br>
 
         <p class="texto"><strong>Posso trocar?</strong><br>
         Não realizamos trocas, apenas devoluções dentro do prazo.</p>
