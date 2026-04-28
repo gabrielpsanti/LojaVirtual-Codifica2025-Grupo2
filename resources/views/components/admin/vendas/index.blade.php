@@ -15,6 +15,22 @@
     </div>
 </div>
 
+<!-- ADICIONAR A PARTE DE SOMA DAS VENDAS -->
+<!-- <div class="principal-cartao-venda">
+            <div class="principal-cartao-venda-total">
+                <h3>TOTAL</h3>
+                <p>R$ {{ number_format($saldo ?? 0, 2, ',', '.') }}</p>
+            </div>
+            <div class="principal-cartao-venda-info">
+                <h3>RECEITAS</h3>
+                <p>R$ {{ number_format($receitas ?? 0, 2, ',', '.') }}</p>
+            </div>
+            <div class="principal-cartao-venda-info">
+                <h3>DESPESAS</h3>
+                <p>R$ {{ number_format($despesas ?? 0, 2, ',', '.') }}</p>
+            </div>
+        </div> -->
+
 <div class="listagem-estoque">
 
     <div class="grade-cabecalho">

@@ -19,22 +19,22 @@ class LoginController extends Controller
 
     // autenticação do usuário
     // ADICIONAR ROTEAMENTO DE FOR O ADMIN
-    public function login (Request $request): RedirectResponse
+    public function login(Request $request): RedirectResponse
     {
         $credenciais = $request->validate([
-            'email'=>['required', 'email'],
-            'password'=>['required']
+            'email' => ['required', 'email'],
+            'password' => ['required']
         ]);
 
         if (Auth::attempt($credenciais)) {
-            $request ->session()->regenerate();
+            $request->session()->regenerate();
 
             //definir o nome da view
             return view('');
         }
 
         return back()->withErrors([
-            'email' =>'Email ou senha inválidos',
+            'email' => 'Email ou senha inválidos',
         ])->withInput($request->only('email'));
 
     }
@@ -46,7 +46,8 @@ class LoginController extends Controller
     }
 
     // função para registrar/armazenar um novo usuario
-    public function store(Request $request) {
+    public function store(Request $request)
+    {
 
         $data = $request->except(['_token']);
         $data['password'] = Hash::make($data['password']);
