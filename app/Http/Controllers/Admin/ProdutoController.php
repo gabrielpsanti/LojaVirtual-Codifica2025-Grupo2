@@ -20,7 +20,7 @@ class ProdutoController extends Controller
         }
 
         if ($request->categoria) {
-            $query->where('categoria', $request->categoria);
+            $query->where('categoria_id', $request->categoria);
         }
 
         $produtos = $query->get();
@@ -38,7 +38,8 @@ class ProdutoController extends Controller
     }
 
     public function create() {
-        return view('admin.produtos.create');
+        $categorias = Categoria::all();
+        return view('admin.produtos.create', compact('categorias'));
     }
 
     public function store(Request $request) {
@@ -46,7 +47,7 @@ class ProdutoController extends Controller
         $validated = $request->validate([
             'nome' => 'required|string|min:3|max:255',
             'preco' => 'required|numeric|min:0',
-            'categoria' => 'required|string|max:255',
+            'categoria_id' => 'required|integer|exists:categorias,id',
             'descricao' => 'required|string',
             'quantidade' => 'required|integer|min:0',
             'imagem' => 'required|image|max:2048',
@@ -54,7 +55,9 @@ class ProdutoController extends Controller
             'nome.required' => 'O campo nome é obrigatório.',
             'nome.min' => 'O nome deve ter pelo menos 3 caracteres.',
             'preco.required' => 'O campo preço é obrigatório.',
-            'categoria.required' => 'O campo categoria é obrigatório.',
+            'categoria_id.required' => 'O campo categoria é obrigatório.',
+            'categoria_id.integer' => 'A categoria selecionada é inválida.',
+            'categoria_id.exists' => 'A categoria selecionada não existe.',
             'descricao.required' => 'O campo descrição é obrigatório.',
             'quantidade.required' => 'O campo estoque é obrigatório.',
             'preco.numeric' => 'O campo preço deve ser um número.',
@@ -70,7 +73,7 @@ class ProdutoController extends Controller
 
         $produto->nome = $validated['nome'];
         $produto->preco = $validated['preco'];
-        $produto->categoria = $validated['categoria'];
+        $produto->categoria_id = $validated['categoria_id'];
         $produto->descricao = $validated['descricao'];
         $produto->quantidade = $validated['quantidade'];
         if ($request->hasFile('imagem')) {
@@ -98,9 +101,13 @@ class ProdutoController extends Controller
         return view('');
     }
 
+
+    
+
     public function edit($id) {
         $produto = \App\Models\Produto::findOrFail($id);
-        return view('admin.produtos.edit', compact('produto'));
+        $categorias = Categoria::all();
+        return view('admin.produtos.edit', compact('produto', 'categorias'));
     }
 
     public function update(Request $request, $id) {
@@ -109,14 +116,16 @@ class ProdutoController extends Controller
         $validated = $request->validate([
             'nome' => 'required|string|max:255',
             'preco' => 'required|numeric|min:0',
-            'categoria' => 'required|string|max:255',
+            'categoria_id' => 'required|integer|exists:categorias,id',
             'descricao' => 'required|string',
             'quantidade' => 'required|integer|min:0',
             'imagem' => 'nullable|image|max:2048',
         ], [
             'nome.required' => 'O campo nome é obrigatório.',
             'preco.required' => 'O campo preço é obrigatório.',
-            'categoria.required' => 'O campo categoria é obrigatório.',
+            'categoria_id.required' => 'O campo categoria é obrigatório.',
+            'categoria_id.integer' => 'A categoria selecionada é inválida.',
+            'categoria_id.exists' => 'A categoria selecionada não existe.',
             'descricao.required' => 'O campo descrição é obrigatório.',
             'quantidade.required' => 'O campo estoque é obrigatório.',
             'preco.numeric' => 'O campo preço deve ser um número.',
@@ -129,9 +138,9 @@ class ProdutoController extends Controller
 
         $produto->nome = $validated['nome'];
         $produto->preco = $validated['preco'];
-        $produto->categoria = $validated['categoria'];
+        $produto->categoria_id = $validated['categoria_id'];
         $produto->descricao = $validated['descricao'];
-        $produto->quantidade = $validated['quantidades'];
+        $produto->quantidade = $validated['quantidade'];
 
         if ($request->hasFile('imagem')) {
             $caminho = $request->file('imagem')->store('produtos', 'public');

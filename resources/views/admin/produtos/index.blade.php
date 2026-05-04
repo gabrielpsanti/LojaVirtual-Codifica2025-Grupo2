@@ -11,7 +11,7 @@
             <select name="categoria">
                 <option value="">Todas as categorias</option>
                 @foreach($categorias as $categoria)
-                    <option value="{{ $categoria }}" {{ request('categoria') === $categoria->nome ? 'selected' : '' }}>{{ $categoria }}</option>
+                    <option value="{{ $categoria->id }}" {{ request('categoria') == $categoria->id ? 'selected' : '' }}>{{ $categoria->nome }}</option>
                 @endforeach
             </select>
 
@@ -53,12 +53,12 @@
 
             <!-- CATEGORIA -->
             <div class="celula grupo">
-                {{ $produto->categoria ?? 'Sem categoria' }}
+                {{ $produto->categoria->nome ?? 'Sem categoria' }}
             </div>
 
             <!-- QTD -->
             <div class="celula volume">
-                {{ $produto->estoque }} un
+                {{ $produto->quantidade }} un
             </div>
 
             <!-- PREÇO -->

@@ -37,7 +37,12 @@
                 <input type="text" name="nome" value="{{ $produto->nome }}">
 
                 <label>Categoria</label>
-                <input type="text" name="categoria" value="{{ $produto->categoria }}">
+                <select name="categoria_id">
+                    <option value="">Selecione uma categoria</option>
+                    @foreach($categorias as $categoria)
+                        <option value="{{ $categoria->id }}" {{ $produto->categoria_id == $categoria->id ? 'selected' : '' }}>{{ $categoria->nome }}</option>
+                    @endforeach
+                </select>
 
                 <label>Descrição</label>
                 <textarea name="descricao">{{ $produto->descricao }}</textarea>
@@ -45,7 +50,7 @@
                 <div class="dupla-coluna">
                     <div>
                         <label>Estoque</label>
-                        <input type="number" name="estoque" value="{{ $produto->estoque }}">
+                        <input type="number" name="quantidade" min="0" value="{{ $produto->quantidade }}">
                     </div>
 
                     <div>
