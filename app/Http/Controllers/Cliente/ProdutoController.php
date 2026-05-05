@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 
 class ProdutoController extends Controller
 {
-    public function index(Request $request)
+      public function index(Request $request)
     {
         $query = Produto::query();
 
@@ -21,16 +21,9 @@ class ProdutoController extends Controller
         }
 
         $produtos = $query->get();
-//        $categoriaFiltro = Produto::select('categoria')
-//            ->whereNotNull('categoria')
-//            ->where('categoria', '<>', '')
-//            ->distinct()
-//            ->orderBy('categoria')
-//            ->pluck('categoria');
+        
+        $categorias = \App\Models\Categoria::all(); 
 
-        $categorias = Categorias::all();
-
-        return view('admin.produtos.index', compact('produtos', 'categorias', ));
-
+        return view('components.cliente.produtos.index', compact('produtos', 'categorias'));
     }
 }
