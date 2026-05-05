@@ -42,7 +42,12 @@
                 <input type="text" name="nome" value="{{ old('nome') }}">
 
                 <label>Categoria</label>
-                <input type="text" name="categoria" value="{{ old('categoria') }}">
+                <select name="categoria_id">
+                    <option value="">Selecione uma categoria</option>
+                    @foreach($categorias as $categoria)
+                        <option value="{{ $categoria->id }}" {{ old('categoria_id') == $categoria->id ? 'selected' : '' }}>{{ $categoria->nome }}</option>
+                    @endforeach
+                </select>
 
                 <label>Descrição</label>
                 <textarea name="descricao">{{ old('descricao') }}</textarea>

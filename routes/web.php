@@ -139,4 +139,4 @@ Route::post('/cabecalho/contato/enviar', [CabecalhoContatoController::class, 'en
 
 // TESTE
 
-Route::get('/teste', [\App\Http\Controllers\TesteController::class, 'teste'])->name('teste');
+Route::get('/teste', [\App\Http\Controllers\TesteController::class, 'teste2'])->name('teste');
