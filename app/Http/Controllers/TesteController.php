@@ -13,4 +13,10 @@ class TesteController extends Controller
 
         return view('chloe-teste.teste', compact('categorias'));
     }
+
+    public function teste2()
+    {
+        return view('chloe-teste.teste');
+    }
+
 }

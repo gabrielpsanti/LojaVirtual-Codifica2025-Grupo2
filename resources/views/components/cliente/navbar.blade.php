@@ -16,7 +16,7 @@
         </div>
 
         <div id="lista-suspensa" class="transition-all duration-300 ease-in-out invisible opacity-0 absolute w-full left-0 bg-rosa-paleta mt-8">
-            <ul class="no-underline flex items-center justify-evenly gap-5 ">
+            <ul class="no-underline flex items-center justify-evenly gap-5">
                 @foreach($categorias as $categoria)
                     <li class="p-4 flex justify-center w-full hover:bg-rosa-100">
                         <a href="" class=" hover:text-azul-paleta">
@@ -51,16 +51,16 @@
 </ul>
 <script>
 
-    const mouseTarget = document.getElementById("botao-lista-suspensa");
+    const botao = document.getElementById("botao-lista-suspensa");
     const listaSuspensa = document.getElementById("lista-suspensa");
 
-    mouseTarget.addEventListener("mouseenter", (e) => {
+    botao.addEventListener("mouseenter", (e) => {
         e.stopPropagation();
         listaSuspensa.classList.remove("invisible", "opacity-0");
         listaSuspensa.classList.add("visible", "opacity-100");
     });
 
-    mouseTarget.addEventListener("mouseleave", (e) => {
+    botao.addEventListener("mouseleave", (e) => {
         listaSuspensa.addEventListener("mouseleave", (e2) => {
             e.stopPropagation();
             listaSuspensa.classList.add("invisible", "opacity-0");
