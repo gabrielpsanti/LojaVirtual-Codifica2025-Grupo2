@@ -126,4 +126,4 @@ Route::delete('/admin/descontos/{id}', [DescontoController::class, 'destroy'])->
 
 // TESTE
 
-Route::get('/teste', [\App\Http\Controllers\TesteController::class, 'teste'])->name('teste');
+Route::get('/teste', [\App\Http\Controllers\TesteController::class, 'teste2'])->name('teste');
