@@ -1,3 +1,4 @@
+<x-cliente.layout :categorias="$categorias ?? []">
 <link rel="stylesheet" href="{{ asset('css/contatocliente.css') }}">
 <div class="contato-container">
 
@@ -9,7 +10,7 @@
         </div>
     @endif
 
-    <form class="contato-form" method="POST" action="{{ route('cabecalho.contato.enviar') }}">
+    <form class="contato-form" method="POST" action="{{ route('index.contato.enviar') }}">
         @csrf
 
         <input type="text" name="nome" placeholder="Seu nome" required>
@@ -26,3 +27,4 @@
     </div>
 
 </div>
+</x-cliente.layout>

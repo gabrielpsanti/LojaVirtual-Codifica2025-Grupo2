@@ -10,7 +10,9 @@ class CabecalhoContatoController extends Controller
 {
     public function contato()
     {
-        return view('cliente.cabecalho.contato');
+        $categorias = \App\Models\Categoria::all();
+
+        return view('cliente.cabecalho.contato', compact('categorias'));
     }
 
    public function enviar(Request $request)
@@ -32,7 +34,7 @@ class CabecalhoContatoController extends Controller
         );
 
         return back()->with('success', 'Mensagem enviada com sucesso!');
-        
+
     } catch (\Exception $e) {
         dd($e->getMessage());
     }}}

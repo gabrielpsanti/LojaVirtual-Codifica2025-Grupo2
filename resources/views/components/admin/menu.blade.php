@@ -1,4 +1,4 @@
-<div class="w-fit h-screen left-0 p-5 bg-rosa-paleta">
+<div class="fixed w-fit h-screen left-0 p-5 bg-rosa-paleta">
     <div class="w-36 grid grid-cols-1 gap-6 justify-center">
         <div id="logo-div">
             <div id="logo-div" class="h-auto">
@@ -22,8 +22,7 @@
                                 <svg class="size-4" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--!Font Awesome Free v7.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.--><path d="M32 288c-12.9 0-24.6 7.8-29.6 19.8S.2 333.5 9.4 342.6l160 160c12.5 12.5 32.8 12.5 45.3 0l160-160c9.2-9.2 11.9-22.9 6.9-34.9S364.9 288 352 288L32 288z"/></svg>
                             </span>
                         </button>
-{{--                        <div class="w-36 grid grid-cols-1 rounded-b-md overflow-hidden transition duration-300 ease-in-out visible bg-verde-400">--}}
-                        <div class="grid grid-cols-1 rounded-b-md absolute -left-2500 top-auto w-1px h-1px overflow-hidden transition-[left] duration-300 ease-in-out invisible bg-verde-400">
+                        <div class="w-36 grid grid-cols-1 rounded-b-md absolute transition-all duration-300 ease-in-out invisible opacity-0 bg-verde-400">
                             <a href="{{ route('admin.produtos.index') }}" class="py-1 pl-2 hover:bg-verde-700">
                                 Ver estoque
                             </a>
@@ -41,8 +40,7 @@
                                 <svg class="size-4" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--!Font Awesome Free v7.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.--><path d="M32 288c-12.9 0-24.6 7.8-29.6 19.8S.2 333.5 9.4 342.6l160 160c12.5 12.5 32.8 12.5 45.3 0l160-160c9.2-9.2 11.9-22.9 6.9-34.9S364.9 288 352 288L32 288z"/></svg>
                             </span>
                         </button>
-                        {{--                        <div class="w-36 grid grid-cols-1 rounded-b-md overflow-hidden transition duration-300 ease-in-out visible bg-verde-400">--}}
-                        <div class="grid grid-cols-1 rounded-b-md absolute -left-2500 top-auto w-1px h-1px overflow-hidden transition-[left] duration-300 ease-in-out invisible bg-verde-400">
+                        <div class="w-36 grid grid-cols-1 rounded-b-md absolute transition-all duration-300 ease-in-out invisible opacity-0 bg-verde-400">
                             <a href="{{ route('admin.categorias.index') }}" class="py-1 pl-2 hover:bg-verde-700">
                                 Ver categorias
                             </a>
@@ -111,40 +109,20 @@
         const divLista = e.currentTarget.nextElementSibling;
 
         if (divLista.classList.contains("visible")) {
-            divLista.classList.add("absolute", "-left-2500", "top-auto", "w-1px", "h-1px");
-            divLista.classList.remove("w-36", "visible");
+            divLista.classList.add("invisible", "opacity-0", "absolute");
+            divLista.classList.remove("visible", "opacity-100");
 
         } else {
             const dropdownAtivo = document.getElementsByClassName("visible");
 
             if (dropdownAtivo.length > 0) {
-                dropdownAtivo[0].classList.add("absolute", "-left-2500", "top-auto", "w-1px", "h-1px");
-                dropdownAtivo[0].classList.remove("w-36", "visible");
+                dropdownAtivo[0].classList.add("invisible", "opacity-0", "absolute");
+                dropdownAtivo[0].classList.remove("visible", "opacity-100");
             }
 
-            divLista.classList.remove("absolute", "-left-2500", "top-auto", "w-1px", "h-1px");
-            divLista.classList.add("w-36", "visible");
+            divLista.classList.remove("invisible", "opacity-0", "absolute");
+            divLista.classList.add("visible", "opacity-100");
         }
     }
-
-    // function mostrarMenuSuspenso(e) {
-    //     const divLista = e.currentTarget.nextElementSibling;
-    //
-    //     if (divLista.classList.contains("visible")) {
-    //         divLista.classList.add("invisible", "opacity-0", "absolute");
-    //         divLista.classList.remove("visible", "opacity-100");
-    //
-    //     } else {
-    //         const dropdownAtivo = document.getElementsByClassName("visible");
-    //
-    //         if (dropdownAtivo.length > 0) {
-    //             dropdownAtivo[0].classList.add("invisible", "opacity-0", "absolute");
-    //             dropdownAtivo[0].classList.remove("visible", "opacity-100");
-    //         }
-    //
-    //         divLista.classList.remove("invisible", "opacity-0", "absolute");
-    //         divLista.classList.add("visible", "opacity-100");
-    //     }
-    // }
 
 </script>

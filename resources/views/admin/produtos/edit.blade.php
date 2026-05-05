@@ -1,3 +1,4 @@
+<x-admin.layout>
 <link rel="stylesheet" href="{{ asset('css/produtos/app.css') }}">
 
 <div class="cabecalho-pagina">
@@ -91,3 +92,4 @@
         });
     });
 </script>
+</x-admin.layout>

@@ -9,16 +9,22 @@ class CabecalhoController extends Controller
 {
     public function faq()
     {
-        return view('cliente.cabecalho.faq');
+        $categorias = \App\Models\Categoria::all();
+
+        return view('cliente.cabecalho.faq', compact('categorias'));
     }
 
     public function trocas()
     {
-        return view('cliente.cabecalho.trocas');
+        $categorias = \App\Models\Categoria::all();
+
+        return view('cliente.cabecalho.trocas', compact('categorias'));
     }
 
     public function quemSomos()
     {
-        return view('cliente.cabecalho.quem-somos');
+        $categorias = \App\Models\Categoria::all();
+
+        return view('cliente.cabecalho.quem-somos', compact('categorias'));
     }
 }
