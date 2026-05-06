@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Cliente;
 
 use App\Http\Controllers\Controller;
 use App\Models\Produto;
+use App\Models\Categoria;
 use Illuminate\Http\Request;
 
 class ProdutoController extends Controller
@@ -21,16 +22,28 @@ class ProdutoController extends Controller
         }
 
         $produtos = $query->get();
-//        $categoriaFiltro = Produto::select('categoria')
+        //        $categoriaFiltro = Produto::select('categoria')
 //            ->whereNotNull('categoria')
 //            ->where('categoria', '<>', '')
 //            ->distinct()
 //            ->orderBy('categoria')
 //            ->pluck('categoria');
 
-        $categorias = Categorias::all();
+        $categorias = Categoria::all();
 
-        return view('admin.produtos.index', compact('produtos', 'categorias', ));
+        return view('cliente.produtos.index', compact('produtos', 'categorias', ));
 
     }
+
+    //aqui estou criando a função que mostra a view do produto indidualmente
+    public function show(Request $request)
+    {
+
+        $produto = Produto::findOrFail($request->id);
+        $categorias = Categoria::all();
+
+        return view('cliente.produtos.show', compact('produto', 'categorias'));
+    }
+
+
 }

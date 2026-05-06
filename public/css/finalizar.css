@@ -1,0 +1,119 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    color: #2d3436;
+}
+
+main {
+    background-color: #fde8ea;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    min-height: calc(100vh - 100px);
+}
+
+.container {
+    text-align: center;
+    padding: 40px 20px;
+    background: #fff;
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    margin: 40px auto;
+}
+
+.container-icone {
+    font-size: 60px;
+    color: #2ecc71;
+    margin-bottom: 20px;
+    display: block;
+}
+
+.container h2 {
+    color: #2d3436;
+    margin-bottom: 10px;
+}
+
+.container p {
+    color: #636e72;
+}
+
+.container-qrcode {
+    margin: 30px auto;
+    padding: 20px;
+    border: 2px dashed #eee;
+    border-radius: 15px;
+    display: inline-block;
+    background: #f9f9f9;
+}
+
+.container-qrcode p {
+    font-weight: 600;
+    margin-bottom: 15px;
+    color: #2d3436;
+}
+
+.container-qrcode-imagem {
+    width: 200px;
+    height: 200px;
+    background: #fff;
+    display: block;
+    margin: 0 auto 15px;
+}
+
+.container-qrcode-p {
+    font-size: 0.85rem;
+    color: #636e72;
+}
+
+.container-qrcode-pix {
+    background: #f1f2f6;
+    padding: 15px;
+    border-radius: 10px;
+    font-family: monospace;
+    word-break: break-all;
+    font-size: 0.9rem;
+    color: #57606f;
+    margin-top: 10px;
+    border: 1px solid #dfe4ea;
+}
+
+.container-qrcode-botaoCopiar {
+    background: #3498db;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    margin-top: 10px;
+    transition: 0.3s;
+}
+
+.container-qrcode-botaoCopiar:hover {
+    background: #2980b9;
+}
+
+.container-total {
+    font-size: 1.5rem;
+    color: #27ae60;
+    font-weight: 700;
+    margin: 10px 0;
+}
+
+.container-botaoVoltar {
+    display: inline-block;
+    margin-top: 30px;
+    text-decoration: none;
+    color: #7f8c8d;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.container-botaoVoltar:hover {
+    color: #2d3436;
+}

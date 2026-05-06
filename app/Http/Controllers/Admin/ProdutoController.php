@@ -20,11 +20,11 @@ class ProdutoController extends Controller
         }
 
         if ($request->categoria) {
-            $query->where('categoria', $request->categoria);
+            $query->where('categoria_id', $request->categoria);
         }
 
         $produtos = $query->get();
-//        $categoriaFiltro = Produto::select('categoria')
+        //        $categoriaFiltro = Produto::select('categoria')
 //            ->whereNotNull('categoria')
 //            ->where('categoria', '<>', '')
 //            ->distinct()
@@ -37,11 +37,14 @@ class ProdutoController extends Controller
 
     }
 
-    public function create() {
-        return view('admin.produtos.create');
+    public function create()
+    {
+        $categorias = Categoria::all();
+        return view('admin.produtos.create', compact('categorias'));
     }
 
-    public function store(Request $request) {
+    public function store(Request $request)
+    {
 
         $validated = $request->validate([
             'nome' => 'required|string|min:3|max:255',
@@ -70,7 +73,7 @@ class ProdutoController extends Controller
 
         $produto->nome = $validated['nome'];
         $produto->preco = $validated['preco'];
-        $produto->categoria = $validated['categoria'];
+        $produto->categoria_id = $validated['categoria'];
         $produto->descricao = $validated['descricao'];
         $produto->quantidade = $validated['quantidade'];
         if ($request->hasFile('imagem')) {
@@ -98,12 +101,15 @@ class ProdutoController extends Controller
         return view('');
     }
 
-    public function edit($id) {
+    public function edit($id)
+    {
         $produto = \App\Models\Produto::findOrFail($id);
-        return view('admin.produtos.edit', compact('produto'));
+        $categorias = Categoria::all();
+        return view('admin.produtos.edit', compact('produto', 'categorias'));
     }
 
-    public function update(Request $request, $id) {
+    public function update(Request $request, $id)
+    {
         $produto = Produto::findOrFail($id);
 
         $validated = $request->validate([
@@ -129,9 +135,9 @@ class ProdutoController extends Controller
 
         $produto->nome = $validated['nome'];
         $produto->preco = $validated['preco'];
-        $produto->categoria = $validated['categoria'];
+        $produto->categoria_id = $validated['categoria'];
         $produto->descricao = $validated['descricao'];
-        $produto->quantidade = $validated['quantidades'];
+        $produto->quantidade = $validated['quantidade'];
 
         if ($request->hasFile('imagem')) {
             $caminho = $request->file('imagem')->store('produtos', 'public');
@@ -143,7 +149,8 @@ class ProdutoController extends Controller
         return redirect()->route('admin.produtos.index');
     }
 
-    public function destroy($id) {
+    public function destroy($id)
+    {
         Produto::destroy($id);
         return redirect()->route('admin.produtos.index');
     }
