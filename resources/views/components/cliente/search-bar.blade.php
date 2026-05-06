@@ -13,7 +13,7 @@
             class="w-full bg-cinza-50 text-black border border-cinza-300 placeholder-gray-500 rounded-[10px] p-2 text-sm outline-none focus:ring-1 focus:ring-indigo-500"
         >
 
-        <button type="submit" class="px-3 rounded hover:bg-rosa-100 transition-colors cursor-pointer" title="Buscar">
+        <button type="submit" class="px-3 rounded-full hover:bg-rosa-100 transition-colors cursor-pointer" title="Buscar">
             🔍
         </button>
     </form>
