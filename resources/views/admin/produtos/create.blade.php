@@ -1,5 +1,5 @@
+<x-admin.layout>
 <link rel="stylesheet" href="{{ asset('css/produtos/app.css') }}">
-
 <div class="cabecalho-pagina">
     <h1>Cadastro de Produto</h1>
 </div>
@@ -96,3 +96,4 @@
         });
     });
 </script>
+</x-admin.layout>

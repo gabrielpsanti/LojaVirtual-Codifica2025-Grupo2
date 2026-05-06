@@ -1,3 +1,4 @@
+<x-admin.layout>
 <link rel="stylesheet" href="{{ asset('css/produtos/app.css') }}">
 <link rel="stylesheet" href="{{ asset('css/base.css') }}">
 
@@ -81,3 +82,4 @@
     @endforeach
 
 </div>
+</x-admin.layout>

@@ -1,6 +1,6 @@
+<x-admin.layout>
 <link rel="stylesheet" href="{{ asset('css/produtos/app.css') }}">
 <link rel="stylesheet" href="{{ asset('css/base.css') }}">
-
 <div class="cabecalho-pagina">
     <h1>Editar Categoria</h1>
 </div>
@@ -29,3 +29,4 @@
     </form>
 
 </div>
+</x-admin.layout>

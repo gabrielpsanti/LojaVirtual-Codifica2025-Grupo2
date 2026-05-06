@@ -1,3 +1,4 @@
+<x-cliente.layout :categorias="$categorias ?? []">
 <link rel="stylesheet" href="{{ asset('css/cabecalhocliente.css') }}">
 
 <div class="container">
@@ -32,3 +33,4 @@
 
     </div>
 </div>
+</x-cliente.layout>

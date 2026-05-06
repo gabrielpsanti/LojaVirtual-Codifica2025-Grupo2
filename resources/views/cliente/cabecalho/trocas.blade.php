@@ -1,3 +1,4 @@
+<x-cliente.layout :categorias="$categorias ?? []">
 <link rel="stylesheet" href="{{ asset('css/cabecalhocliente.css') }}">
 
 <div class="container">
@@ -6,7 +7,7 @@
         <h1 class="titulo">Trocas e Devoluções🧶</h1>
 
         <p class="texto">
-        Como trabalhamos com peças artesanais, não realizamos trocas. 
+        Como trabalhamos com peças artesanais, não realizamos trocas.
         Pedimos que confira bem as descrições antes da compra.
         </p><br> </br>
 
@@ -33,3 +34,4 @@
 
     </div>
 </div>
+</x-cliente.layout>
