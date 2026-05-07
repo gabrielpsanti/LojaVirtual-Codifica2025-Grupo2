@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Produto;
 use App\Models\Categoria;
+use App\Models\ProdutoImagem;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 // use App\Models\Categoria;
 
@@ -13,7 +15,8 @@ class ProdutoController extends Controller
 {
     public function index(Request $request)
     {
-        $query = Produto::query();
+//        $query = Produto::query();
+        $query = Produto::with('imagens');
 
         if ($request->nome) {
             $query->where('nome', 'like', '%' . $request->nome . '%');
@@ -24,7 +27,7 @@ class ProdutoController extends Controller
         }
 
         $produtos = $query->get();
-        //        $categoriaFiltro = Produto::select('categoria')
+//        $categoriaFiltro = Produto::select('categoria')
 //            ->whereNotNull('categoria')
 //            ->where('categoria', '<>', '')
 //            ->distinct()
@@ -52,7 +55,8 @@ class ProdutoController extends Controller
             'categoria_id' => 'required|integer|exists:categorias,id',
             'descricao' => 'required|string',
             'quantidade' => 'required|integer|min:0',
-            'imagem' => 'required|image|max:2048',
+            'imagens' => 'required|array|min:1',
+            'imagens.*' => 'image|max:2048',
         ], [
             'nome.required' => 'O campo nome é obrigatório.',
             'nome.min' => 'O nome deve ter pelo menos 3 caracteres.',
@@ -72,6 +76,11 @@ class ProdutoController extends Controller
         ]);
 
         $produto = new \App\Models\Produto();
+        $caminhos = [];
+
+        foreach ($request->file('imagens', []) as $imagem) {
+            $caminhos[] = $imagem->store('produtos', 'public');
+        }
 
         $produto->nome = $validated['nome'];
         $produto->preco = $validated['preco'];
@@ -79,16 +88,15 @@ class ProdutoController extends Controller
 //         $produto->categoria_id = $validated['categoria_id'];
         $produto->descricao = $validated['descricao'];
         $produto->quantidade = $validated['quantidade'];
-        if ($request->hasFile('imagem')) {
-            $caminho = $request->file('imagem')->store('produtos', 'public');
-            $produto->imagem = $caminho;
-        } else {
-            $produto->imagem = null;
-        }
+        $produto->imagem = $caminhos[0] ?? null;
 
         $produto->save();
 
-        return to_route('admin.produtos.index');
+        foreach ($caminhos as $caminho) {
+            $produto->imagens()->create(['caminho' => $caminho]);
+        }
+
+        return redirect()->route('admin.produtos.index');
     }
 
     //Como é o cliente, o método só vai mostrar o produto na view de show
@@ -104,9 +112,9 @@ class ProdutoController extends Controller
         return view('');
     }
 
-    public function edit($id)
-    {
-        $produto = \App\Models\Produto::findOrFail($id);
+
+    public function edit($id) {
+        $produto = \App\Models\Produto::with('imagens')->findOrFail($id);
         $categorias = Categoria::all();
         return view('admin.produtos.edit', compact('produto', 'categorias'));
     }
@@ -121,7 +129,8 @@ class ProdutoController extends Controller
             'categoria_id' => 'required|integer|exists:categorias,id',
             'descricao' => 'required|string',
             'quantidade' => 'required|integer|min:0',
-            'imagem' => 'nullable|image|max:2048',
+            'imagens' => 'nullable|array',
+            'imagens.*' => 'image|max:2048',
         ], [
             'nome.required' => 'O campo nome é obrigatório.',
             'preco.required' => 'O campo preço é obrigatório.',
@@ -145,9 +154,15 @@ class ProdutoController extends Controller
         $produto->descricao = $validated['descricao'];
         $produto->quantidade = $validated['quantidade'];
 
-        if ($request->hasFile('imagem')) {
-            $caminho = $request->file('imagem')->store('produtos', 'public');
-            $produto->imagem = $caminho;
+        if ($request->hasFile('imagens')) {
+            foreach ($request->file('imagens', []) as $imagem) {
+                $caminho = $imagem->store('produtos', 'public');
+                $produto->imagens()->create(['caminho' => $caminho]);
+
+                if (!$produto->imagem) {
+                    $produto->imagem = $caminho;
+                }
+            }
         }
 
         $produto->save();
@@ -155,10 +170,35 @@ class ProdutoController extends Controller
         return to_route('admin.produtos.index');
     }
 
-    public function destroy($id)
+    public function destroy($id) {
+        $produto = Produto::with('imagens')->findOrFail($id);
+
+        foreach ($produto->imagens as $imagem) {
+            Storage::disk('public')->delete($imagem->caminho);
+        }
+
+        if ($produto->imagem) {
+            Storage::disk('public')->delete($produto->imagem);
+        }
+
+        $produto->delete();
+        return redirect()->route('admin.produtos.index');
+    }
+
+    public function destroyImagem($id)
     {
-        Produto::destroy($id);
-        return to_route('admin.produtos.index');
+        $imagem = ProdutoImagem::with('produto')->findOrFail($id);
+        $produto = $imagem->produto;
+
+        Storage::disk('public')->delete($imagem->caminho);
+        $imagem->delete();
+
+        if ($produto && $produto->imagem === $imagem->caminho) {
+            $produto->imagem = $produto->imagens()->value('caminho') ?? '';
+            $produto->save();
+        }
+
+        return back();
     }
 
 
