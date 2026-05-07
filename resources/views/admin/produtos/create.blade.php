@@ -1,5 +1,5 @@
+<x-admin.layout>
 <link rel="stylesheet" href="{{ asset('css/produtos/app.css') }}">
-
 <div class="cabecalho-pagina">
     <h1>Cadastro de Produto</h1>
 </div>
@@ -48,6 +48,12 @@
                         <option value="{{ $categoria->id }}" {{ old('categoria') == $categoria->id ? 'selected' : '' }}>
                             {{ $categoria->nome }}
                         </option>
+                    //comentar
+                <select name="categoria_id">
+                    <option value="">Selecione uma categoria</option>
+                    @foreach($categorias as $categoria)
+                        <option value="{{ $categoria->id }}" {{ old('categoria_id') == $categoria->id ? 'selected' : '' }}>{{ $categoria->nome }}</option>
+                    //comentar
                     @endforeach
                 </select>
 
@@ -98,3 +104,4 @@
         });
     });
 </script>
+</x-admin.layout>

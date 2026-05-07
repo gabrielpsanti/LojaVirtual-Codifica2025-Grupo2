@@ -1,3 +1,4 @@
+<x-admin.layout>
 <link rel="stylesheet" href="{{ asset('css/produtos/app.css') }}">
 
 <div class="cabecalho-pagina">
@@ -43,6 +44,12 @@
                         <option value="{{ $categoria->id }}" {{ $produto->categoria_id == $categoria->id ? 'selected' : '' }}>
                             {{ $categoria->nome }}
                         </option>
+                    //comentar
+                <select name="categoria_id">
+                    <option value="">Selecione uma categoria</option>
+                    @foreach($categorias as $categoria)
+                        <option value="{{ $categoria->id }}" {{ $produto->categoria_id == $categoria->id ? 'selected' : '' }}>{{ $categoria->nome }}</option>
+                    //comentar
                     @endforeach
                 </select>
 
@@ -52,7 +59,7 @@
                 <div class="dupla-coluna">
                     <div>
                         <label>Estoque</label>
-                        <input type="number" name="estoque" value="{{ $produto->estoque }}">
+                        <input type="number" name="quantidade" min="0" value="{{ $produto->quantidade }}">
                     </div>
 
                     <div>
@@ -93,3 +100,4 @@
         });
     });
 </script>
+</x-admin.layout>

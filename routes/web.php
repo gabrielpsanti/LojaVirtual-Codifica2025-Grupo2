@@ -26,7 +26,7 @@ Route::post('/cadastro/registro', [LoginController::class, 'store'])->name('cada
 
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
-// ROTAS CLIENTES PAGINA INICIAL E MAIS
+// ROTAS CLIENTES PAGINA INICIAL
 
 //Route::get('/', function () {
 //    return to_route('produtos.index');
@@ -34,9 +34,20 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 Route::get('/', [ProdutoClienteController::class, 'index'])->name('index');
 
-Route::get('/contato', [ProdutoClienteController::class, 'contato'])->name('index.contato');
-Route::get('/trocas-e-devolucoes', [ProdutoClienteController::class, 'trocasDevolucoes'])->name('index.trocas-devolucoes');
-Route::get('/sobre-nos', [ProdutoClienteController::class, 'sobreNos'])->name('index.sobre-nos');
+// ROTAS CABEÇALHO (HEADER) CLIENTE
+
+Route::get('/faq', [CabecalhoController::class, 'faq'])->name('index.faq');
+Route::get('/trocas-e-devolucoes', [CabecalhoController::class, 'trocas'])->name('index.trocas-devolucoes');
+Route::get('/quem-somos', [CabecalhoController::class, 'quemSomos'])->name('index.quem-somos');
+
+// ROTAS CABEÇALHO (HEADER) CLIENTE CONTATO
+
+Route::get('/contato', [CabecalhoContatoController::class, 'contato'])->name('index.contato');
+Route::post('/contato/enviar', [CabecalhoContatoController::class, 'enviar'])->name('index.contato.enviar');
+
+//Route::get('/contato', [ProdutoClienteController::class, 'contato'])->name('index.contato');
+//Route::get('', [ProdutoClienteController::class, 'trocasDevolucoes'])->name('index.trocas-devolucoes');
+//Route::get('/sobre-nos', [ProdutoClienteController::class, 'sobreNos'])->name('index.sobre-nos');
 
 // ROTAS CLIENTES PRODUTOS
 
@@ -82,7 +93,7 @@ Route::get('/checkout/sucesso', [CompraController::class, 'sucesso'])->name('che
 
 // ROTAS ADMIN DASHBOARD (INDEX, PÁGINA INICIAL)
 
-Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
+Route::get('/admin', [DashboardController::class, 'index'])->name('admin.dashboard');
 
 // ROTAS ADMIN CATEGORIAS
 
@@ -134,17 +145,6 @@ Route::put('/admin/descontos/{id}', [DescontoController::class, 'update'])->name
 
 Route::delete('/admin/descontos/{id}', [DescontoController::class, 'destroy'])->name('admin.descontos.deletar');
 
-//CABEÇALHO(HEADER) CLIENTE
-
-Route::get('/cabecalho/faq', [CabecalhoController::class, 'faq'])->name('cabecalho.faq');
-Route::get('/cabecalho/trocas', [CabecalhoController::class, 'trocas'])->name('cabecalho.trocas');
-Route::get('/cabecalho/quem-somos', [CabecalhoController::class, 'quemSomos'])->name('cabecalho.quem-somos');
-
-//CABEÇALHO(HEADER) CLIENTE CONTATO
-
-Route::get('/cabecalho/contato', [CabecalhoContatoController::class, 'contato'])->name('cabecalho.contato');
-Route::post('/cabecalho/contato/enviar', [CabecalhoContatoController::class, 'enviar'])->name('cabecalho.contato.enviar');
-
 // TESTE
 
-Route::get('/teste', [\App\Http\Controllers\TesteController::class, 'teste'])->name('teste');
+Route::get('/teste', [\App\Http\Controllers\TesteController::class, 'teste2'])->name('teste');

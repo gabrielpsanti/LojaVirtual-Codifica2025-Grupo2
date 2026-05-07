@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 
 class ProdutoController extends Controller
 {
-    public function index(Request $request)
+      public function index(Request $request)
     {
         $query = Produto::query();
 
@@ -33,6 +33,7 @@ class ProdutoController extends Controller
 
         return view('cliente.produtos.index', compact('produtos', 'categorias', ));
 
+//         return view('components.cliente.produtos.index', compact('produtos', 'categorias'));
     }
 
     //aqui estou criando a função que mostra a view do produto indidualmente

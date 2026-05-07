@@ -352,7 +352,8 @@ h2 {
 }
 
 .coluna-campos input, 
-.coluna-campos textarea {
+.coluna-campos textarea,
+.coluna-campos select {
     width: 100%;
     padding: 12px;
     border: 1px solid var(--cinza-300);

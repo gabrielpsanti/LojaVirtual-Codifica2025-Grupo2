@@ -8,11 +8,14 @@
 </head>
 <body>
 
-<x-admin.menu/>
-
-<main>
-    {{ $slot }}
-</main>
+<div class="grid grid-cols-[min-content_auto]">
+    <span>
+        <x-admin.menu/>
+    </span>
+    <main>
+        {{ $slot }}
+    </main>
+</div>
 
 <x-footer/>
 
