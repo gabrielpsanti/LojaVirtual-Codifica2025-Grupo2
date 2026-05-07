@@ -1,17 +1,21 @@
-<link rel="stylesheet" href="{{ asset('css/app.css') }}">
+<link rel="stylesheet" href="{{ asset('css/admin/vendas.css') }}">
 
 <div class="painel-controle">
     <h1>Histórico de Vendas</h1>
 
     <div class="area-ferramentas">
         <form class="filtro-busca" method="GET" action="{{ route('admin.vendas.index') }}">
-            <input type="text" name="cliente" placeholder="Buscar cliente..." value="{{ request('cliente') }}">
+            <input class="input-escrito" type="text" name="cliente" placeholder="Buscar cliente..." value="{{ request('cliente') }}">
 
-            <input type="date" name="data_inicio" placeholder="Data início" value="{{ request('data_inicio') }}">
-            <input type="date" name="data_fim" placeholder="Data fim" value="{{ request('data_fim') }}">
+            <input class="input-data" type="date" name="data_inicio" placeholder="Data início" value="{{ request('data_inicio') }}">
+            <input class="input-data" type="date" name="data_fim" placeholder="Data fim" value="{{ request('data_fim') }}">
 
             <button type="submit" class="btn-buscar">Buscar</button>
         </form>
+
+        <a href="{{ route('admin.vendas.criar') }}" class="btn-adicionar">
+            Nova Venda
+        </a>
     </div>
 </div>
 

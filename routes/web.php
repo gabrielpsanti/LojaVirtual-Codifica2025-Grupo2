@@ -5,11 +5,12 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\CategoriaController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\DescontoController;
+use App\Http\Controllers\Admin\EnderecoController as EnderecoAdminController;
 use App\Http\Controllers\Admin\ProdutoController as ProdutoAdminController;
 use App\Http\Controllers\Admin\VendaController;
 // CLIENTE
 use App\Http\Controllers\Cliente\CompraController;
-use App\Http\Controllers\Cliente\EnderecoController;
+use App\Http\Controllers\Cliente\EnderecoController as EnderecoClienteController;
 use App\Http\Controllers\Cliente\LoginController;
 use App\Http\Controllers\Cliente\ProdutoController as ProdutoClienteController;
 use App\Http\Controllers\Cliente\UsuarioController;
@@ -69,10 +70,10 @@ Route::put('/conta', [UsuarioController::class, 'update'])->name('usuario.atuali
 
 // ROTAS CLIENTES ENDEREÇOS
 
-Route::get('/conta/enderecos', [EnderecoController::class, 'index'])->name('usuario.enderecos');
+Route::get('/conta/enderecos', [EnderecoClienteController::class, 'index'])->name('usuario.enderecos');
 
-Route::get('/conta/enderecos/{id}/editar', [EnderecoController::class, 'edit'])->name('usuario.enderecos.editar');
-Route::put('/conta/enderecos/{id}', [EnderecoController::class, 'update'])->name('usuario.enderecos.atualizar');
+Route::get('/conta/enderecos/{id}/editar', [EnderecoClienteController::class, 'edit'])->name('usuario.enderecos.editar');
+Route::put('/conta/enderecos/{id}', [EnderecoClienteController::class, 'update'])->name('usuario.enderecos.atualizar');
 
 // ROTAS CLIENTES CHECKOUT
 
@@ -145,6 +146,6 @@ Route::put('/admin/descontos/{id}', [DescontoController::class, 'update'])->name
 
 Route::delete('/admin/descontos/{id}', [DescontoController::class, 'destroy'])->name('admin.descontos.deletar');
 
-// TESTE
+// ROTAS ADMIN ENDEREÇOS
 
-Route::get('/teste', [\App\Http\Controllers\TesteController::class, 'teste2'])->name('teste');
+Route::get('/conta/enderecos', [EnderecoAdminController::class, 'index'])->name('admin.enderecos');

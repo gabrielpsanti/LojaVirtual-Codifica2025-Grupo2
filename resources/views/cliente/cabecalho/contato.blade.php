@@ -1,5 +1,5 @@
 <x-cliente.layout :categorias="$categorias ?? []">
-<link rel="stylesheet" href="{{ asset('css/contatocliente.css') }}">
+<link rel="stylesheet" href="{{ asset('css/cliente/contatocliente.css') }}">
 <div class="contato-container">
 
     <h1>Contato🧶</h1>
