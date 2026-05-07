@@ -28,12 +28,13 @@
         <div class="estrutura-form">
 
             <div class="caixa-anexo">
-                <label for="imagem">
-                    <div class="zona-preview">
-                        <br>Clique para selecionar uma imagem
+                <label for="imagens">
+                    <div class="zona-preview" id="preview-container">
+                        Clique para selecionar imagens
                     </div>
                 </label>
-                <input type="file" name="imagem" id="imagem">
+                <input type="file" name="imagens[]" id="imagens" multiple accept="image/*">
+                <div id="imagens-selecionadas" class="imagens-preview-container"></div>
             </div>
 
             <div class="coluna-campos">
@@ -94,6 +95,29 @@
                 reader.readAsDataURL(this.files[0]);
             }
         });
+    });
+</script>
+<script>
+    document.getElementById('imagens').addEventListener('change', function() {
+        const container = document.getElementById('imagens-selecionadas');
+        container.innerHTML = '';
+
+        if (this.files && this.files.length > 0) {
+            Array.from(this.files).forEach((file, index) => {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const div = document.createElement('div');
+                    div.className = 'imagem-preview-item';
+                    div.innerHTML = `
+                        <div class="imagem-wrapper">
+                            <img src="${e.target.result}" class="imagem-carregada-thumbnail" alt="Preview ${index + 1}">
+                        </div>
+                    `;
+                    container.appendChild(div);
+                };
+                reader.readAsDataURL(file);
+            });
+        }
     });
 </script>
 </x-admin.layout>

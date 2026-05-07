@@ -20,16 +20,31 @@
         <div class="estrutura-form">
 
             <div class="caixa-anexo">
-                <label for="imagem">
+                @php
+                    $imagemPrincipal = $produto->imagens->first();
+                @endphp
+
+                <label for="imagens">
                     <div class="zona-preview">
-                        @if($produto->imagem)
-                            <img src="{{ asset('storage/' . $produto->imagem) }}" class="imagem-carregada">
+                        @if($imagemPrincipal)
+                            <img src="{{ asset('storage/' . $imagemPrincipal->caminho) }}" class="imagem-carregada" alt="Imagem principal do produto">
                         @else
-                            📷<br>Clique para alterar
+                            Clique para alterar imagem
                         @endif
                     </div>
                 </label>
-                <input type="file" name="imagem" id="imagem">
+                <input type="file" name="imagens[]" id="imagens" multiple accept="image/*">
+
+                <div id="imagens-selecionadas" class="imagens-preview-container">
+                    @foreach($produto->imagens as $imagem)
+                        <div class="imagem-preview-item">
+                            <div class="imagem-wrapper">
+                                <img src="{{ asset('storage/' . $imagem->caminho) }}" class="imagem-carregada-thumbnail" alt="Imagem do produto">
+                                <button type="submit" form="deletar-imagem-{{ $imagem->id }}" class="btn-remover-imagem" onclick="return confirm('Tem certeza?')">X</button>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
             </div>
 
             <div class="coluna-campos">
@@ -71,6 +86,13 @@
 
     </form>
 
+    @foreach($produto->imagens as $imagem)
+        <form id="deletar-imagem-{{ $imagem->id }}" method="POST" action="{{ route('admin.produtos.deletarImagem', $imagem->id) }}">
+            @csrf
+            @method('DELETE')
+        </form>
+    @endforeach
+
 </div>
 
 <script>
@@ -90,6 +112,28 @@
                 reader.readAsDataURL(this.files[0]);
             }
         });
+    });
+</script>
+<script>
+    document.getElementById('imagens').addEventListener('change', function() {
+        const container = document.getElementById('imagens-selecionadas');
+
+        if (this.files && this.files.length > 0) {
+            Array.from(this.files).forEach((file, index) => {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const div = document.createElement('div');
+                    div.className = 'imagem-preview-item';
+                    div.innerHTML = `
+                        <div class="imagem-wrapper">
+                            <img src="${e.target.result}" class="imagem-carregada-thumbnail" alt="Preview ${index + 1}">
+                        </div>
+                    `;
+                    container.appendChild(div);
+                };
+                reader.readAsDataURL(file);
+            });
+        }
     });
 </script>
 </x-admin.layout>
