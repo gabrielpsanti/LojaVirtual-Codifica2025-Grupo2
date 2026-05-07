@@ -16,10 +16,10 @@
         </div>
 
         <div id="lista-suspensa" class="transition-all duration-300 ease-in-out invisible opacity-0 absolute w-full left-0 bg-rosa-100 mt-5">
-            <ul class="no-underline flex items-center justify-evenly gap-5">
+            <ul class="no-underline flex items-center justify-evenly">
                 @foreach($categorias as $categoria)
-                    <li class="p-4 flex justify-center w-full hover:bg-rosa-50">
-                        <a href="" class=" hover:text-azul-paleta">
+                    <li class="flex justify-center w-full hover:bg-rosa-50">
+                        <a href="{{ route('produtos.categoria', $categoria->rota) }}" class="block w-full h-full p-4 text-center hover:text-azul-paleta">
                             {{ $categoria->nome }}
                         </a>
                     </li>

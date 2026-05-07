@@ -1,4 +1,4 @@
-<header id="scrolling-header" class="fixed bg-rosa-paleta px-6 py-3 text-indigo-500 border-b border-rosa-100 shadow-sm transition-all duration-500 ease-in">
+<header id="scrolling-header" class="z-5 fixed bg-rosa-paleta px-6 py-3 text-indigo-500 border-b border-rosa-100 shadow-sm transition-all duration-500 ease-in">
 
     <div class="flex items-center justify-between gap-4">
 
@@ -19,7 +19,14 @@
             <x-cliente.navbar :categorias="$categorias"/>
 
             <div class="flex gap-4 text-xl">
-                <a href="{{ route('usuario.index') }}" title="Minha Conta" class="hover:scale-110 transition-transform">👤</a>
+                <a href="
+                @guest()
+                    {{ route('login') }}
+                @endguest()
+                @auth()
+                    {{ route('usuario.index') }}
+                @endauth()
+                " title="Minha Conta" class="hover:scale-110 transition-transform">👤</a>
                 <a href="{{ route('checkout.carrinho.view') }}" title="Meu Carrinho" class="hover:scale-110 transition-transform">🛒</a>
             </div>
 

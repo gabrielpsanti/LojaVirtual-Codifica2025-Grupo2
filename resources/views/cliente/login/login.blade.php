@@ -1,3 +1,3 @@
-<div>
+<x-cliente.layout :categorias="$categorias">
     <x-cliente.login.login/>
-</div>
+</x-cliente.layout>

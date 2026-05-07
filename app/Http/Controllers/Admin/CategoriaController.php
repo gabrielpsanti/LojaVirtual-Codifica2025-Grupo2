@@ -4,11 +4,18 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Categoria;
+use App\Repositories\CategoriaRepository;
 use Illuminate\Http\Request;
 
 class CategoriaController extends Controller
-
 {
+    private CategoriaRepository $categoriaRepository;
+
+    public function __construct(CategoriaRepository $categoriaRepository)
+    {
+        $this->categoriaRepository = $categoriaRepository;
+    }
+
     public function index(Request $request)
     {
         $query = Categoria::query();
@@ -36,12 +43,14 @@ class CategoriaController extends Controller
             'nome.min' => 'O nome deve ter pelo menos 3 caracteres.',
         ]);
 
+        $rotaCategoria = $this->categoriaRepository->nomeDaRota($request->nome);
+
         Categoria::create([
-            'nome' => $validated['nome']
-//            'nome' => $request->nome
+            'nome' => trim($validated['nome']),
+            'rota' => $rotaCategoria
         ]);
 
-        return redirect()->route('admin.categorias.index');
+        return to_route('admin.categorias.index');
     }
 
     public function edit($id)
@@ -61,17 +70,19 @@ class CategoriaController extends Controller
             'nome.min' => 'O nome deve ter pelo menos 3 caracteres.',
         ]);
 
+        $rotaCategoria = $this-$categoriaRepository->nomeDaRota($request->nome);
+
         $categoria->update([
-            'nome' => $validated['nome']
-//            'nome' => $request->nome
+            'nome' => trim($validated['nome']),
+            'rota' => $rotaCategoria
         ]);
 
-        return redirect()->route('admin.categorias.index');
+        return to_route('admin.categorias.index');
     }
 
     public function destroy($id)
     {
         Categoria::findOrFail($id)->delete();
-        return redirect()->route('admin.categorias.index');
+        return to_route('admin.categorias.index');
     }
 }

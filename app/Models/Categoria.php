@@ -8,13 +8,14 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Categoria extends Model
 {
     use SoftDeletes;
-  
+
     protected $table = 'categorias';
 
     protected $fillable = [
-        'nome'
+        'nome',
+        'rota'
     ];
-  
+
     // Relacionamento: Uma categoria contém vários produtos
     public function produtos()
     {
