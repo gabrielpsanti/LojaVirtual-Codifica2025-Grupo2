@@ -51,9 +51,14 @@ Route::post('/contato/enviar', [CabecalhoContatoController::class, 'enviar'])->n
 
 // ROTAS CLIENTES PRODUTOS
 
-Route::get('/produtos', [ProdutoClienteController::class, 'todos'])->name('produtos.todos');
+Route::get('/produtos', [ProdutoClienteController::class, 'index'])->name('produtos.todos');
 //Route::get('/{categoria}', [ProdutoClienteController::class, 'categoria'])->name('produtos.categoria');
 Route::get('/produtos/{id}', [ProdutoClienteController::class, 'show'])->name('produtos.detalhes');
+
+// ROTAS CLIENTES CARRINHO E CHECKOUT
+
+Route::get('/carrinho', [CompraController::class, 'index'])->name('carrinho.index');
+Route::delete('/carrinho/remover/{id}', [CompraController::class, 'remover'])->name('carrinho.remover');
 
 // ROTAS CLIENTES CONTA
 
@@ -82,6 +87,9 @@ Route::post('/checkout/pedido', [CompraController::class, 'pedido'])->name('chec
 
 Route::get('/checkout/pagamento', [CompraController::class, 'pagamentoView'])->name('checkout.pagamento.view');
 Route::post('/checkout/pagamento', [CompraController::class, 'pagamento'])->name('checkout.pagamento');
+
+Route::post('/checkout/finalizar', [CompraController::class, 'finalizar'])->name('checkout.finalizar');
+Route::get('/checkout/sucesso', [CompraController::class, 'sucesso'])->name('checkout.sucesso');
 
 // ROTAS ADMIN DASHBOARD (INDEX, PÁGINA INICIAL)
 

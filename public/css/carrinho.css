@@ -1,0 +1,120 @@
+main {
+    background-color: #fde8ea;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    width: 1200px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+    background: #fff;
+    border-radius: 20px;
+}
+
+/* Barra de etapas centralizada */
+.container-estapas {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    background-color: #f5f5f5;
+    border-radius: 12px;
+    padding: 15px;
+    text-align: center;
+}
+
+.container-estapas div {
+    flex: 1;
+    font-weight: 600;
+    color: #636e72;
+}
+
+.container-estapas p {
+    margin: 0;
+}
+
+/* Formulário de Input */
+.container-input,
+.container-pagamentos,
+.container-info-pedido {
+    width: 100%;
+    max-width: 600px;
+    /* Limita a largura dos formulários para não ficarem gigantes */
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.input {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    font-size: 1rem;
+}
+
+button {
+    padding: 15px;
+    background: #e67e22;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #d35400;
+}
+
+.botao-excluir {
+    background: #ff7675;
+    color: white;
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    width: auto;
+    box-shadow: none;
+}
+
+.botao-excluir:hover {
+    background: #d63031;
+}
+
+/* Estilização para as seções de resumo */
+.container-produtos,
+.resumo-total {
+    width: 100%;
+    max-width: 600px;
+    padding: 20px;
+    background: #fdfdfd;
+    border: 1px solid #eee;
+    border-radius: 15px;
+}
+
+.container-item-carrinho {
+    border-bottom: 1px solid #eee;
+    padding: 15px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+h3,
+h4 {
+    margin-bottom: 10px;
+    color: #2d3436;
+}
+
+select {
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    width: 100%;
+}

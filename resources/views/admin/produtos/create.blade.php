@@ -42,10 +42,18 @@
                 <input type="text" name="nome" value="{{ old('nome') }}">
 
                 <label>Categoria</label>
+                <select name="categoria">
+                    <option value="">Selecione uma categoria</option>
+                    @foreach($categorias as $categoria)
+                        <option value="{{ $categoria->id }}" {{ old('categoria') == $categoria->id ? 'selected' : '' }}>
+                            {{ $categoria->nome }}
+                        </option>
+                    //comentar
                 <select name="categoria_id">
                     <option value="">Selecione uma categoria</option>
                     @foreach($categorias as $categoria)
                         <option value="{{ $categoria->id }}" {{ old('categoria_id') == $categoria->id ? 'selected' : '' }}>{{ $categoria->nome }}</option>
+                    //comentar
                     @endforeach
                 </select>
 

@@ -22,9 +22,29 @@ class ProdutoController extends Controller
         }
 
         $produtos = $query->get();
-        
-        $categorias = \App\Models\Categoria::all(); 
+        //        $categoriaFiltro = Produto::select('categoria')
+//            ->whereNotNull('categoria')
+//            ->where('categoria', '<>', '')
+//            ->distinct()
+//            ->orderBy('categoria')
+//            ->pluck('categoria');
 
-        return view('components.cliente.produtos.index', compact('produtos', 'categorias'));
+        $categorias = Categoria::all();
+
+        return view('cliente.produtos.index', compact('produtos', 'categorias', ));
+
+//         return view('components.cliente.produtos.index', compact('produtos', 'categorias'));
     }
+
+    //aqui estou criando a função que mostra a view do produto indidualmente
+    public function show(Request $request)
+    {
+
+        $produto = Produto::findOrFail($request->id);
+        $categorias = Categoria::all();
+
+        return view('cliente.produtos.show', compact('produto', 'categorias'));
+    }
+
+
 }
