@@ -52,8 +52,8 @@ Route::post('/contato/enviar', [CabecalhoContatoController::class, 'enviar'])->n
 
 // ROTAS CLIENTES PRODUTOS
 
-Route::get('/produtos', [ProdutoClienteController::class, 'index'])->name('produtos.todos');
-//Route::get('/{categoria}', [ProdutoClienteController::class, 'categoria'])->name('produtos.categoria');
+Route::get('/produtos', [ProdutoClienteController::class, 'todos'])->name('produtos.todos');
+Route::get('/{categoria}', [ProdutoClienteController::class, 'categoria'])->name('produtos.categoria');
 Route::get('/produtos/{id}', [ProdutoClienteController::class, 'show'])->name('produtos.detalhes');
 
 // ROTAS CLIENTES CARRINHO E CHECKOUT

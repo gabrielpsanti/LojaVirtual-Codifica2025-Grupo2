@@ -7,8 +7,12 @@ use App\Models\Categoria;
 use Illuminate\Http\Request;
 
 class CategoriaController extends Controller
-
 {
+    private ProdutoClienteRepository $produtoClienteRepository;
+    public function __construct(ProdutoClienteRepository $produtoClienteRepository)
+    {
+        $this->produtoClienteRepository = $produtoClienteRepository;
+    }
     public function index(Request $request)
     {
         $query = Categoria::query();
@@ -36,12 +40,14 @@ class CategoriaController extends Controller
             'nome.min' => 'O nome deve ter pelo menos 3 caracteres.',
         ]);
 
+        $rotaCategoria = $this->produtoClienteRepository->nomeDaRota($request->nome);
+
         Categoria::create([
-            'nome' => $validated['nome']
-//            'nome' => $request->nome
+            'nome' => trim($validated['nome']),
+            'rota' => $rotaCategoria
         ]);
 
-        return redirect()->route('admin.categorias.index');
+        return to_route('admin.categorias.index');
     }
 
     public function edit($id)
@@ -66,12 +72,12 @@ class CategoriaController extends Controller
 //            'nome' => $request->nome
         ]);
 
-        return redirect()->route('admin.categorias.index');
+        return to_route('admin.categorias.index');
     }
 
     public function destroy($id)
     {
         Categoria::findOrFail($id)->delete();
-        return redirect()->route('admin.categorias.index');
+        return to_route('admin.categorias.index');
     }
 }

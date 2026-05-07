@@ -80,7 +80,7 @@ class CompraController extends Controller
         // Limpa o carrinho
         session()->forget('carrinho');
 
-        return redirect()->route('checkout.sucesso');
+        return to_route('checkout.sucesso');
     }
 
     // Exibe a tela de sucesso com QR Code
@@ -113,7 +113,7 @@ class CompraController extends Controller
         session()->put('carrinho', $carrinho);
 
         // 3. Redirecionar para a rota do carrinho
-        return redirect()->route('carrinho.index')->with('success', 'Produto adicionado!');
+        return to_route('carrinho.index')->with('success', 'Produto adicionado!');
     }
 
     public function remover($id)
@@ -125,7 +125,7 @@ class CompraController extends Controller
             session()->put('carrinho', $carrinho);
         }
 
-        return redirect()->route('carrinho.index')->with('success', 'Produto removido!');
+        return to_route('carrinho.index')->with('success', 'Produto removido!');
     }
 }
 

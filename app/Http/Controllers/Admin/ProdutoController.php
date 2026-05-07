@@ -88,7 +88,7 @@ class ProdutoController extends Controller
 
         $produto->save();
 
-        return redirect()->route('admin.produtos.index');
+        return to_route('admin.produtos.index');
     }
 
     //Como é o cliente, o método só vai mostrar o produto na view de show
@@ -152,13 +152,13 @@ class ProdutoController extends Controller
 
         $produto->save();
 
-        return redirect()->route('admin.produtos.index');
+        return to_route('admin.produtos.index');
     }
 
     public function destroy($id)
     {
         Produto::destroy($id);
-        return redirect()->route('admin.produtos.index');
+        return to_route('admin.produtos.index');
     }
 
 

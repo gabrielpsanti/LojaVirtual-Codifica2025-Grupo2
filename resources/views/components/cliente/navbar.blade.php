@@ -19,7 +19,7 @@
             <ul class="no-underline flex items-center justify-evenly gap-5">
                 @foreach($categorias as $categoria)
                     <li class="p-4 flex justify-center w-full hover:bg-rosa-50">
-                        <a href="" class=" hover:text-azul-paleta">
+                        <a href="{{ route('produtos.categoria', $categoria->rota) }}" class=" hover:text-azul-paleta">
                             {{ $categoria->nome }}
                         </a>
                     </li>
