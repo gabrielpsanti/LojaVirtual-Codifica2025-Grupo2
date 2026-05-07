@@ -31,9 +31,9 @@ class ProdutoController extends Controller
 
         $categorias = Categoria::all();
 
-        return view('cliente.produtos.index', compact('produtos', 'categorias', ));
+       // return view('cliente.produtos.index', compact('produtos', 'categorias', ));
 
-//         return view('components.cliente.produtos.index', compact('produtos', 'categorias'));
+        return view('components.cliente.produtos.index', compact('produtos', 'categorias'));
     }
 
     //aqui estou criando a função que mostra a view do produto indidualmente
