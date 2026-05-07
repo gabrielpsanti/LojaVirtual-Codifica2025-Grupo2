@@ -20,6 +20,11 @@ class Produto extends Model
         'imagem'
     ];
 
+    public function imagens()
+    {
+        return $this->hasMany(ProdutoImagem::class, 'produto_id');
+    }
+
     // Relacionamento: Um produto pertence a uma categoria
     public function categoria()
     {

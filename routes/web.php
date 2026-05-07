@@ -118,6 +118,7 @@ Route::post('/admin/produtos', [ProdutoAdminController::class, 'store'])->name('
 Route::get('/admin/produtos/{id}/editar', [ProdutoAdminController::class, 'edit'])->name('admin.produtos.editar');
 Route::put('/admin/produtos/{id}', [ProdutoAdminController::class, 'update'])->name('admin.produtos.atualizar');
 
+Route::delete('/admin/produtos/imagens/{id}', [ProdutoAdminController::class, 'destroyImagem'])->name('admin.produtos.deletarImagem');
 Route::delete('/admin/produtos/{id}', [ProdutoAdminController::class, 'destroy'])->name('admin.produtos.deletar');
 
 // ROTAS ADMIN VENDAS

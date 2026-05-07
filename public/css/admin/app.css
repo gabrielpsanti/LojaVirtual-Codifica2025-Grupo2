@@ -85,6 +85,11 @@ body {
     color: var(--cinza-900);
 }
 
+main {
+    padding-left: 184px;
+    box-sizing: border-box;
+}
+
 a {
     text-decoration: none;
 }
@@ -121,6 +126,7 @@ button {
     gap: 12px;
     width: 100%;
     align-items: stretch;
+    box-sizing: border-box;
 }
 
 .filtro-busca {
@@ -181,6 +187,7 @@ button {
     background: white;
     border-radius: 16px;
     padding: 24px;
+    box-sizing: border-box;
     box-shadow: 0 12px 30px rgba(0, 0, 0, 0.04);
 }
 
@@ -264,6 +271,7 @@ button {
     margin: 44px auto 10px auto;
     padding: 24px;
     border-radius: 15px;
+    box-sizing: border-box;
     box-shadow: 0 12px 30px rgba(0, 0, 0, 0.04);
 }
 
@@ -273,7 +281,7 @@ button {
 }
 
 .navegacao-abas {
-    width: min(1260px, 100%);
+    width: min(1220px, 90%);
     margin: 20px auto 18px auto;
     display: flex;
     justify-content: center;
@@ -282,6 +290,7 @@ button {
     border: 1px solid var(--cinza-200);
     border-radius: 12px;
     background: var(--cinza-50);
+    box-sizing: border-box;
 }
 
 .navegacao-abas a {
@@ -289,7 +298,8 @@ button {
     color: var(--azul-600);
     text-decoration: none !important;
     font-weight: bold;
-    padding: 12px 10px;
+    padding-bottom: 32PX;
+    padding-top: 10px;
     border-radius: 10px;
     width: 100%;
     text-align: center;
@@ -314,24 +324,42 @@ h2 {
 /* Área de Upload e Preview */
 .caixa-anexo {
     width: 100%;
+    min-height: 400px;
+    border: 2px dashed var(--cinza-300);
+    border-radius: 16px;
+    background: var(--cinza-50);
+    box-sizing: border-box;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
 }
 
-#imagem {
+.caixa-anexo label {
+    flex: 1;
+    display: flex;
+    min-height: 180px;
+}
+
+#imagem,
+#imagens {
     display: none !important;
 }
 
 .zona-preview {
     width: 100%;
     height: 100%;
-    min-height: 400px;
-    border: 2px dashed var(--cinza-300);
-    border-radius: 16px;
+    min-height: 120px;
+    border: 0;
+    border-radius: 0;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: var(--cinza-50);
+    background: transparent;
     cursor: pointer;
-    overflow: hidden;
+    overflow: visible;
+    box-sizing: border-box;
+    padding: 16px;
+    text-align: center;
 }
 
 .zona-preview img, .imagem-carregada {
@@ -339,6 +367,51 @@ h2 {
     height: 100%;
     object-fit: cover;
     display: block;
+}
+
+.imagens-preview-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+    gap: 12px;
+    width: 100%;
+    max-height: 280px;
+    overflow-y: auto;
+    padding: 0 16px 16px;
+    box-sizing: border-box;
+}
+
+.imagem-preview-item,
+.imagem-wrapper {
+    min-width: 0;
+}
+
+.imagem-wrapper {
+    position: relative;
+    aspect-ratio: 1 / 1;
+    border-radius: 10px;
+    overflow: hidden;
+    background: white;
+}
+
+.imagem-carregada-thumbnail {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.btn-remover-imagem {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(233, 22, 43, 0.9);
+    color: white;
+    font-weight: bold;
+    line-height: 1;
 }
 
 /* Estilização dos inputs e labels */
@@ -418,4 +491,169 @@ h2 {
 
 .btn-voltar:hover {
     background: var(--cinza-50);
+}
+
+@media (max-width: 1100px) {
+    .painel-controle,
+    .listagem-estoque,
+    .quadro-formulario,
+    .navegacao-abas {
+        width: min(1000px, 92%);
+    }
+
+    .area-ferramentas {
+        grid-template-columns: 1fr;
+    }
+
+    .filtro-busca {
+        grid-template-columns: 1fr 220px 180px;
+    }
+
+    .btn-adicionar {
+        width: 100%;
+    }
+
+    .estrutura-form {
+        grid-template-columns: minmax(280px, 340px) minmax(0, 1fr);
+        gap: 24px;
+    }
+
+    .grade-cabecalho,
+    .item-linha {
+        grid-template-columns: 70px minmax(180px, 2fr) minmax(110px, 1fr) 90px 100px 110px;
+        gap: 12px;
+    }
+}
+
+@media (max-width: 820px) {
+    body {
+        margin: 0;
+    }
+
+    main {
+        padding-left: 140px;
+    }
+
+    .painel-controle,
+    .listagem-estoque,
+    .quadro-formulario,
+    .navegacao-abas {
+        width: calc(100% - 24px);
+    }
+
+    .painel-controle h1,
+    .cabecalho-pagina h1 {
+        font-size: 28px;
+        line-height: 1.2;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .quadro-formulario,
+    .listagem-estoque {
+        padding: 16px;
+        border-radius: 12px;
+    }
+
+    .estrutura-form {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .caixa-anexo {
+        min-height: 360px;
+    }
+
+    .imagens-preview-container {
+        grid-template-columns: repeat(auto-fill, minmax(96px, 1fr));
+    }
+
+    .filtro-busca {
+        grid-template-columns: 1fr;
+    }
+
+    .filtro-busca input,
+    .filtro-busca select,
+    .filtro-busca button.btn-buscar,
+    .btn-adicionar {
+        width: 100%;
+    }
+
+    .grade-cabecalho {
+        display: none;
+    }
+
+    .item-linha {
+        grid-template-columns: 70px 1fr;
+        grid-template-areas:
+            "foto detalhes"
+            "foto grupo"
+            "foto volume"
+            "foto valor"
+            "botoes botoes";
+        gap: 8px 12px;
+        align-items: start;
+        padding: 16px 0;
+    }
+
+    .miniatura {
+        grid-area: foto;
+    }
+
+    .detalhes {
+        grid-area: detalhes;
+        padding-left: 0;
+    }
+
+    .grupo {
+        grid-area: grupo;
+    }
+
+    .volume {
+        grid-area: volume;
+    }
+
+    .valor {
+        grid-area: valor;
+    }
+
+    .botoes {
+        grid-area: botoes;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        margin-top: 8px;
+    }
+
+    .grupo,
+    .volume,
+    .valor {
+        text-align: left;
+    }
+}
+
+@media (max-width: 520px) {
+    main {
+        padding-left: 120px;
+    }
+
+    .painel-controle h1,
+    .cabecalho-pagina h1 {
+        font-size: 24px;
+    }
+
+    .dupla-coluna,
+    .botoes-rodape,
+    .botoes {
+        grid-template-columns: 1fr;
+    }
+
+    .caixa-anexo {
+        min-height: 320px;
+    }
+
+    .imagens-preview-container {
+        grid-template-columns: repeat(auto-fill, minmax(82px, 1fr));
+        gap: 10px;
+        padding: 0 12px 12px;
+    }
 }
