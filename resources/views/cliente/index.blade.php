@@ -3,5 +3,5 @@
 
     <x-cliente.pagina-inicial.recentes :produtosRecentes="$produtosRecentes ?? []"/>
 
-    <x-cliente.pagina-inicial.promocoes :produtosPromo="$produtosPromo ?? []"/>
+{{--    <x-cliente.pagina-inicial.promocoes :produtosPromo="$produtosPromo ?? []"/>--}}
 </x-cliente.layout>

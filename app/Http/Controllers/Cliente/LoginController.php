@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Cliente;
 
 use App\Http\Controllers\Controller;
+use App\Models\Categoria;
 use App\Models\Usuario;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -14,7 +15,9 @@ class LoginController extends Controller
     // aba de login
     public function index()
     {
-        return view('cliente.login.login');
+        $categorias = Categoria::all();
+
+        return view('cliente.login.login', compact('categorias'));
     }
 
     // autenticação do usuário
@@ -29,8 +32,12 @@ class LoginController extends Controller
         if (Auth::attempt($credenciais)) {
             $request->session()->regenerate();
 
+            if (auth()->user()->eh_admin === true) {
+                return to_route('admin.index');
+            }
+
             //definir o nome da view
-            return view('');
+            return to_route('usuario.index');
         }
 
         return back()->withErrors([
@@ -42,20 +49,21 @@ class LoginController extends Controller
     // aba de registrar
     public function create()
     {
-        return view('cliente.login.cadastro');
+        $categorias = Categoria::all();
+
+        return view('cliente.login.cadastro', compact('categorias'));
     }
 
     // função para registrar/armazenar um novo usuario
     public function store(Request $request)
     {
-
         $data = $request->except(['_token']);
         $data['password'] = Hash::make($data['password']);
 
         $usuario = Usuario::create($data);
         Auth::login($usuario);
 
-        return view('cliente.login.login');
+        return to_route('usuario.index');
     }
 
     public function logout()

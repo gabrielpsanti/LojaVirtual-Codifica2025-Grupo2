@@ -19,9 +19,9 @@ class ProdutoController extends Controller
 
     public function index(Request $request)
     {
-        $produtosRecentes = Produto::query()->orderBy('produtos.created_at', 'desc')->take(15)->get();
+        $produtosRecentes = Produto::query()->orderBy('created_at', 'desc')->take(15)->get();
 
-        $produtosPromo = Produto::query()->whereNotNull('produtos.desconto_id')->orderBy('produtos.preco', 'asc')->take(15)->get();
+        $produtosPromo = Produto::query()->whereNotNull('desconto_id')->orderBy('produtos.preco', 'asc')->take(15)->get();
 
         $categorias = Categoria::all();
 
