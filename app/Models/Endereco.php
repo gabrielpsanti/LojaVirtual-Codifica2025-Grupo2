@@ -9,7 +9,7 @@ class Endereco extends Model
 {
     use SoftDeletes;
 
-    protected $table = 'enderecos';
+    protected $table = 'usuarios';
 
     // Relacionamento: Um endereço pertence a um usuário
     public function cliente()

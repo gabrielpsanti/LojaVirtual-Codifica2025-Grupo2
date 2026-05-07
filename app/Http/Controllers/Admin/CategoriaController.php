@@ -4,15 +4,18 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Categoria;
+use App\Repositories\CategoriaRepository;
 use Illuminate\Http\Request;
 
 class CategoriaController extends Controller
 {
-    private ProdutoClienteRepository $produtoClienteRepository;
-    public function __construct(ProdutoClienteRepository $produtoClienteRepository)
+    private CategoriaRepository $categoriaRepository;
+
+    public function __construct(CategoriaRepository $categoriaRepository)
     {
-        $this->produtoClienteRepository = $produtoClienteRepository;
+        $this->categoriaRepository = $categoriaRepository;
     }
+
     public function index(Request $request)
     {
         $query = Categoria::query();
@@ -40,7 +43,7 @@ class CategoriaController extends Controller
             'nome.min' => 'O nome deve ter pelo menos 3 caracteres.',
         ]);
 
-        $rotaCategoria = $this->produtoClienteRepository->nomeDaRota($request->nome);
+        $rotaCategoria = $this->categoriaRepository->nomeDaRota($request->nome);
 
         Categoria::create([
             'nome' => trim($validated['nome']),
@@ -67,9 +70,11 @@ class CategoriaController extends Controller
             'nome.min' => 'O nome deve ter pelo menos 3 caracteres.',
         ]);
 
+        $rotaCategoria = $this-$categoriaRepository->nomeDaRota($request->nome);
+
         $categoria->update([
-            'nome' => $validated['nome']
-//            'nome' => $request->nome
+            'nome' => trim($validated['nome']),
+            'rota' => $rotaCategoria
         ]);
 
         return to_route('admin.categorias.index');

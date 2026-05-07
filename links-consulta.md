@@ -1,8 +1,14 @@
 ## Back-end
 
+Views/components:
+-https://dev.to/pratham0182/foreach-vs-forelse-3c9m
+
 Rotas:
 
-Seeder:
+Seeder e Factory:
+- https://dev.to/elemar_leonel/como-funcionam-as-factories-e-seeders-com-laravel-40h6
+- https://albuquerque53.medium.com/populando-sua-base-de-dados-com-factory-8e46294a891
+- https://www.youtube.com/watch?v=o5mL3vpby-s&t=45s
 
 ## Front-end
 
@@ -22,3 +28,9 @@ Header (e menu lateral):
 
 JavaScript:
 - https://geraldclarkaudio.medium.com/javascript-adding-and-removing-classes-from-html-elements-55aaa8ab9f6d
+
+Animação CSS:
+- https://stackoverflow.com/questions/59980269/infinite-horizontal-scrolling-image-loop
+- https://www.joshwcomeau.com/animation/css-transitions/
+- https://www.reddit.com/r/tailwindcss/comments/1iqephx/hide_scrollbar_tailwind_css_40/
+- https://cruip.com/create-an-infinite-horizontal-scroll-animation-with-tailwind-css/

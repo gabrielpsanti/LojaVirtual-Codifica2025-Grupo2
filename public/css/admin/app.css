@@ -85,10 +85,10 @@ body {
     color: var(--cinza-900);
 }
 
-main {
-    padding-left: 184px;
-    box-sizing: border-box;
-}
+/*main {*/
+/*    padding-left: 184px;*/
+/*    box-sizing: border-box;*/
+/*}*/
 
 a {
     text-decoration: none;
@@ -298,7 +298,7 @@ button {
     color: var(--azul-600);
     text-decoration: none !important;
     font-weight: bold;
-    padding-bottom: 32PX;
+    padding-bottom: 32px;
     padding-top: 10px;
     border-radius: 10px;
     width: 100%;

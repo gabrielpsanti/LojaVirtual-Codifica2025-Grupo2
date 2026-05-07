@@ -1,4 +1,4 @@
-<header id="scrolling-header" class="fixed bg-rosa-paleta px-6 py-3 text-indigo-500 border-b border-rosa-100 shadow-sm transition-all duration-500 ease-in">
+<header id="scrolling-header" class="z-5 fixed bg-rosa-paleta px-6 py-3 text-indigo-500 border-b border-rosa-100 shadow-sm transition-all duration-500 ease-in">
 
     <div class="flex items-center justify-between gap-4">
 

@@ -8,6 +8,7 @@
 </head>
 <body>
 
+{{--@if (request()->routeIs('index'))--}}
 <div class="h-16 mb-6">
     <x-cliente.header :categorias="$categorias"/>
 </div>

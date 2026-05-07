@@ -88,7 +88,7 @@
                 </li>
                 <li class="">
                     <div id="enderecos-div">
-                        <a href="{{ route('admin.enderecos') }}" class="w-full flex p-2 rounded-2xl text-md bg-verde-paleta hover:bg-verde-700">
+                        <a href="{{ route('admin.usuarios') }}" class="w-full flex p-2 rounded-2xl text-md bg-verde-paleta hover:bg-verde-700">
                             Endereços
                         </a>
                     </div>

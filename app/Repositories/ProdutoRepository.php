@@ -4,9 +4,9 @@ namespace App\Repositories;
 
 use App\Models\Categoria;
 
-class ProdutoClienteRepository
+class ProdutoRepository
 {
-    public function categoriaIdPelaRota(string $categoria)
+    public function categoriaPelaRota(string $categoria)
     {
         return Categoria::query()->where('rota', $categoria)->firstOrFail();
     }

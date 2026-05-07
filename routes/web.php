@@ -46,9 +46,9 @@ Route::get('/quem-somos', [CabecalhoController::class, 'quemSomos'])->name('inde
 Route::get('/contato', [CabecalhoContatoController::class, 'contato'])->name('index.contato');
 Route::post('/contato/enviar', [CabecalhoContatoController::class, 'enviar'])->name('index.contato.enviar');
 
-//Route::get('/contato', [ProdutoClienteController::class, 'contato'])->name('index.contato');
-//Route::get('', [ProdutoClienteController::class, 'trocasDevolucoes'])->name('index.trocas-devolucoes');
-//Route::get('/sobre-nos', [ProdutoClienteController::class, 'sobreNos'])->name('index.sobre-nos');
+// ROTA CLIENTE PESQUISA
+
+Route::get('/pesquisar', [ProdutoClienteController::class, 'pesquisar'])->name('pesquisar');
 
 // ROTAS CLIENTES PRODUTOS
 
@@ -147,6 +147,6 @@ Route::put('/admin/descontos/{id}', [DescontoController::class, 'update'])->name
 
 Route::delete('/admin/descontos/{id}', [DescontoController::class, 'destroy'])->name('admin.descontos.deletar');
 
-// ROTAS ADMIN ENDEREÇOS
+// ROTAS ADMIN USUARIOS
 
-Route::get('/conta/enderecos', [EnderecoAdminController::class, 'index'])->name('admin.enderecos');
+Route::get('/admin/usuarios', [EnderecoAdminController::class, 'index'])->name('admin.usuarios');
