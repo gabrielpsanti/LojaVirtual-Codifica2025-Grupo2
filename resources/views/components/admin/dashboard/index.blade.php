@@ -30,7 +30,7 @@
                 <h3>Categorias</h3>
                 <p class="principal-cartao-categoria-info-number">{{ $totalCategorias }}</p>
             </div>
-            <a href="route {{ 'admin.produtos.index }}" class="principal-cartao-categoria-link">Ver Categorias</a>
+            <a href="{{ route('admin.categorias.index') }}" class="principal-cartao-categoria-link">Ver Categorias</a>
         </div>
     </div>
 </div>
