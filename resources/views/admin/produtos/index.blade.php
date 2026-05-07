@@ -1,5 +1,5 @@
 <x-admin.layout>
-<link rel="stylesheet" href="{{ asset('css/produtos/app.css') }}">
+<link rel="stylesheet" href="{{ asset('css/admin/app.css') }}">
 <link rel="stylesheet" href="{{ asset('css/base.css') }}">
 
 <div class="painel-controle">
@@ -12,7 +12,9 @@
             <select name="categoria">
                 <option value="">Todas as categorias</option>
                 @foreach($categorias as $categoria)
-                    <option value="{{ $categoria->id }}" {{ request('categoria') == $categoria->id ? 'selected' : '' }}>{{ $categoria->nome }}</option>
+                    <option value="{{ $categoria }}" {{ request('categoria') === $categoria->nome ? 'selected' : '' }}>
+                        {{ $categoria }}</option>
+                    //comentar <option value="{{ $categoria->id }}" {{ request('categoria') == $categoria->id ? 'selected' : '' }}>{{ $categoria->nome }}</option>
                 @endforeach
             </select>
 
@@ -80,6 +82,7 @@
 
         </div>
     @endforeach
-
+    
 </div>
+
 </x-admin.layout>

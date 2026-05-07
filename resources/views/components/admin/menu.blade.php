@@ -2,7 +2,7 @@
     <div class="w-36 grid grid-cols-1 gap-6 justify-center">
         <div id="logo-div">
             <div id="logo-div" class="h-auto">
-                <img class="rounded-[45%]" src="{{ asset('assets/lojinha.png') }}" alt="Logo">
+                <img class="rounded-full hover:scale-105 transition-transform" src="{{ asset('assets/lojinha.png') }}" alt="Logo">
             </div>
         </div>
         <div id="list-div">
@@ -88,7 +88,7 @@
                 </li>
                 <li class="">
                     <div id="enderecos-div">
-                        <a href="{{ route('teste') }}" class="w-full flex p-2 rounded-2xl text-md bg-verde-paleta hover:bg-verde-700">
+                        <a href="{{ route('admin.enderecos') }}" class="w-full flex p-2 rounded-2xl text-md bg-verde-paleta hover:bg-verde-700">
                             Endereços
                         </a>
                     </div>

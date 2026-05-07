@@ -15,6 +15,7 @@ class ProdutoController extends Controller
 {
     public function index(Request $request)
     {
+        $query = Produto::query();
         $query = Produto::with('imagens');
 
         if ($request->nome) {
@@ -39,12 +40,14 @@ class ProdutoController extends Controller
 
     }
 
-    public function create() {
+    public function create()
+    {
         $categorias = Categoria::all();
         return view('admin.produtos.create', compact('categorias'));
     }
 
-    public function store(Request $request) {
+    public function store(Request $request)
+    {
 
         $validated = $request->validate([
             'nome' => 'required|string|min:3|max:255',
@@ -81,7 +84,8 @@ class ProdutoController extends Controller
 
         $produto->nome = $validated['nome'];
         $produto->preco = $validated['preco'];
-        $produto->categoria_id = $validated['categoria_id'];
+        $produto->categoria_id = $validated['categoria'];
+//         $produto->categoria_id = $validated['categoria_id'];
         $produto->descricao = $validated['descricao'];
         $produto->quantidade = $validated['quantidade'];
         $produto->imagem = $caminhos[0] ?? null;
@@ -109,7 +113,7 @@ class ProdutoController extends Controller
     }
 
 
-    
+
 
     public function edit($id) {
         $produto = \App\Models\Produto::with('imagens')->findOrFail($id);
@@ -117,7 +121,8 @@ class ProdutoController extends Controller
         return view('admin.produtos.edit', compact('produto', 'categorias'));
     }
 
-    public function update(Request $request, $id) {
+    public function update(Request $request, $id)
+    {
         $produto = Produto::findOrFail($id);
 
         $validated = $request->validate([
@@ -146,7 +151,8 @@ class ProdutoController extends Controller
 
         $produto->nome = $validated['nome'];
         $produto->preco = $validated['preco'];
-        $produto->categoria_id = $validated['categoria_id'];
+        $produto->categoria_id = $validated['categoria'];
+//         $produto->categoria_id = $validated['categoria_id'];
         $produto->descricao = $validated['descricao'];
         $produto->quantidade = $validated['quantidade'];
 

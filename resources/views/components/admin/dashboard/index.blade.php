@@ -1,5 +1,5 @@
 @props(['totalProdutos', 'totalVendas', 'totalUsuarios', 'totalCategorias'])
-<link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
+<link rel="stylesheet" href="{{ asset('css/admin/dashboard.css') }}">
 <link rel="stylesheet" href="{{ asset('css/base.css') }}">
 
 <div class="principal">
@@ -30,7 +30,7 @@
                 <h3>Categorias</h3>
                 <p class="principal-cartao-categoria-info-number">{{ $totalCategorias }}</p>
             </div>
-            <a href="#" class="principal-cartao-categoria-link">Ver Categorias</a>
+            <a href="route {{ 'admin.produtos.index }}" class="principal-cartao-categoria-link">Ver Categorias</a>
         </div>
     </div>
 </div>

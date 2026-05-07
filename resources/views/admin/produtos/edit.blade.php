@@ -1,5 +1,5 @@
 <x-admin.layout>
-<link rel="stylesheet" href="{{ asset('css/produtos/app.css') }}">
+<link rel="stylesheet" href="{{ asset('css/admin/app.css') }}">
 
 <div class="cabecalho-pagina">
     <h1>Alterar Produto</h1>
@@ -53,10 +53,18 @@
                 <input type="text" name="nome" value="{{ $produto->nome }}">
 
                 <label>Categoria</label>
+                <select name="categoria">
+                    <option value="">Selecione uma categoria</option>
+                    @foreach($categorias as $categoria)
+                        <option value="{{ $categoria->id }}" {{ $produto->categoria_id == $categoria->id ? 'selected' : '' }}>
+                            {{ $categoria->nome }}
+                        </option>
+                    //comentar
                 <select name="categoria_id">
                     <option value="">Selecione uma categoria</option>
                     @foreach($categorias as $categoria)
                         <option value="{{ $categoria->id }}" {{ $produto->categoria_id == $categoria->id ? 'selected' : '' }}>{{ $categoria->nome }}</option>
+                    //comentar
                     @endforeach
                 </select>
 
