@@ -9,8 +9,10 @@
 <body>
 
 <div class="grid grid-cols-[min-content_auto]">
-    <span>
-        <x-admin.menu/>
+    <span class="w-fit h-full px-5 bg-transparent">
+        <div class="w-36">
+            <x-admin.menu/>
+        </div>
     </span>
     <main>
         {{ $slot }}

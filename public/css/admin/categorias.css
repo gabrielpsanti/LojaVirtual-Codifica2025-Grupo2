@@ -46,14 +46,23 @@ button {
 }
 
 .painel-controle h1 {
+    background: none;
+    padding: 20px;
+    border-radius: 0;
+    width: auto;
     font-size: 35px;
+    font-weight: bold;
     margin: 0;
+    color: var(--cinza-900);
+    /*font-size: 35px;*/
+    /*margin: 0;*/
 }
 
 /* =========================
    BARRA DE AÇÕES
 ========================= */
 .area-ferramentas {
+    font-size: 14px;
     display: grid;
     grid-template-columns: 1fr auto;
     gap: 12px;
@@ -83,15 +92,16 @@ button {
     color: white;
     border: none;
     font-weight: bold;
+    padding: 0 3em 0 3em;
 }
 
 .btn-adicionar {
     background: var(--verde-500);
     color: white;
     font-weight: bold;
-    width: 200px;
     height: 48px;
     border-radius: 10px;
+    padding: 0 3em 0 3em;
     display: flex;
     align-items: center;
     justify-content: center;

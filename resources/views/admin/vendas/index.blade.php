@@ -1,3 +1,3 @@
-<div>
+<x-admin.layout>
     <x-admin.vendas.index :vendas="$vendas"/>
-</div>
+</x-admin.layout>

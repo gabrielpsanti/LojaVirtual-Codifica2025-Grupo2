@@ -1,5 +1,5 @@
 <x-admin.layout>
-<link rel="stylesheet" href="{{ asset('css/produtos/categoria.css') }}">
+<link rel="stylesheet" href="{{ asset('css/admin/categorias.css') }}">
 <link rel="stylesheet" href="{{ asset('css/base.css') }}">
 <div class="painel-controle">
     <h1>Categorias</h1>

@@ -14,13 +14,21 @@ html {
 }
 
 .principal h1 {
+    /*background: none;*/
+    /*padding: 19px;*/
+    /*border-radius: 0;*/
+    /*width: auto;*/
+    /*font-size: 35px;*/
+    /*margin: 0;*/
+    /*color: #151e1c;*/
     background: none;
-    padding: 19px;
+    padding: 20px;
     border-radius: 0;
     width: auto;
     font-size: 35px;
+    font-weight: bold;
     margin: 0;
-    color: #151e1c;
+    color: var(--cinza-900);
 }
 
 .principal-cartao {

@@ -1,4 +1,4 @@
-<header class="bg-rosa-paleta px-6 py-3 text-indigo-500 border-b border-rosa-100 shadow-sm">
+<header id="scrolling-header" class="fixed bg-rosa-paleta px-6 py-3 text-indigo-500 border-b border-rosa-100 shadow-sm transition-all duration-500 ease-in">
 
     <div class="flex items-center justify-between gap-4">
 
@@ -27,3 +27,20 @@
 
     </div>
 </header>
+
+<script>
+
+    (function() {
+        var prevScrollpos = window.pageYOffset;
+        window.onscroll = function() {
+            var currentScrollPos = window.pageYOffset;
+            if (prevScrollpos > currentScrollPos) {
+                document.getElementById("scrolling-header").style.top = "0";
+            } else {
+                document.getElementById("scrolling-header").style.top = "-100px";
+            }
+            prevScrollpos = currentScrollPos;
+        }
+    })();
+
+</script>
