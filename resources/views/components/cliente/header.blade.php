@@ -27,7 +27,7 @@
                     {{ route('usuario.index') }}
                 @endauth()
                 " title="Minha Conta" class="hover:scale-110 transition-transform">👤</a>
-                <a href="{{ route('checkout.carrinho.view') }}" title="Meu Carrinho" class="hover:scale-110 transition-transform">🛒</a>
+                <a href="{{ route('carrinho.index') }}" title="Meu Carrinho" class="hover:scale-110 transition-transform">🛒</a>
             </div>
 
         </div>

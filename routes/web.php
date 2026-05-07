@@ -18,7 +18,7 @@ use App\Http\Controllers\Cliente\CabecalhoController;
 use App\Http\Controllers\Cliente\CabecalhoContatoController;
 
 
-Route::middleware('guest')->group(function () {
+//Route::middleware('guest')->group(function () {
 
     // ROTAS LOGIN, AUTENTICAÇÃO E REGISTRO CLIENTES (E ADMIN)
 
@@ -27,9 +27,14 @@ Route::middleware('guest')->group(function () {
 
     Route::get('/cadastro', [LoginController::class, 'create'])->name('cadastro');
     Route::post('/cadastro/registro', [LoginController::class, 'store'])->name('cadastro.salvar');
-});
+//});
 
-Route::middleware('auth')->group(function () {
+//Route::middleware('auth')->group(function () {
+
+    // ROTAS CLIENTES CARRINHO E CHECKOUT
+
+    Route::get('/carrinho', [CompraController::class, 'index'])->name('carrinho.index');
+    Route::delete('/carrinho/remover/{id}', [CompraController::class, 'remover'])->name('carrinho.remover');
 
     // ROTA LOGOUT
 
@@ -121,7 +126,7 @@ Route::middleware('auth')->group(function () {
     // ROTAS ADMIN USUARIOS
 
     Route::get('/admin/usuarios', [EnderecoAdminController::class, 'index'])->name('admin.usuarios');
-});
+//});
 
 // ROTAS CLIENTES PAGINA INICIAL
 
@@ -150,9 +155,3 @@ Route::get('/pesquisar', [ProdutoClienteController::class, 'pesquisar'])->name('
 Route::get('/produtos', [ProdutoClienteController::class, 'todos'])->name('produtos.todos');
 Route::get('/{categoria}', [ProdutoClienteController::class, 'categoria'])->name('produtos.categoria');
 Route::get('/produtos/{id}', [ProdutoClienteController::class, 'show'])->name('produtos.detalhes');
-
-// ROTAS CLIENTES CARRINHO E CHECKOUT
-
-Route::get('/carrinho', [CompraController::class, 'index'])->name('carrinho.index');
-Route::delete('/carrinho/remover/{id}', [CompraController::class, 'remover'])->name('carrinho.remover');
-
