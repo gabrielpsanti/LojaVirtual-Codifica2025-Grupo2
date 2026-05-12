@@ -12,10 +12,10 @@ Escolha o cenário que se aplica a você:
 |---|---|
 | **Rodar pela primeira vez** (Windows / macOS / Linux) — instalar Docker e subir | [`docs/primeiros-passos.md`](./docs/primeiros-passos.md) |
 | Referência completa (comandos, troubleshooting, phpMyAdmin, etc.) | [`docs/desenvolvimento.md`](./docs/desenvolvimento.md) |
-| Preparar uma VPS Linux do zero (Docker, Nginx, Certbot, firewall...) | [`docs/passo-a-passo.md`](./docs/passo-a-passo.md) |
+| Preparar uma VPS Linux do zero (Docker, Nginx, Certbot, firewall...) | [`docs/preparar-producao.md`](./docs/preparar-producao.md) |
 | Fazer o deploy do projeto em servidor já preparado (com HTTPS) | [`docs/producao.md`](./docs/producao.md) |
 
-> **Fluxo completo para colocar no ar:** primeiro [`passo-a-passo.md`](./docs/passo-a-passo.md) (preparar a máquina), depois [`producao.md`](./docs/producao.md) (subir o projeto).
+> **Fluxo completo para colocar no ar:** primeiro [`preparar-producao.md`](./docs/preparar-producao.md) (preparar a máquina), depois [`producao.md`](./docs/producao.md) (subir o projeto).
 
 ---
 
@@ -29,7 +29,7 @@ Escolha o cenário que se aplica a você:
 docs/                   # documentação do projeto
 ├── primeiros-passos.md # como instalar Docker e subir pela primeira vez (Win/Mac/Linux)
 ├── desenvolvimento.md  # referência completa do ambiente local
-├── passo-a-passo.md    # como preparar uma VPS Linux do zero
+├── preparar-producao.md    # como preparar uma VPS Linux do zero
 ├── producao.md         # como fazer o deploy do projeto em servidor com HTTPS
 └── acesso-github.md    # como autorizar o servidor a clonar o repositório (Deploy Key ou PAT)
 app/                    # código-fonte Laravel (controllers, models, etc.)

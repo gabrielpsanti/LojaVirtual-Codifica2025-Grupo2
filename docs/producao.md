@@ -2,7 +2,7 @@
 
 Este guia cobre o **deploy do projeto Loja Virtual** em um servidor que **já tem o ambiente preparado** (Docker, Nginx do host, Certbot, firewall). Inclui clonar o repositório, configurar `.env`, subir os containers, expor com HTTPS e operação contínua (deploys e backups).
 
-> Servidor ainda não preparado? Siga primeiro [`passo-a-passo.md`](./passo-a-passo.md). Para rodar localmente, veja [`desenvolvimento.md`](./desenvolvimento.md).
+> Servidor ainda não preparado? Siga primeiro [`preparar-producao.md`](./preparar-producao.md). Para rodar localmente, veja [`desenvolvimento.md`](./desenvolvimento.md).
 
 ---
 
@@ -56,7 +56,7 @@ Este guia cobre o **deploy do projeto Loja Virtual** em um servidor que **já te
 
 ## 1. Pré-requisitos do ambiente
 
-Antes de continuar, confirme que a máquina já passou por [`passo-a-passo.md`](./passo-a-passo.md). Resumo do que tem que estar pronto:
+Antes de continuar, confirme que a máquina já passou por [`preparar-producao.md`](./preparar-producao.md). Resumo do que tem que estar pronto:
 
 - [ ] VPS com IP público **fixo**
 - [ ] Portas **22 (seu IP), 80, 443** abertas no firewall do provedor
@@ -66,7 +66,7 @@ Antes de continuar, confirme que a máquina já passou por [`passo-a-passo.md`](
 - [ ] **Certbot** com plugin nginx instalado (`certbot --version`)
 - [ ] **UFW** ativo com `OpenSSH` + `Nginx Full`
 
-Se algum desses itens não está pronto, volte para [`passo-a-passo.md`](./passo-a-passo.md).
+Se algum desses itens não está pronto, volte para [`preparar-producao.md`](./preparar-producao.md).
 
 ---
 
@@ -397,7 +397,7 @@ docker compose stop phpmyadmin
 
 ## 13. Checklist final
 
-- [ ] Ambiente preparado conforme [`passo-a-passo.md`](./passo-a-passo.md)
+- [ ] Ambiente preparado conforme [`preparar-producao.md`](./preparar-producao.md)
 - [ ] DNS A record propagado (`dig` retorna o IP da VPS)
 - [ ] Projeto clonado em `/var/www/lojavirtual`
 - [ ] `.env` com `APP_ENV=production`, `APP_DEBUG=false`, `APP_URL=https://...`

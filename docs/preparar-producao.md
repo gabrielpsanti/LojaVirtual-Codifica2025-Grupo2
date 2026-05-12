@@ -1,4 +1,4 @@
-# Passo a Passo — Preparando o Ambiente em uma VPS Linux
+# Preparar a VPS para Produção
 
 Tutorial linear para deixar uma **máquina Linux** pronta para receber qualquer aplicação Docker. Cobre desde o primeiro login via SSH até a confirmação de que o ambiente está saudável (Docker, Nginx, Certbot, firewall).
 
