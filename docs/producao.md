@@ -40,7 +40,7 @@ Este guia cobre o **deploy do projeto Loja Virtual** em um servidor que **já te
 
 1. [Pré-requisitos do ambiente](#1-pré-requisitos-do-ambiente)
 2. [Apontar o DNS do domínio](#2-apontar-o-dns-do-domínio)
-3. [Clonar o projeto](#3-clonar-o-projeto)
+3. [Entrar no projeto](#3-entrar-no-projeto)
 4. [Configurar o `.env` de produção](#4-configurar-o-env-de-produção)
 5. [Subir os containers e preparar o Laravel](#5-subir-os-containers-e-preparar-o-laravel)
 6. [Configurar o Nginx do host como proxy reverso](#6-configurar-o-nginx-do-host-como-proxy-reverso)
@@ -89,17 +89,13 @@ Se ainda não retornar, **espere mais alguns minutos** — sem DNS resolvendo, o
 
 ---
 
-## 3. Clonar o projeto
+## 3. Entrar no projeto
+
+Você já clonou o repositório seguindo [`acesso-github.md`](./acesso-github.md). Entre na pasta do projeto:
 
 ```bash
-sudo mkdir -p /var/www
-sudo chown $USER:$USER /var/www
-cd /var/www
-git clone <URL-DO-REPOSITORIO-NO-GITHUB> lojavirtual
-cd lojavirtual
+cd ~/LojaVirtual-Codifica2025-Grupo2
 ```
-
-> Se receber `Permission denied (publickey)` ou `Authentication failed`, é porque o servidor ainda não foi autorizado no GitHub. Veja [`acesso-github.md`](./acesso-github.md) para configurar Deploy Key SSH (recomendado em produção) ou Personal Access Token HTTPS.
 
 ---
 
@@ -330,7 +326,7 @@ sudo systemctl reload nginx
 Sempre que houver código novo no Git:
 
 ```bash
-cd /var/www/lojavirtual
+cd ~/LojaVirtual-Codifica2025-Grupo2
 git pull
 docker compose exec app composer install --no-dev --optimize-autoloader
 docker compose exec app php artisan migrate --force
@@ -361,13 +357,13 @@ crontab -e
 Adicione no final do arquivo:
 
 ```cron
-0 3 * * * cd /var/www/lojavirtual && /usr/bin/docker compose exec -T mysql mysqldump -uroot -p"$(grep ^DB_ROOT_PASSWORD .env | cut -d= -f2)" loja | gzip > /var/backups/lojavirtual/loja-$(date +\%F).sql.gz && find /var/backups/lojavirtual -name 'loja-*.sql.gz' -mtime +14 -delete
+0 3 * * * cd $HOME/LojaVirtual-Codifica2025-Grupo2 && /usr/bin/docker compose exec -T mysql mysqldump -uroot -p"$(grep ^DB_ROOT_PASSWORD .env | cut -d= -f2)" loja | gzip > /var/backups/lojavirtual/loja-$(date +\%F).sql.gz && find /var/backups/lojavirtual -name 'loja-*.sql.gz' -mtime +14 -delete
 ```
 
 Salve e saia. Teste rodando manualmente uma vez:
 
 ```bash
-cd /var/www/lojavirtual && docker compose exec -T mysql mysqldump -uroot -p"$(grep ^DB_ROOT_PASSWORD .env | cut -d= -f2)" loja | gzip > /var/backups/lojavirtual/loja-test.sql.gz
+cd ~/LojaVirtual-Codifica2025-Grupo2 && docker compose exec -T mysql mysqldump -uroot -p"$(grep ^DB_ROOT_PASSWORD .env | cut -d= -f2)" loja | gzip > /var/backups/lojavirtual/loja-test.sql.gz
 ls -lh /var/backups/lojavirtual/
 ```
 
@@ -399,7 +395,7 @@ docker compose stop phpmyadmin
 
 - [ ] Ambiente preparado conforme [`preparar-producao.md`](./preparar-producao.md)
 - [ ] DNS A record propagado (`dig` retorna o IP da VPS)
-- [ ] Projeto clonado em `/var/www/lojavirtual`
+- [ ] Projeto clonado em `~/LojaVirtual-Codifica2025-Grupo2`
 - [ ] `.env` com `APP_ENV=production`, `APP_DEBUG=false`, `APP_URL=https://...`
 - [ ] `.env` **sem** `COMPOSE_PROFILES=dev`
 - [ ] `.env` com `APP_PORTS=127.0.0.1:8088:80` (container `nginx` só escuta no loopback)
