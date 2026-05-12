@@ -24,13 +24,20 @@ Escolha seu sistema operacional:
 2. Arraste pra pasta Applications e abra uma vez para inicializar.
 3. Os comandos abaixo rode no **Terminal** padrão do macOS.
 
-### 🐧 Linux (Ubuntu / Debian)
+### 🐧 Linux (Ubuntu / Debian) — ou WSL2 no Windows
 
 ```bash
 curl -fsSL https://get.docker.com | sudo sh
 sudo usermod -aG docker $USER
 newgrp docker
 ```
+
+> **WSL2 no Windows:** os comandos acima funcionam **igualzinho** dentro de uma janela do **Ubuntu** (WSL2). Duas situações possíveis:
+>
+> - **Se você já instalou o Docker Desktop** (seção 🪟 Windows acima): **não precisa rodar os comandos acima**. O Docker Desktop já integra automaticamente com o WSL — basta abrir o Ubuntu (Iniciar → "Ubuntu") e pular pro passo 2. Os comandos `docker` já estão disponíveis.
+> - **Se você não quer o Docker Desktop** e prefere usar o Docker direto dentro do WSL: aí sim, rode os 3 comandos acima dentro do Ubuntu (WSL).
+>
+> Dica: **clone o projeto sempre dentro do filesystem do WSL** (ex: `~/projetos/...`) e **não** em `/mnt/c/...` — fica muito mais rápido.
 
 ### Confirmar a instalação (qualquer SO)
 
@@ -71,11 +78,7 @@ DB_PORT=3306
 DB_DATABASE=loja
 DB_USERNAME=loja
 DB_PASSWORD=secret
-
-COMPOSE_PROFILES=dev
 ```
-
-> `COMPOSE_PROFILES=dev` ativa o phpMyAdmin e o Vite (hot reload) automaticamente.
 
 ---
 
@@ -84,15 +87,25 @@ COMPOSE_PROFILES=dev
 Os comandos a seguir são **iguais em qualquer sistema**:
 
 ```bash
-docker compose up -d --build
+docker compose --profile dev up -d --build
+docker compose exec app chmod -R 775 storage bootstrap/cache
 docker compose exec app composer install
 docker compose exec app php artisan key:generate
 docker compose exec app php artisan migrate --seed
+docker compose exec app php artisan storage:link
 docker compose exec app npm install
 docker compose exec app npm run build
 ```
 
 A primeira execução demora ~5 min (baixa imagens e instala dependências). Da segunda vez em diante, sobe em segundos.
+
+**Por que cada comando?**
+
+- **`--profile dev`** → liga os serviços extras de desenvolvimento (phpMyAdmin e Vite). Sem esse flag, sobem só `app`, `nginx` e `mysql`.
+- **`chmod -R 775 storage bootstrap/cache`** → garante que o Laravel consegue escrever logs e cache. No Linux/WSL, se o seu usuário tiver UID diferente de 1000, sem isso dá `Permission denied` no primeiro log que o framework tentar gravar.
+- **`storage:link`** → cria o link simbólico de `public/storage` para `storage/app/public`. Sem isso, qualquer imagem que o usuário fizer upload aparece **quebrada** no navegador.
+
+> **Atalho opcional:** se você não quer digitar `--profile dev` toda vez, adicione `COMPOSE_PROFILES=dev` no seu `.env`. Aí os próximos `docker compose up` já levantam os serviços de dev automaticamente.
 
 ---
 
@@ -111,7 +124,7 @@ A primeira execução demora ~5 min (baixa imagens e instala dependências). Da 
 docker compose down
 
 # Subir de novo
-docker compose up -d
+docker compose --profile dev up -d
 
 # Ver logs em tempo real
 docker compose logs -f app
