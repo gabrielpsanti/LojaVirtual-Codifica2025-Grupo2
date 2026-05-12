@@ -10,13 +10,12 @@ Escolha o cenário que se aplica a você:
 
 | Quero... | Vá para |
 |---|---|
-| Rodar o projeto na minha máquina (Linux / macOS / Windows com WSL2) | [`docs/desenvolvimento.md`](./docs/desenvolvimento.md) |
+| **Rodar pela primeira vez** (Windows / macOS / Linux) — instalar Docker e subir | [`docs/primeiros-passos.md`](./docs/primeiros-passos.md) |
+| Referência completa (comandos, troubleshooting, phpMyAdmin, etc.) | [`docs/desenvolvimento.md`](./docs/desenvolvimento.md) |
 | Preparar uma VPS Linux do zero (Docker, Nginx, Certbot, firewall...) | [`docs/passo-a-passo.md`](./docs/passo-a-passo.md) |
 | Fazer o deploy do projeto em servidor já preparado (com HTTPS) | [`docs/producao.md`](./docs/producao.md) |
 
 > **Fluxo completo para colocar no ar:** primeiro [`passo-a-passo.md`](./docs/passo-a-passo.md) (preparar a máquina), depois [`producao.md`](./docs/producao.md) (subir o projeto).
-
-> Os guias assumem que você já tem **Docker** e **Docker Compose plugin** instalados localmente. Links de instalação estão dentro do guia de desenvolvimento.
 
 ---
 
@@ -28,7 +27,8 @@ Escolha o cenário que se aplica a você:
 ├── nginx/default.conf  # vhost do Nginx que serve o public/ e proxia .php para o php-fpm
 └── php/php.ini         # overrides do PHP (memory_limit, upload, opcache, timezone)
 docs/                   # documentação do projeto
-├── desenvolvimento.md  # como rodar localmente
+├── primeiros-passos.md # como instalar Docker e subir pela primeira vez (Win/Mac/Linux)
+├── desenvolvimento.md  # referência completa do ambiente local
 ├── passo-a-passo.md    # como preparar uma VPS Linux do zero
 └── producao.md         # como fazer o deploy do projeto em servidor com HTTPS
 app/                    # código-fonte Laravel (controllers, models, etc.)
