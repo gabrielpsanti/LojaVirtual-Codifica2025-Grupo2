@@ -1,0 +1,186 @@
+# ============================================================================
+#  docker-compose.yml — orquestra múltiplos containers como uma "stack"
+# ============================================================================
+#  Em vez de rodar `docker run` para cada container manualmente (passando rede,
+#  volumes, variáveis...), o Compose lê este YAML e levanta tudo de uma vez:
+#
+#     docker compose up -d            # sobe tudo em background
+#     docker compose down             # derruba tudo
+#     docker compose ps               # lista o que está rodando
+#     docker compose logs -f <svc>    # acompanha logs ao vivo
+#     docker compose exec <svc> bash  # abre um shell dentro do container
+#
+#  Os containers definidos aqui se enxergam por nome através da network
+#  `lojavirtual` (ex: o `app` conecta no banco usando o hostname `mysql`).
+# ============================================================================
+
+services:
+
+  # ==========================================================================
+  #  app — container PHP-FPM que executa o Laravel
+  # ==========================================================================
+  #  Não usa uma imagem pronta do Docker Hub: construímos a nossa a partir do
+  #  Dockerfile em .docker/Dockerfile (com PHP 8.4 + Composer + Node).
+  # ==========================================================================
+  app:
+    build:
+      context: .                       # pasta enviada pro Docker como contexto
+      dockerfile: .docker/Dockerfile   # qual Dockerfile usar dentro do contexto
+      args:                            # passa UID/GID do host para o ARG do Dockerfile
+        UID: ${UID:-1000}              # ${VAR:-default} → se UID não setada no .env, usa 1000
+        GID: ${GID:-1000}
+    image: lojavirtual-app             # nome que será dado à imagem construída
+    container_name: lojavirtual-app    # nome fixo do container (em vez de auto-gerado)
+    restart: unless-stopped            # se cair, reinicia (a não ser que parado manualmente)
+    working_dir: /var/www/html         # diretório onde os comandos rodam dentro do container
+    volumes:
+      # Monta o código-fonte do host (a pasta atual) dentro do container.
+      # Assim, qualquer arquivo editado no seu editor reflete no container na
+      # hora — sem precisar fazer rebuild. Essencial para desenvolvimento.
+      - ./:/var/www/html
+    depends_on:
+      mysql:
+        condition: service_healthy     # só inicia depois que o mysql passar no healthcheck
+    networks:
+      - lojavirtual
+
+
+  # ==========================================================================
+  #  nginx — servidor web que recebe as requisições HTTP do navegador
+  # ==========================================================================
+  #  Atende em /var/www/html/public (DocumentRoot do Laravel). Para tudo que
+  #  for .php, faz fastcgi_pass para `app:9000` (o container do php-fpm).
+  # ==========================================================================
+  nginx:
+    image: nginx:1.27-alpine           # imagem oficial Alpine (~40MB, bem leve)
+    container_name: lojavirtual-nginx
+    restart: unless-stopped
+    ports:
+      # APP_PORTS aceita o formato completo do Compose: "[ip:][host:]container".
+      # Sem nada definido no .env, vira "80:80" → 0.0.0.0:80 do host → :80 do
+      # container, daí http://localhost/. Em produção, defina no .env:
+      #   APP_PORTS=127.0.0.1:8088:80
+      # (só localhost:8088, para o Nginx do host fazer proxy reverso).
+      - "${APP_PORTS:-80:80}"
+    volumes:
+      # Código em modo somente leitura (:ro) — o nginx só serve arquivos estáticos
+      - ./:/var/www/html:ro
+      # Substitui o vhost padrão pela nossa configuração customizada
+      - ./.docker/nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      - app                            # garante que o app sobe antes do nginx
+    networks:
+      - lojavirtual
+
+
+  # ==========================================================================
+  #  mysql — banco de dados relacional
+  # ==========================================================================
+  mysql:
+    image: mysql:8.0                   # imagem oficial do MySQL 8
+    container_name: lojavirtual-mysql
+    restart: unless-stopped
+    environment:
+      # Estas variáveis são lidas pelo entrypoint da imagem do MySQL na
+      # PRIMEIRA execução para criar o banco e usuário automaticamente.
+      MYSQL_DATABASE: ${DB_DATABASE:-loja}
+      MYSQL_USER: ${DB_USERNAME:-loja}
+      MYSQL_PASSWORD: ${DB_PASSWORD:-secret}
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-root}
+    ports:
+      # Expõe 3306 no host → permite conectar com DBeaver/Workbench externo.
+      - "${FORWARD_DB_PORT:-3306}:3306"
+    volumes:
+      # Volume NOMEADO (definido no bloco `volumes:` lá embaixo). Persiste os
+      # dados do banco entre reinícios — sem isso, `docker compose down` apagaria
+      # tudo. Pasta interna do MySQL onde ficam os arquivos do banco.
+      - mysql-data:/var/lib/mysql
+    healthcheck:
+      # Verifica de tempos em tempos se o banco está respondendo. Outros
+      # serviços usam `depends_on: condition: service_healthy` para esperar.
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-p${DB_ROOT_PASSWORD:-root}"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    networks:
+      - lojavirtual
+
+
+  # ==========================================================================
+  #  phpmyadmin — interface web para administrar o MySQL
+  # ==========================================================================
+  #  PROFILE: este serviço só sobe se você passar `--profile dev` ou tiver
+  #  COMPOSE_PROFILES=dev no .env. Em produção, ele NÃO sobe (segurança).
+  #  Além disso, está bindado em 127.0.0.1 → só acessível pela própria máquina.
+  # ==========================================================================
+  phpmyadmin:
+    image: phpmyadmin:5-apache
+    container_name: lojavirtual-phpmyadmin
+    restart: unless-stopped
+    profiles: ["dev"]                  # ← só ativa com profile "dev"
+    environment:
+      PMA_HOST: mysql                  # hostname do container do banco (rede interna)
+      PMA_PORT: 3306
+      PMA_USER: ${DB_USERNAME:-loja}   # pré-preenche o login da tela inicial
+      PMA_PASSWORD: ${DB_PASSWORD:-secret}
+      UPLOAD_LIMIT: 64M                # tamanho máximo de SQL para importar
+    ports:
+      # Bind explícito em 127.0.0.1 → não escuta na interface pública do host.
+      - "127.0.0.1:${PMA_PORT:-8080}:80"
+    depends_on:
+      mysql:
+        condition: service_healthy
+    networks:
+      - lojavirtual
+
+
+  # ==========================================================================
+  #  node — container do Vite (servidor de assets do front com hot reload)
+  # ==========================================================================
+  #  Também no profile "dev". O comando faz npm install + roda o Vite com
+  #  --host 0.0.0.0 (sem isso, o Vite escutaria só dentro do container e o
+  #  navegador não conseguiria acessar de fora).
+  # ==========================================================================
+  node:
+    image: node:20-alpine
+    container_name: lojavirtual-node
+    profiles: ["dev"]
+    # Roda com o mesmo UID/GID do container `app` para que node_modules/ tenha
+    # dono consistente — assim ambos os containers (e o usuário do host) podem
+    # escrever na pasta sem cair em "permission denied".
+    user: "${UID:-1000}:${GID:-1000}"
+    environment:
+      HOME: /tmp                       # npm cache precisa de um $HOME gravável
+    working_dir: /var/www/html
+    command: sh -c "npm install && npm run dev -- --host 0.0.0.0"
+    ports:
+      - "${VITE_PORT:-5173}:5173"
+    volumes:
+      - ./:/var/www/html               # precisa de escrita aqui (cria node_modules)
+    networks:
+      - lojavirtual
+
+
+# ============================================================================
+#  Volumes nomeados — armazenamento persistente gerenciado pelo Docker
+# ============================================================================
+#  Diferente do volume "bind mount" (que aponta para uma pasta do host), o
+#  volume nomeado é uma pasta gerenciada pelo Docker em /var/lib/docker/...
+#  Vantagens: portável (funciona igual no Linux/Mac/Windows), mais rápido,
+#  não polui o repositório com arquivos do banco.
+# ============================================================================
+volumes:
+  mysql-data:
+    driver: local
+
+
+# ============================================================================
+#  Networks — rede virtual privada onde os containers conversam
+# ============================================================================
+#  Todos os serviços nesta network se enxergam pelo NOME (`app`, `mysql`,
+#  `nginx`). É por isso que no .env colocamos `DB_HOST=mysql` em vez de um IP.
+#  `bridge` é o driver padrão (rede isolada do host).
+# ============================================================================
+networks:
+  lojavirtual:
+    driver: bridge

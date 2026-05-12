@@ -1,58 +1,83 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Loja Virtual — Codifica 2025 (Grupo 2)
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Projeto de e-commerce desenvolvido por alunos do **Codifica+** em **Laravel 13** com **PHP 8.4**, **MySQL 8** e **Vite/Tailwind**. Todo o ambiente roda em Docker — você não precisa instalar PHP, Composer, Node ou MySQL na máquina.
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Por onde começar
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Escolha o cenário que se aplica a você:
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+| Quero... | Vá para |
+|---|---|
+| **Rodar pela primeira vez** (Windows / macOS / Linux) — instalar Docker e subir | [`docs/primeiros-passos.md`](./docs/primeiros-passos.md) |
+| Referência completa (comandos, troubleshooting, phpMyAdmin, etc.) | [`docs/desenvolvimento.md`](./docs/desenvolvimento.md) |
+| Preparar uma VPS Linux do zero (Docker, Nginx, Certbot, firewall...) | [`docs/preparar-producao.md`](./docs/preparar-producao.md) |
+| Fazer o deploy do projeto em servidor já preparado (com HTTPS) | [`docs/producao.md`](./docs/producao.md) |
 
-## Learning Laravel
+> **Fluxo completo para colocar no ar:** primeiro [`preparar-producao.md`](./docs/preparar-producao.md) (preparar a máquina), depois [`producao.md`](./docs/producao.md) (subir o projeto).
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+---
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Estrutura do repositório
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
-
-## Agentic Development
-
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
-
-```bash
-composer require laravel/boost --dev
-
-php artisan boost:install
+```
+.docker/                # artefatos do container
+├── Dockerfile          # imagem da aplicação (PHP 8.4 FPM + Composer + Node 20)
+├── nginx/default.conf  # vhost do Nginx que serve o public/ e proxia .php para o php-fpm
+└── php/php.ini         # overrides do PHP (memory_limit, upload, opcache, timezone)
+docs/                   # documentação do projeto
+├── primeiros-passos.md # como instalar Docker e subir pela primeira vez (Win/Mac/Linux)
+├── desenvolvimento.md  # referência completa do ambiente local
+├── preparar-producao.md    # como preparar uma VPS Linux do zero
+├── producao.md         # como fazer o deploy do projeto em servidor com HTTPS
+└── acesso-github.md    # como autorizar o servidor a clonar o repositório (Deploy Key ou PAT)
+app/                    # código-fonte Laravel (controllers, models, etc.)
+resources/              # views Blade, CSS, JS
+routes/                 # rotas web/API
+database/               # migrations, seeders, factories
+public/                 # document root (index.php, assets compilados)
+docker-compose.yml      # orquestra app, nginx, mysql, phpmyadmin e node
+.env.example            # template de variáveis de ambiente
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+---
 
-## Contributing
+## Quick start (TL;DR para quem já conhece Docker)
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+```bash
+git clone <url-do-repositorio>
+cd <pasta-do-repositorio>
 
-## Code of Conduct
+cp .env.example .env
+# editar .env: DB_HOST=mysql, descomentar bloco do banco, opcional COMPOSE_PROFILES=dev
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+docker compose --profile dev up -d --build
+docker compose exec app composer install
+docker compose exec app php artisan key:generate
+docker compose exec app php artisan migrate --seed
+docker compose exec app npm install
+docker compose exec app npm run build
+```
 
-## Security Vulnerabilities
+- Aplicação: http://localhost
+- phpMyAdmin: http://localhost:8080
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Detalhes, comandos do dia a dia e troubleshooting em [`docs/desenvolvimento.md`](./docs/desenvolvimento.md).
 
-## License
+---
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## Stack
+
+- **PHP 8.4** + **Laravel 13**
+- **MySQL 8**
+- **Nginx** (servidor web)
+- **Vite 8** + **Tailwind CSS 4** (front)
+- **phpMyAdmin** (UI do banco, só em desenvolvimento)
+- **Docker** + **Docker Compose v2**
+
+---
+
+## Licença
+
+Código baseado no [framework Laravel](https://laravel.com), distribuído sob a [licença MIT](https://opensource.org/licenses/MIT).
