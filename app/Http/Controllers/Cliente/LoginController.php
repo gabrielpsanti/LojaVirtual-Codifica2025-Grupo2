@@ -33,11 +33,11 @@ class LoginController extends Controller
             $request->session()->regenerate();
 
             if (auth()->user()->eh_admin === true) {
-                return to_route('admin.index');
+                return redirect()->route('admin.index');
             }
 
             //definir o nome da view
-            return to_route('usuario.index');
+            return redirect()->route('usuario.index');
         }
 
         return back()->withErrors([
@@ -66,10 +66,14 @@ class LoginController extends Controller
         return to_route('usuario.index');
     }
 
-    public function logout()
+    public function logout(Request $request)
     {
         Auth::logout();
 
-        return to_route('login.index');
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        return redirect()->route('login');
     }
 }

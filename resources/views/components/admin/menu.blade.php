@@ -54,18 +54,18 @@
                     <div id="vendas-div" >
                         <button class="w-full flex justify-between gap-2 p-2 rounded-2xl text-md bg-verde-paleta hover:bg-verde-700">
                             Vendas
-{{--                            <span>--}}
-{{--                                <svg class="size-4" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--!Font Awesome Free v7.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.--><path d="M32 288c-12.9 0-24.6 7.8-29.6 19.8S.2 333.5 9.4 342.6l160 160c12.5 12.5 32.8 12.5 45.3 0l160-160c9.2-9.2 11.9-22.9 6.9-34.9S364.9 288 352 288L32 288z"/></svg>--}}
-{{--                            </span>--}}
+                            <span>
+                                <svg class="size-4" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--!Font Awesome Free v7.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.--><path d="M32 288c-12.9 0-24.6 7.8-29.6 19.8S.2 333.5 9.4 342.6l160 160c12.5 12.5 32.8 12.5 45.3 0l160-160c9.2-9.2 11.9-22.9 6.9-34.9S364.9 288 352 288L32 288z"/></svg>
+                            </span>
                         </button>
-{{--                        <div class="w-36 grid grid-cols-1 rounded-b-md absolute transition-all duration-300 ease-in-out invisible opacity-0 bg-verde-400">--}}
-{{--                            <a href="{{ route('admin.vendas.index') }}" class="py-1 pl-2 hover:bg-verde-700">--}}
-{{--                                Ver vendas--}}
-{{--                            </a>--}}
-{{--                            <a href="{{ route('admin.vendas.criar') }}" class="py-1 pl-2 hover:bg-verde-700 hover:rounded-b-md">--}}
-{{--                                Nova venda--}}
-{{--                            </a>--}}
-{{--                        </div>--}}
+                        <div class="w-36 grid grid-cols-1 rounded-b-md absolute transition-all duration-300 ease-in-out invisible opacity-0 bg-verde-400">
+                            <a href="{{ route('admin.vendas.index') }}" class="py-1 pl-2 hover:bg-verde-700">
+                                Ver vendas
+                            </a>
+                            <a href="{{ route('admin.vendas.criar') }}" class="py-1 pl-2 hover:bg-verde-700 hover:rounded-b-md">
+                                Nova venda
+                            </a>
+                        </div>
                     </div>
                 </li>
 {{--                <li class="">--}}

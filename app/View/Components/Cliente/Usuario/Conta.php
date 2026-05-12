@@ -9,18 +9,16 @@ use Illuminate\View\Component;
 class Conta extends Component
 {
     public $pedidos;
-    public $endereco;
-    public $categorias;
+//    public $endereco;
     public $usuario;
 
     /**
      * Create a new component instance.
      */
-    public function __construct($pedidos, $endereco, $categorias, $usuario)
+    public function __construct($pedidos, $usuario)
     {
         $this->pedidos = $pedidos;
-        $this->endereco = $endereco;
-        $this->categorias = $categorias;
+//        $this->endereco = $endereco;
         $this->usuario = $usuario;
     }
 

@@ -99,7 +99,7 @@ class ProdutoController extends Controller
             $produto->imagens()->create(['caminho' => $caminho]);
         }
 
-        return to_route('admin.produtos.index');
+        return redirect()->route('admin.produtos.index');
     }
 
     //Como é o cliente, o método só vai mostrar o produto na view de show

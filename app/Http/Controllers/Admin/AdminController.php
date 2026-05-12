@@ -32,7 +32,7 @@
 //        if (Auth::attempt($credenciais)) {
 //            $request ->session()->regenarate();
 //
-//            return to_route('admin.dashboard');
+//            return redirect()->route('admin.dashboard');
 //        }
 //
 //        //essa estrutura não esta funcionando, tenho que testar
@@ -47,7 +47,7 @@
 //    {
 //        Auth::logout();
 //
-//        return to_route('login');
+//        return redirect()->route('login');
 //    }
 //
 //}
