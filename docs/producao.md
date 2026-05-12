@@ -100,7 +100,7 @@ git clone <URL-DO-REPOSITORIO-NO-GITHUB> lojavirtual
 cd lojavirtual
 ```
 
-> Se o repositório for **privado**, gere um Personal Access Token no GitHub e use HTTPS: `https://<token>@github.com/usuario/LojaVirtual-Codifica2025-Grupo2.git`. Outra opção é configurar uma deploy key SSH na própria VPS.
+> Se receber `Permission denied (publickey)` ou `Authentication failed`, é porque o servidor ainda não foi autorizado no GitHub. Veja [`acesso-github.md`](./acesso-github.md) para configurar Deploy Key SSH (recomendado em produção) ou Personal Access Token HTTPS.
 
 ---
 

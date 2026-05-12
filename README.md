@@ -30,7 +30,8 @@ docs/                   # documentação do projeto
 ├── primeiros-passos.md # como instalar Docker e subir pela primeira vez (Win/Mac/Linux)
 ├── desenvolvimento.md  # referência completa do ambiente local
 ├── passo-a-passo.md    # como preparar uma VPS Linux do zero
-└── producao.md         # como fazer o deploy do projeto em servidor com HTTPS
+├── producao.md         # como fazer o deploy do projeto em servidor com HTTPS
+└── acesso-github.md    # como autorizar o servidor a clonar o repositório (Deploy Key ou PAT)
 app/                    # código-fonte Laravel (controllers, models, etc.)
 resources/              # views Blade, CSS, JS
 routes/                 # rotas web/API
