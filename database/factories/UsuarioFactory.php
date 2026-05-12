@@ -17,8 +17,19 @@ class UsuarioFactory extends Factory
      */
     public function definition(): array
     {
-        return [
-            //
-        ];
+//        $ehCPNJ = fake()->boolean(50);
+//
+//        return [
+//            'nome' => $this->faker->name(),
+//            'email' => $this->faker->unique()->safeEmail(),
+//            'password' => bcrypt('password'),
+//            'cpf_cnpj' => $ehCPNJ
+//                ? fake()->cnpj()  // Requires a Brazilian Faker provider
+//                : fake()->cpf(),
+//
+//
+//        $faker->cpf()
+//        14)->unique();
+//        ];
     }
 }

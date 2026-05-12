@@ -13,12 +13,17 @@ class UsuarioController extends Controller
         $pedidos = auth()->user()->vendas();
 
 //        $endereco = auth()->user()->enderecos()->where('id', 1);
-        $endereco = auth()->user()->enderecos()->first();
+//        if (auth()->user()->enderecos()->exists()) {
+//            $endereco = auth()->user()->enderecos()->first();
+//        } else {
+//            $endereco = null;
+//        }
+
 
         $categorias = Categoria::all();
 
         $usuario = auth()->user();
 
-        return view('cliente.usuario.conta', compact('pedidos', 'endereco', 'categorias', 'usuario'));
+        return view('cliente.usuario.conta', compact('pedidos', 'categorias', 'usuario'));
     }
 }

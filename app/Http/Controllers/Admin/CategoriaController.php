@@ -50,7 +50,7 @@ class CategoriaController extends Controller
             'rota' => $rotaCategoria
         ]);
 
-        return to_route('admin.categorias.index');
+        return redirect()->route('admin.categorias.index');
     }
 
     public function edit($id)
@@ -77,12 +77,12 @@ class CategoriaController extends Controller
             'rota' => $rotaCategoria
         ]);
 
-        return to_route('admin.categorias.index');
+        return redirect()->route('admin.categorias.index');
     }
 
     public function destroy($id)
     {
         Categoria::findOrFail($id)->delete();
-        return to_route('admin.categorias.index');
+        return redirect()->route('admin.categorias.index');
     }
 }

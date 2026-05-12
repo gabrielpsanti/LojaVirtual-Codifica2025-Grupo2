@@ -18,7 +18,7 @@ use App\Http\Controllers\Cliente\CabecalhoController;
 use App\Http\Controllers\Cliente\CabecalhoContatoController;
 
 
-//Route::middleware('guest')->group(function () {
+Route::middleware('guest')->group(function () {
 
     // ROTAS LOGIN, AUTENTICAÇÃO E REGISTRO CLIENTES (E ADMIN)
 
@@ -27,19 +27,20 @@ use App\Http\Controllers\Cliente\CabecalhoContatoController;
 
     Route::get('/cadastro', [LoginController::class, 'create'])->name('cadastro');
     Route::post('/cadastro/registro', [LoginController::class, 'store'])->name('cadastro.salvar');
-//});
 
-//Route::middleware('auth')->group(function () {
+});
 
-    // ROTAS CLIENTES CARRINHO E CHECKOUT
+Route::middleware('auth')->group(function () {
 
-    Route::get('/carrinho', [CompraController::class, 'index'])->name('carrinho.index');
-    Route::delete('/carrinho/remover/{id}', [CompraController::class, 'remover'])->name('carrinho.remover');
+    // ROTAS CLIENTE
 
     // ROTA LOGOUT
 
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+
     // ROTAS CLIENTES CONTA
+
+    Route::get('/conta', [UsuarioController::class, 'index'])->name('usuario.index');
 
     Route::get('/conta/editar', [UsuarioController::class, 'edit'])->name('usuario.editar');
     Route::put('/conta', [UsuarioController::class, 'update'])->name('usuario.atualizar');
@@ -51,10 +52,13 @@ use App\Http\Controllers\Cliente\CabecalhoContatoController;
     Route::get('/conta/enderecos/{id}/editar', [EnderecoClienteController::class, 'edit'])->name('usuario.enderecos.editar');
     Route::put('/conta/enderecos/{id}', [EnderecoClienteController::class, 'update'])->name('usuario.enderecos.atualizar');
 
-    // ROTAS CLIENTES CHECKOUT
+    // ROTAS CLIENTES CARRINHO E CHECKOUT
+
+//Route::get('/carrinho', [CompraController::class, 'index'])->name('carrinho.index');
+//Route::delete('/carrinho/remover/{id}', [CompraController::class, 'remover'])->name('carrinho.remover');
 
     Route::get('/checkout', [CompraController::class, 'carrinhoView'])->name('checkout.carrinho.view');
-    Route::post('/checkout', [CompraController::class, 'carrinho'])->name('checkout.carrinho');
+    Route::post('/adicionar-ao-carrinho', [CompraController::class, 'carrinho'])->name('checkout.carrinho');
 
     Route::get('/checkout/frete', [CompraController::class, 'freteView'])->name('checkout.frete.view');
     Route::post('/checkout/frete', [CompraController::class, 'frete'])->name('checkout.frete');
@@ -67,6 +71,8 @@ use App\Http\Controllers\Cliente\CabecalhoContatoController;
 
     Route::post('/checkout/finalizar', [CompraController::class, 'finalizar'])->name('checkout.finalizar');
     Route::get('/checkout/sucesso', [CompraController::class, 'sucesso'])->name('checkout.sucesso');
+
+    // ROTAS ADMIN
 
     // ROTAS ADMIN DASHBOARD (INDEX, PÁGINA INICIAL)
 
@@ -126,14 +132,17 @@ use App\Http\Controllers\Cliente\CabecalhoContatoController;
     // ROTAS ADMIN USUARIOS
 
     Route::get('/admin/usuarios', [EnderecoAdminController::class, 'index'])->name('admin.usuarios');
-//});
 
-// ROTAS CLIENTES PAGINA INICIAL
+});
+
+// ROTAS CLIENTES CARRINHO E CHECKOUT
+
+Route::get('/carrinho', [CompraController::class, 'index'])->name('carrinho.index');
+Route::delete('/carrinho/remover/{id}', [CompraController::class, 'remover'])->name('carrinho.remover');
+
+// ROTA CLIENTES PAGINA INICIAL
 
 Route::get('/', [ProdutoClienteController::class, 'index'])->name('index');
-
-Route::get('/conta', [UsuarioController::class, 'index'])->name('usuario.index');
-
 
 // ROTAS CABEÇALHO (HEADER) CLIENTE
 
