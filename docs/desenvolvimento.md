@@ -87,7 +87,7 @@ DB_PASSWORD=secret
 
 ```bash
 # .env (opcional)
-APP_PORT=80
+APP_PORTS=80:80
 PMA_PORT=8080
 FORWARD_DB_PORT=3306
 VITE_PORT=5173
@@ -207,7 +207,7 @@ docker compose exec app chmod -R 775 storage bootstrap/cache
 ```
 
 **Porta 80, 8080 ou 3306 já em uso**
-Mude `APP_PORT`, `PMA_PORT` ou `FORWARD_DB_PORT` no `.env` e suba de novo:
+Mude `APP_PORTS`, `PMA_PORT` ou `FORWARD_DB_PORT` no `.env` e suba de novo:
 ```bash
 docker compose down && docker compose up -d
 ```

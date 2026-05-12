@@ -56,9 +56,12 @@ services:
     container_name: lojavirtual-nginx
     restart: unless-stopped
     ports:
-      # "porta-do-host:porta-do-container"
-      # Acessar http://localhost no navegador chega na porta 80 do nginx.
-      - "${APP_PORT:-80}:80"
+      # APP_PORTS aceita o formato completo do Compose: "[ip:][host:]container".
+      # Sem nada definido no .env, vira "80:80" → 0.0.0.0:80 do host → :80 do
+      # container, daí http://localhost/. Em produção, defina no .env:
+      #   APP_PORTS=127.0.0.1:8088:80
+      # (só localhost:8088, para o Nginx do host fazer proxy reverso).
+      - "${APP_PORTS:-80:80}"
     volumes:
       # Código em modo somente leitura (:ro) — o nginx só serve arquivos estáticos
       - ./:/var/www/html:ro

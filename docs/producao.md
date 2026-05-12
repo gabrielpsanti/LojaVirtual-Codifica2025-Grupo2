@@ -42,16 +42,15 @@ Este guia cobre o **deploy do projeto Loja Virtual** em um servidor que **já te
 2. [Apontar o DNS do domínio](#2-apontar-o-dns-do-domínio)
 3. [Clonar o projeto](#3-clonar-o-projeto)
 4. [Configurar o `.env` de produção](#4-configurar-o-env-de-produção)
-5. [Ajustar o `docker-compose.yml` para produção](#5-ajustar-o-docker-composeyml-para-produção)
-6. [Subir os containers e preparar o Laravel](#6-subir-os-containers-e-preparar-o-laravel)
-7. [Configurar o Nginx do host como proxy reverso](#7-configurar-o-nginx-do-host-como-proxy-reverso)
+5. [Subir os containers e preparar o Laravel](#5-subir-os-containers-e-preparar-o-laravel)
+6. [Configurar o Nginx do host como proxy reverso](#6-configurar-o-nginx-do-host-como-proxy-reverso)
+7. [Configurar TrustProxies no Laravel](#7-configurar-trustproxies-no-laravel)
 8. [Emitir o certificado HTTPS com Certbot](#8-emitir-o-certificado-https-com-certbot)
-9. [Configurar TrustProxies no Laravel](#9-configurar-trustproxies-no-laravel)
-10. [Renovação automática do certificado](#10-renovação-automática-do-certificado)
-11. [Atualizar a aplicação (deploy contínuo)](#11-atualizar-a-aplicação-deploy-contínuo)
-12. [Backup automático do banco](#12-backup-automático-do-banco)
-13. [Acessar phpMyAdmin em produção (emergência)](#13-acessar-phpmyadmin-em-produção-emergência)
-14. [Checklist final](#14-checklist-final)
+9. [Renovação automática do certificado](#9-renovação-automática-do-certificado)
+10. [Atualizar a aplicação (deploy contínuo)](#10-atualizar-a-aplicação-deploy-contínuo)
+11. [Backup automático do banco](#11-backup-automático-do-banco)
+12. [Acessar phpMyAdmin em produção (emergência)](#12-acessar-phpmyadmin-em-produção-emergência)
+13. [Checklist final](#13-checklist-final)
 
 ---
 
@@ -129,9 +128,11 @@ DB_USERNAME=loja
 DB_PASSWORD=TROQUE_POR_SENHA_FORTE_AQUI
 DB_ROOT_PASSWORD=TROQUE_POR_OUTRA_SENHA_FORTE
 
-APP_PORT=8088
+APP_PORTS=127.0.0.1:8088:80
 SESSION_SECURE_COOKIE=true
 ```
+
+**Por que `APP_PORTS=127.0.0.1:8088:80`?** Em desenvolvimento, sem essa variável, o container `nginx` bindaria em `0.0.0.0:80` (qualquer interface, porta 80 — ótimo pra acessar via `http://localhost/`). Em produção isso daria dois problemas: (1) conflito com o **Nginx do host** que também escuta na 80, e (2) o container ficaria exposto direto na internet. Setando `APP_PORTS=127.0.0.1:8088:80`, o container escuta **só no loopback** numa porta alta, e o Nginx do host faz proxy reverso para ele.
 
 **NÃO** adicione `COMPOSE_PROFILES=dev` — é isso que mantém o phpMyAdmin e o Vite desligados em produção.
 
@@ -141,40 +142,7 @@ Salve no nano: `Ctrl+O`, Enter, `Ctrl+X`.
 
 ---
 
-## 5. Ajustar o `docker-compose.yml` para produção
-
-O `docker-compose.yml` vem configurado para **desenvolvimento** — o container `nginx` bindando em `80` para acessar via `http://localhost/`. Em produção isso causa dois problemas:
-
-1. Conflito com o **Nginx do host** que também escuta na 80 (vai dar `bind: address already in use` ao subir o container).
-2. Mesmo se não conflitasse, o container ficaria exposto direto na internet — queremos que **só o Nginx do host** responda para fora.
-
-A solução é mudar a linha de `ports` do serviço `nginx`:
-
-```bash
-nano docker-compose.yml
-```
-
-Localize o serviço `nginx` (`Ctrl+W` → digite `nginx:`). A linha atual é:
-
-```yaml
-      - "${APP_PORT:-80}:80"
-```
-
-Troque por:
-
-```yaml
-      - "127.0.0.1:${APP_PORT:-8088}:80"
-```
-
-Duas mudanças:
-- **`127.0.0.1:`** na frente → só escuta no loopback (não fica acessível da internet)
-- **default `8088`** em vez de `80` → evita conflito com o Nginx do host
-
-Como `APP_PORT=8088` já está no `.env` (passo 4), o default é só uma rede de segurança. Salve e saia.
-
----
-
-## 6. Subir os containers e preparar o Laravel
+## 5. Subir os containers e preparar o Laravel
 
 ```bash
 # Builda a imagem do app (PHP 8.4 + Composer + Node) — ~3 min na primeira vez
@@ -221,7 +189,7 @@ docker compose logs --tail=50 app
 
 ---
 
-## 7. Configurar o Nginx do host como proxy reverso
+## 6. Configurar o Nginx do host como proxy reverso
 
 ```bash
 sudo nano /etc/nginx/sites-available/lojavirtual
@@ -269,7 +237,33 @@ Se retornar `502 Bad Gateway`, é porque o container `nginx` não está rodando 
 
 ---
 
+## 7. Configurar TrustProxies no Laravel
+
+Antes de emitir o certificado, prepare o Laravel para confiar no proxy do Nginx do host. Como o TLS vai terminar no Nginx do host, o container recebe a requisição já como HTTP puro. Sem o TrustProxies, o Laravel gera URLs com `http://` e cookies inseguros mesmo após o cert ser emitido.
+
+```bash
+nano bootstrap/app.php
+```
+
+Procure o bloco `->withMiddleware(...)` e adicione:
+
+```php
+->withMiddleware(function (Middleware $middleware) {
+    $middleware->trustProxies(at: '*');
+})
+```
+
+Salve. Refresque o cache:
+
+```bash
+docker compose exec app php artisan config:cache
+```
+
+---
+
 ## 8. Emitir o certificado HTTPS com Certbot
+
+Este é o **último passo** do setup. Aqui já está tudo no lugar: Docker rodando, Laravel preparado, Nginx do host com proxy reverso, TrustProxies configurado. O Certbot só vai trocar o `listen 80` por `listen 443 ssl` no vhost e configurar o redirect.
 
 ```bash
 sudo certbot --nginx -d loja.seudominio.com.br
@@ -311,31 +305,7 @@ sudo certbot --nginx -d loja.seudominio.com.br -d www.loja.seudominio.com.br
 
 ---
 
-## 9. Configurar TrustProxies no Laravel
-
-Como o TLS termina no Nginx do host, o container recebe HTTP puro. Sem confiar no proxy, o Laravel gera URLs com `http://` e cookies inseguros.
-
-```bash
-nano bootstrap/app.php
-```
-
-Procure o bloco `->withMiddleware(...)` e adicione:
-
-```php
-->withMiddleware(function (Middleware $middleware) {
-    $middleware->trustProxies(at: '*');
-})
-```
-
-Salve. Refresque o cache:
-
-```bash
-docker compose exec app php artisan config:cache
-```
-
----
-
-## 10. Renovação automática do certificado
+## 9. Renovação automática do certificado
 
 O pacote `certbot` já instala um **systemd timer** que renova certificados duas vezes por dia. Verifique:
 
@@ -355,7 +325,7 @@ sudo systemctl reload nginx
 
 ---
 
-## 11. Atualizar a aplicação (deploy contínuo)
+## 10. Atualizar a aplicação (deploy contínuo)
 
 Sempre que houver código novo no Git:
 
@@ -376,7 +346,7 @@ docker compose restart app
 
 ---
 
-## 12. Backup automático do banco
+## 11. Backup automático do banco
 
 Crie a pasta de backups e agende o dump diário (3h da manhã, retenção 14 dias):
 
@@ -405,7 +375,7 @@ ls -lh /var/backups/lojavirtual/
 
 ---
 
-## 13. Acessar phpMyAdmin em produção (emergência)
+## 12. Acessar phpMyAdmin em produção (emergência)
 
 Como explicado em [`desenvolvimento.md`](./desenvolvimento.md), o serviço `phpmyadmin` está atrás do profile `dev` e bindado em `127.0.0.1` — em produção ele **não sobe** porque o `.env` não tem `COMPOSE_PROFILES=dev`.
 
@@ -425,14 +395,14 @@ docker compose stop phpmyadmin
 
 ---
 
-## 14. Checklist final
+## 13. Checklist final
 
 - [ ] Ambiente preparado conforme [`passo-a-passo.md`](./passo-a-passo.md)
 - [ ] DNS A record propagado (`dig` retorna o IP da VPS)
 - [ ] Projeto clonado em `/var/www/lojavirtual`
 - [ ] `.env` com `APP_ENV=production`, `APP_DEBUG=false`, `APP_URL=https://...`
 - [ ] `.env` **sem** `COMPOSE_PROFILES=dev`
-- [ ] Container `nginx` exposto apenas em `127.0.0.1:8088`
+- [ ] `.env` com `APP_PORTS=127.0.0.1:8088:80` (container `nginx` só escuta no loopback)
 - [ ] Containers `app`, `nginx`, `mysql` rodando (`docker compose ps` → todos `Up`, mysql `(healthy)`)
 - [ ] Vhost do Nginx do host configurado e ativo
 - [ ] Certificado Let's Encrypt emitido (`certbot --nginx`)
