@@ -125,20 +125,6 @@ docker compose exec app php artisan storage:link
 
 Se você subiu com `--profile dev`, o serviço `node` já está rodando o Vite com hot reload em http://localhost:5173.
 
-> **Atenção — Vite dentro do container:** o Vite roda em `0.0.0.0:5173` dentro do container e o navegador não consegue acessar esse endereço diretamente (`ERR_ADDRESS_INVALID`). Para o hot reload funcionar, adicione manualmente o seguinte bloco no `vite.config.js` (dentro do `defineConfig`):
->
-> ```js
-> server: {
->     host: '0.0.0.0',
->     port: 5173,
->     strictPort: true,
->     origin: 'http://localhost:5173',
->     hmr: { host: 'localhost' },
-> },
-> ```
->
-> Depois reinicie o container do Vite: `docker compose restart node`.
-
 Para apenas gerar o build estático uma vez (sem deixar o Vite rodando):
 
 ```bash
