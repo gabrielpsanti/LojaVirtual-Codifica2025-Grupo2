@@ -48,9 +48,7 @@ Este guia cobre o **deploy do projeto Loja Virtual** em um servidor que **já te
 8. [Emitir o certificado HTTPS com Certbot](#8-emitir-o-certificado-https-com-certbot)
 9. [Renovação automática do certificado](#9-renovação-automática-do-certificado)
 10. [Atualizar a aplicação (deploy contínuo)](#10-atualizar-a-aplicação-deploy-contínuo)
-11. [Backup automático do banco](#11-backup-automático-do-banco)
-12. [Acessar phpMyAdmin em produção (emergência)](#12-acessar-phpmyadmin-em-produção-emergência)
-13. [Checklist final](#13-checklist-final)
+11. [Checklist final](#11-checklist-final)
 
 ---
 
@@ -342,56 +340,7 @@ docker compose restart app
 
 ---
 
-## 11. Backup automático do banco
-
-Crie a pasta de backups e agende o dump diário (3h da manhã, retenção 14 dias):
-
-```bash
-sudo mkdir -p /var/backups/lojavirtual
-sudo chown $USER:$USER /var/backups/lojavirtual
-
-# Abre o crontab do usuário atual
-crontab -e
-```
-
-Adicione no final do arquivo:
-
-```cron
-0 3 * * * cd $HOME/LojaVirtual-Codifica2025-Grupo2 && /usr/bin/docker compose exec -T mysql mysqldump -uroot -p"$(grep ^DB_ROOT_PASSWORD .env | cut -d= -f2)" loja | gzip > /var/backups/lojavirtual/loja-$(date +\%F).sql.gz && find /var/backups/lojavirtual -name 'loja-*.sql.gz' -mtime +14 -delete
-```
-
-Salve e saia. Teste rodando manualmente uma vez:
-
-```bash
-cd ~/LojaVirtual-Codifica2025-Grupo2 && docker compose exec -T mysql mysqldump -uroot -p"$(grep ^DB_ROOT_PASSWORD .env | cut -d= -f2)" loja | gzip > /var/backups/lojavirtual/loja-test.sql.gz
-ls -lh /var/backups/lojavirtual/
-```
-
-> Para **backups duráveis** (fora da VPS): envie esses .gz para storage externo — S3 (AWS), Spaces (DigitalOcean), R2 (Cloudflare), GCS (Google) — com `aws s3 cp` ou `rclone`. Outra opção é usar um **banco gerenciado** do provedor (RDS, Cloud SQL, DO Managed DB, etc.), que vem com snapshots automáticos.
-
----
-
-## 12. Acessar phpMyAdmin em produção (emergência)
-
-Como explicado em [`desenvolvimento.md`](./desenvolvimento.md), o serviço `phpmyadmin` está atrás do profile `dev` e bindado em `127.0.0.1` — em produção ele **não sobe** porque o `.env` não tem `COMPOSE_PROFILES=dev`.
-
-Se precisar acessar pontualmente (debug de produção):
-
-```bash
-# na VPS
-docker compose --profile dev up -d phpmyadmin
-
-# no seu desktop, abra um túnel SSH
-ssh -L 8080:127.0.0.1:8080 <usuario>@<ip-da-vps>
-# acesse http://localhost:8080
-
-# ao terminar, derrube na VPS
-docker compose stop phpmyadmin
-```
-
----
-
-## 13. Checklist final
+## 11. Checklist final
 
 - [ ] Ambiente preparado conforme [`preparar-producao.md`](./preparar-producao.md)
 - [ ] DNS A record propagado (`dig` retorna o IP da VPS)
@@ -405,4 +354,3 @@ docker compose stop phpmyadmin
 - [ ] `certbot renew --dry-run` passa
 - [ ] `TrustProxies` confiando no proxy do host
 - [ ] `config:cache` / `route:cache` / `view:cache` rodados
-- [ ] Backup automático agendado no cron
